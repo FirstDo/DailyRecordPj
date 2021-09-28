@@ -8,7 +8,7 @@
 import UIKit
 import FSCalendar
 
-class ViewController: UIViewController{
+class CalendarViewController: UIViewController{
     //scrollView
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -46,6 +46,7 @@ class ViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         scrollViewSetting()
         calendarSetting()
         contentViewSetting()
@@ -53,12 +54,12 @@ class ViewController: UIViewController{
 }
 
 //MARK: - scrollView, contentView, calendar
-extension ViewController {
+extension CalendarViewController {
     
     func scrollViewSetting() {
         view.addSubview(scrollView)
         scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
         scrollView.addSubview(calendar)
@@ -88,7 +89,7 @@ extension ViewController {
 }
 
 
-extension ViewController: FSCalendarDelegate, FSCalendarDataSource {
+extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("select")
