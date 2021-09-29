@@ -12,6 +12,7 @@
 		9441B46A27035E05009226BB /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B46927035E05009226BB /* ListViewController.swift */; };
 		9441B46E27036391009226BB /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B46D27036391009226BB /* TabBarViewController.swift */; };
 		9441B48227036B66009226BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9441B48127036B66009226BB /* Main.storyboard */; };
+		9441B484270372AE009226BB /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B483270372AE009226BB /* InputViewController.swift */; };
 		949AF70427033F0500F3D9B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949AF70327033F0500F3D9B7 /* AppDelegate.swift */; };
 		949AF70627033F0500F3D9B7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949AF70527033F0500F3D9B7 /* SceneDelegate.swift */; };
 		949AF70827033F0500F3D9B7 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949AF70727033F0500F3D9B7 /* CalendarViewController.swift */; };
@@ -29,6 +30,8 @@
 		9441B46927035E05009226BB /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		9441B46D27036391009226BB /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		9441B48127036B66009226BB /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		9441B483270372AE009226BB /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InputViewController.swift; path = Calendar/InputViewController.swift; sourceTree = "<group>"; };
+		945779B927047CA000A95F57 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		949AF70027033F0500F3D9B7 /* DailyRecordProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyRecordProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		949AF70327033F0500F3D9B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		949AF70527033F0500F3D9B7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +114,8 @@
 		949AF70227033F0500F3D9B7 /* DailyRecordProject */ = {
 			isa = PBXGroup;
 			children = (
+				945779B927047CA000A95F57 /* README.md */,
+				9441B483270372AE009226BB /* InputViewController.swift */,
 				9441B46D27036391009226BB /* TabBarViewController.swift */,
 				9441B46627035DEC009226BB /* List */,
 				9441B46527035DDF009226BB /* Setting */,
@@ -253,6 +258,7 @@
 				9441B46827035DFD009226BB /* SettingViewController.swift in Sources */,
 				949AF70827033F0500F3D9B7 /* CalendarViewController.swift in Sources */,
 				9441B46A27035E05009226BB /* ListViewController.swift in Sources */,
+				9441B484270372AE009226BB /* InputViewController.swift in Sources */,
 				949AF70427033F0500F3D9B7 /* AppDelegate.swift in Sources */,
 				9441B46E27036391009226BB /* TabBarViewController.swift in Sources */,
 				9441B46327035DD1009226BB /* AnalysisViewController.swift in Sources */,

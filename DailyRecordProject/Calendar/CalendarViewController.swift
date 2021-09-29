@@ -46,11 +46,27 @@ class CalendarViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
+        
+        let backBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = backBarBtn
+        
         scrollViewSetting()
         calendarSetting()
         contentViewSetting()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        super.navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        super.navigationController?.isNavigationBarHidden = false
+    }
+    
+    //Hide navigation Bar
 }
 
 //MARK: - scrollView, contentView, calendar
@@ -59,7 +75,7 @@ extension CalendarViewController {
     func scrollViewSetting() {
         view.addSubview(scrollView)
         scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
         scrollView.addSubview(calendar)
@@ -69,7 +85,7 @@ extension CalendarViewController {
         calendar.delegate = self
         calendar.dataSource = self
         
-        let calendarHeight = view.frame.size.height - 200
+        let calendarHeight = view.frame.size.height - 350
         
         calendar.heightAnchor.constraint(equalToConstant: calendarHeight).isActive = true
         calendar.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 0).isActive = true
@@ -92,7 +108,12 @@ extension CalendarViewController {
 extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print("select")
+        
+        //내용이 있으면 보여주고,
+        
+        //내용이 없으면 새 내용을 만들자.
+        let vc = InputViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
