@@ -113,6 +113,9 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
         
         //내용이 없으면 새 내용을 만들자.
         let vc = InputViewController()
+        InputViewController.isEdit = false
+        InputViewController.date = date
+        UserInputData.shared.cleanData()
         navigationController?.pushViewController(vc, animated: true)
     }
     

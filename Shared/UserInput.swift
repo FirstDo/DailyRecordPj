@@ -13,7 +13,7 @@ class UserInputData {
     var goodThing: String?
     var badThing: String?
     var thanksThing: String?
-    var highlight: String?
+    var highlightThing: String?
     
     static let shared = UserInputData()
     private init () {}
@@ -23,11 +23,11 @@ class UserInputData {
         self.goodThing = nil
         self.badThing = nil
         self.thanksThing = nil
-        self.highlight = nil
+        self.highlightThing = nil
     }
     
-    func getData() -> [String] {
-        guard let mood = mood, let goodThing = goodThing, let badThing = badThing, let thanksThing = thanksThing, let highlight = highlight else {
+    func getAllData() -> [String] {
+        guard let mood = mood, let goodThing = goodThing, let badThing = badThing, let thanksThing = thanksThing, let highlight = highlightThing else {
             
             return [String]()
         }

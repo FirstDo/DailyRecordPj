@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9419B201270C7F14008BC2FE /* DailyInfoModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9419B1FF270C7F14008BC2FE /* DailyInfoModel.xcdatamodeld */; };
+		9419B203270C7F50008BC2FE /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9419B202270C7F50008BC2FE /* DataManager.swift */; };
+		9419B209270C7FD9008BC2FE /* DailyInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9419B208270C7FD9008BC2FE /* DailyInfo+CoreDataClass.swift */; };
 		9441B46327035DD1009226BB /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B46227035DD1009226BB /* AnalysisViewController.swift */; };
 		9441B46827035DFD009226BB /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B46727035DFD009226BB /* SettingViewController.swift */; };
 		9441B46A27035E05009226BB /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B46927035E05009226BB /* ListViewController.swift */; };
@@ -26,6 +29,9 @@
 		0D39FCE0BA9748CD4D2B9BB2 /* Pods_DailyRecordProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DailyRecordProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CDB836D4DB67E4A2A7F8C0C /* Pods-DailyRecordProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DailyRecordProject.release.xcconfig"; path = "Target Support Files/Pods-DailyRecordProject/Pods-DailyRecordProject.release.xcconfig"; sourceTree = "<group>"; };
 		4A5F74B6ECA11ACF7A1A3862 /* Pods-DailyRecordProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DailyRecordProject.debug.xcconfig"; path = "Target Support Files/Pods-DailyRecordProject/Pods-DailyRecordProject.debug.xcconfig"; sourceTree = "<group>"; };
+		9419B200270C7F14008BC2FE /* dailyInfoModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = dailyInfoModel.xcdatamodel; sourceTree = "<group>"; };
+		9419B202270C7F50008BC2FE /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		9419B208270C7FD9008BC2FE /* DailyInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyInfo+CoreDataClass.swift"; path = "/Users/doyeonkim/Desktop/DailyRecordProject/Shared/DailyInfo+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		9441B46227035DD1009226BB /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
 		9441B46727035DFD009226BB /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		9441B46927035E05009226BB /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +104,9 @@
 		945779BA27047D7900A95F57 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				9419B1FF270C7F14008BC2FE /* DailyInfoModel.xcdatamodeld */,
+				9419B208270C7FD9008BC2FE /* DailyInfo+CoreDataClass.swift */,
+				9419B202270C7F50008BC2FE /* DataManager.swift */,
 				945779BD27047E9200A95F57 /* UserInput.swift */,
 			);
 			path = Shared;
@@ -106,6 +115,7 @@
 		949AF6F727033F0500F3D9B7 = {
 			isa = PBXGroup;
 			children = (
+				945779B927047CA000A95F57 /* README.md */,
 				945779BA27047D7900A95F57 /* Shared */,
 				949AF70227033F0500F3D9B7 /* DailyRecordProject */,
 				949AF70127033F0500F3D9B7 /* Products */,
@@ -125,7 +135,6 @@
 		949AF70227033F0500F3D9B7 /* DailyRecordProject */ = {
 			isa = PBXGroup;
 			children = (
-				945779B927047CA000A95F57 /* README.md */,
 				9441B483270372AE009226BB /* InputViewController.swift */,
 				9441B46D27036391009226BB /* TabBarViewController.swift */,
 				9441B46627035DEC009226BB /* List */,
@@ -269,10 +278,13 @@
 				9441B46827035DFD009226BB /* SettingViewController.swift in Sources */,
 				949AF70827033F0500F3D9B7 /* CalendarViewController.swift in Sources */,
 				9441B46A27035E05009226BB /* ListViewController.swift in Sources */,
+				9419B209270C7FD9008BC2FE /* DailyInfo+CoreDataClass.swift in Sources */,
+				9419B201270C7F14008BC2FE /* DailyInfoModel.xcdatamodeld in Sources */,
 				9441B484270372AE009226BB /* InputViewController.swift in Sources */,
 				949AF70427033F0500F3D9B7 /* AppDelegate.swift in Sources */,
 				9441B46E27036391009226BB /* TabBarViewController.swift in Sources */,
 				9441B46327035DD1009226BB /* AnalysisViewController.swift in Sources */,
+				9419B203270C7F50008BC2FE /* DataManager.swift in Sources */,
 				945779BE27047E9200A95F57 /* UserInput.swift in Sources */,
 				949AF70627033F0500F3D9B7 /* SceneDelegate.swift in Sources */,
 			);
@@ -490,6 +502,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9419B1FF270C7F14008BC2FE /* DailyInfoModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9419B200270C7F14008BC2FE /* dailyInfoModel.xcdatamodel */,
+			);
+			currentVersion = 9419B200270C7F14008BC2FE /* dailyInfoModel.xcdatamodel */;
+			path = DailyInfoModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 949AF6F827033F0500F3D9B7 /* Project object */;
 }

@@ -9,8 +9,11 @@ import UIKit
 
 class InputViewController: UIViewController {
     
-    var viewTitle: String?
+    static var isEdit : Bool = false
+    static var date: Date = Date()
     
+    var viewTitle: String?
+    // 잘한일, 못한일, 감사한일, 하이라이트를 입력받을 텍스트 필드
     lazy var inputField: UITextField = {
         let tf = UITextField()
         tf.textAlignment = .center
@@ -19,32 +22,65 @@ class InputViewController: UIViewController {
         return tf
     }()
     
-    lazy var doneButton: UIButton = {
+    //evaluateView에 쓰일 nextButton
+    lazy var nextButton: UIButton = {
         let btn = UIButton()
         btn.setTitle("다음", for: .normal)
-        btn.backgroundColor = .systemYellow
+        btn.backgroundColor = .systemGray
+        btn.isEnabled = false
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
     
-    @objc func test(_ sender: UIButton) {
-        print(sender.state)
-        print("click")
+    @objc func singleTapGesture(_ sender: UITapGestureRecognizer) {
+        guard let tag = sender.view?.tag, let selectedView = view.viewWithTag(tag) as? UIImageView else {
+            fatalError("tap tag Error")
+        }
+        
+        for i in 0..<4 {
+            emotionButtons[i].tintColor = .systemBlue
+        }
+        
+        selectedView.tintColor = .systemRed
+        
+        switch tag {
+        case 1:
+            UserInputData.shared.mood = "기쁨"
+        case 2:
+            UserInputData.shared.mood = "슬픔"
+        case 3:
+            UserInputData.shared.mood = "보통"
+        case 4:
+            UserInputData.shared.mood = "화남"
+        default:
+            break
+        }
+        nextButton.backgroundColor = .systemYellow
+        nextButton.isEnabled = true
+        
     }
     
-    lazy var stackView: UIStackView = {
-        
+    lazy var emotionButtons : [UIImageView] = {
         let happyImg = UIImageView(image: UIImage(systemName: "sun.max"))
         let sadImg = UIImageView(image: UIImage(systemName: "cloud.drizzle"))
         let sosoImg = UIImageView(image: UIImage(systemName: "moon"))
         let angryImg = UIImageView(image: UIImage(systemName: "cloud.bolt.rain"))
+        let imageViewList = [happyImg,sadImg,sosoImg,angryImg]
+        for i in 0..<4 {
+            imageViewList[i].contentMode = .scaleAspectFit
+            imageViewList[i].tag = i+1
+            imageViewList[i].isUserInteractionEnabled = true
+            
+            let singleTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(singleTapGesture(_:)))
+            singleTap.numberOfTouchesRequired = 1
+            imageViewList[i].addGestureRecognizer(singleTap)
+        }
         
-        happyImg.contentMode = .scaleAspectFit
-        sadImg.contentMode = .scaleAspectFit
-        sosoImg.contentMode = .scaleAspectFit
-        angryImg.contentMode = .scaleAspectFit
-        
-        let stackV = UIStackView(arrangedSubviews: [happyImg, sadImg,sosoImg,angryImg])
+        return imageViewList
+    }()
+    
+    lazy var stackView: UIStackView = {
+        let stackV = UIStackView(arrangedSubviews: emotionButtons)
         stackV.translatesAutoresizingMaskIntoConstraints = false
         stackV.isLayoutMarginsRelativeArrangement = true
         stackV.layoutMargins.left = 10
@@ -72,7 +108,23 @@ class InputViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        inputField.becomeFirstResponder()
+        if let vt =  viewTitle {
+            switch vt {
+            case "good":
+                inputField.text = UserInputData.shared.goodThing
+            case "bad":
+                inputField.text = UserInputData.shared.badThing
+            case "thanks":
+                inputField.text = UserInputData.shared.thanksThing
+            case "highlight":
+                inputField.text = UserInputData.shared.highlightThing
+            default:
+                break
+            }
+            
+            
+            inputField.becomeFirstResponder()
+        }
     }
     
     func evaluateSetting() {
@@ -82,16 +134,16 @@ class InputViewController: UIViewController {
         stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
         stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100).isActive = true
         
-        view.addSubview(doneButton)
-        doneButton.addTarget(self, action: #selector(nextButton), for: .touchUpInside)
-        doneButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        doneButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
-        doneButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
-        doneButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
+        view.addSubview(nextButton)
+        nextButton.addTarget(self, action: #selector(gotoGoodViewAction), for: .touchUpInside)
+        nextButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        nextButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
+        nextButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
+        nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
 
     }
     
-    @objc func nextButton() {
+    @objc func gotoGoodViewAction() {
         let nextVC = InputViewController()
         nextVC.viewTitle = "good"
         navigationController?.pushViewController(nextVC, animated: true)
@@ -165,7 +217,6 @@ class InputViewController: UIViewController {
 
 extension InputViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
         //데이터 저장을 위한 싱클톤 클래스
         let data = UserInputData.shared
         
@@ -180,10 +231,8 @@ extension InputViewController: UITextFieldDelegate {
         case "thanks":
             data.thanksThing = inputField.text
             nextVC.viewTitle = "highlight"
-        case "evaluate":
-            nextVC.viewTitle = "good"
         case "highlight":
-            data.highlight = inputField.text
+            data.highlightThing = inputField.text
             print("하루가 기록되었습니다")
             navigationController?.popToRootViewController(animated: true)
             return true
