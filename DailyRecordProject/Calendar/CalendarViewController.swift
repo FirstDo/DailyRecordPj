@@ -9,6 +9,14 @@ import UIKit
 import FSCalendar
 
 class CalendarViewController: UIViewController{
+    
+    //notification
+    static let taskChanged = Notification.Name("taskChanged")
+    var token: NSObjectProtocol?
+    
+    //dailyInfo
+    var list = [DailyInfoEntity]()
+    
     //scrollView
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -46,6 +54,14 @@ class CalendarViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //옵져버
+        token = NotificationCenter.default.addObserver(forName: CalendarViewController.taskChanged, object: nil, queue: .main, using: { _ in
+            self.list = DataManager.shared.fetchTask(10)
+            print(self.list)
+        })
+        
+        
         view.backgroundColor = .systemBackground
         
         let backBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
@@ -109,13 +125,20 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMdd"
+        formatter.locale = Locale(identifier: "ko-kr")
+        
+        let now = formatter.string(from: date)
+        
         //내용이 있으면 보여주고,
         
         //내용이 없으면 새 내용을 만들자.
+        UserInputData.shared.cleanData()
+        UserInputData.shared.date = now
         let vc = InputViewController()
         InputViewController.isEdit = false
-        InputViewController.date = date
-        UserInputData.shared.cleanData()
+        
         navigationController?.pushViewController(vc, animated: true)
     }
     

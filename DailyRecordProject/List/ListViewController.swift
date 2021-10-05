@@ -8,12 +8,32 @@
 import UIKit
 
 class ListViewController: UIViewController {
+    
+    private let tableView: UITableView = {
+        let tableview = UITableView()
+        return tableview
+    }()
+    
+    var list = [DailyInfoEntity]()
+    
+    lazy var testLabel: UILabel = {
+        let lb = UILabel()
+        lb.text = "hi"
+        lb.textAlignment = .center
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        return lb
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-
-        // Do any additional setup after loading the view.
+        
+        view.addSubview(testLabel)
+        
+        testLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        testLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        testLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        
     }
     
 

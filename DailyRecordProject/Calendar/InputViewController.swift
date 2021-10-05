@@ -10,7 +10,6 @@ import UIKit
 class InputViewController: UIViewController {
     
     static var isEdit : Bool = false
-    static var date: Date = Date()
     
     var viewTitle: String?
     // 잘한일, 못한일, 감사한일, 하이라이트를 입력받을 텍스트 필드
@@ -156,7 +155,7 @@ class InputViewController: UIViewController {
         inputField.enablesReturnKeyAutomatically = true
         
         //keyboardNotification
-        keyboardNotification()
+        //keyboardNotification()
         setInputField()
     }
     
@@ -189,19 +188,19 @@ class InputViewController: UIViewController {
         }
     }
     
-    func keyboardNotification() {
-        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { noti in
-            if let frame = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-                let keyboardRect = frame.cgRectValue
-                let height = keyboardRect.height
-
-            }
-        }
-        
-        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
-
-        }
-    }
+//    func keyboardNotification() {
+//        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { noti in
+//            if let frame = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+//                let keyboardRect = frame.cgRectValue
+//                let height = keyboardRect.height
+//
+//            }
+//        }
+//
+//        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
+//
+//        }
+//    }
 
     
     func setInputField() {
@@ -231,11 +230,20 @@ extension InputViewController: UITextFieldDelegate {
         case "thanks":
             data.thanksThing = inputField.text
             nextVC.viewTitle = "highlight"
+        //여기서 데이터를 저장하자!
         case "highlight":
             data.highlightThing = inputField.text
-            print("하루가 기록되었습니다")
-            navigationController?.popToRootViewController(animated: true)
-            return true
+            if let (date, mood, bad, thanks, good, highlight) = UserInputData.shared.getAllData() {
+                
+                DataManager.shared.createDailyInfo(date: date, mood: mood, good: good, bad: bad, thanks: thanks, highlight: highlight) {
+                    NotificationCenter.default.post(name: CalendarViewController.taskChanged, object: nil)
+                }
+                navigationController?.popToRootViewController(animated: true)
+                return true
+            } else {
+                print("저장실패!!!!")
+                return false
+            }
         default:
             break
         }
