@@ -9,40 +9,49 @@ import UIKit
 
 class ListCell: UITableViewCell {
     
-    private let goodLable: UILabel = {
+    let goodLabel: UILabel! = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
-        lb.text = "👍"
         return lb
     }()
     
-    private let badLable: UILabel = {
+    let badLabel: UILabel! = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
-        lb.text = "👎"
+        return lb
+    }()
+
+    let thanksLabel: UILabel! = {
+        let lb = UILabel()
+        lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
     
-    private let greatLable: UILabel = {
+    let highlightLabel: UILabel! = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
-        lb.text = "🥰"
         return lb
     }()
     
     private func setContraint() {
-        contentView.addSubview(goodLable)
-        contentView.addSubview(badLable)
-        contentView.addSubview(greatLable)
+        contentView.addSubview(goodLabel)
+        contentView.addSubview(badLabel)
+        contentView.addSubview(thanksLabel)
+        contentView.addSubview(highlightLabel)
         
-        goodLable.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        goodLable.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor).isActive = true
+        goodLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        goodLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        
+        badLabel.leadingAnchor.constraint(equalTo: goodLabel.leadingAnchor).isActive = true
+        badLabel.topAnchor.constraint(equalTo: goodLabel.bottomAnchor, constant: 10).isActive = true
+        thanksLabel.leadingAnchor.constraint(equalTo: goodLabel.leadingAnchor).isActive = true
+        thanksLabel.topAnchor.constraint(equalTo: badLabel.bottomAnchor, constant: 10).isActive = true
+        
+        highlightLabel.leadingAnchor.constraint(equalTo: goodLabel.leadingAnchor).isActive = true
+        highlightLabel.topAnchor.constraint(equalTo: thanksLabel.bottomAnchor, constant: 10).isActive = true
+        highlightLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
         
         
-        badLable.leadingAnchor.constraint(equalTo: goodLable.leadingAnchor).isActive = true
-        badLable.topAnchor.constraint(equalTo: goodLable.bottomAnchor, constant: 20).isActive = true
-        greatLable.leadingAnchor.constraint(equalTo: goodLable.leadingAnchor).isActive = true
-        greatLable.topAnchor.constraint(equalTo: badLable.bottomAnchor, constant: 20).isActive = true
         
     }
 

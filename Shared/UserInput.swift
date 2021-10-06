@@ -19,6 +19,14 @@ class UserInputData {
     static let shared = UserInputData()
     private init () {}
     
+    func setData(date: String?, mood: String?, good: String?, bad: String?, thanks: String?, highlight: String?) {
+        self.date = date
+        self.mood = mood
+        self.goodThing = good
+        self.badThing = bad
+        self.thanksThing = thanks
+        self.highlightThing = highlight
+    }
     
     func cleanData() {
         self.date = nil

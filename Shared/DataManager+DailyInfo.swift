@@ -14,10 +14,10 @@ extension DataManager {
             print("CREATE")
             let newTask = DailyInfoEntity(context: self.mainContext)
             newTask.date = date
+            newTask.mood = mood
             newTask.good = good
             newTask.bad = bad
             newTask.thanks = thanks
-            newTask.mood = mood
             newTask.highlight = highlight
             
             self.saveContent()

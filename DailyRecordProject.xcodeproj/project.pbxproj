@@ -12,6 +12,8 @@
 		9419B20B270C8239008BC2FE /* DataManager+DailyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9419B20A270C8239008BC2FE /* DataManager+DailyInfo.swift */; };
 		9419B20E270C833C008BC2FE /* DailyInfoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9419B20C270C833C008BC2FE /* DailyInfoEntity+CoreDataClass.swift */; };
 		9419B212270C922F008BC2FE /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9419B211270C922F008BC2FE /* ListCell.swift */; };
+		9419B214270DEE19008BC2FE /* CustomHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9419B213270DEE19008BC2FE /* CustomHeader.xib */; };
+		9419B216270DEE73008BC2FE /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9419B215270DEE73008BC2FE /* CustomHeaderView.swift */; };
 		9441B46327035DD1009226BB /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B46227035DD1009226BB /* AnalysisViewController.swift */; };
 		9441B46827035DFD009226BB /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B46727035DFD009226BB /* SettingViewController.swift */; };
 		9441B46A27035E05009226BB /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B46927035E05009226BB /* ListViewController.swift */; };
@@ -36,6 +38,8 @@
 		9419B20A270C8239008BC2FE /* DataManager+DailyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataManager+DailyInfo.swift"; sourceTree = "<group>"; };
 		9419B20C270C833C008BC2FE /* DailyInfoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyInfoEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		9419B211270C922F008BC2FE /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
+		9419B213270DEE19008BC2FE /* CustomHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomHeader.xib; sourceTree = "<group>"; };
+		9419B215270DEE73008BC2FE /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
 		9441B46227035DD1009226BB /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
 		9441B46727035DFD009226BB /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		9441B46927035E05009226BB /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -73,6 +77,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9419B218270DF059008BC2FE /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		9441B46127035D44009226BB /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +113,8 @@
 			children = (
 				9441B46927035E05009226BB /* ListViewController.swift */,
 				9419B211270C922F008BC2FE /* ListCell.swift */,
+				9419B213270DEE19008BC2FE /* CustomHeader.xib */,
+				9419B215270DEE73008BC2FE /* CustomHeaderView.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -121,6 +134,7 @@
 		949AF6F727033F0500F3D9B7 = {
 			isa = PBXGroup;
 			children = (
+				9419B218270DF059008BC2FE /* Extension */,
 				945779B927047CA000A95F57 /* README.md */,
 				945779BA27047D7900A95F57 /* Shared */,
 				949AF70227033F0500F3D9B7 /* DailyRecordProject */,
@@ -227,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9441B48227036B66009226BB /* Main.storyboard in Resources */,
+				9419B214270DEE19008BC2FE /* CustomHeader.xib in Resources */,
 				949AF71027033F0800F3D9B7 /* LaunchScreen.storyboard in Resources */,
 				949AF70D27033F0800F3D9B7 /* Assets.xcassets in Resources */,
 			);
@@ -291,6 +306,7 @@
 				9441B46E27036391009226BB /* TabBarViewController.swift in Sources */,
 				9419B20B270C8239008BC2FE /* DataManager+DailyInfo.swift in Sources */,
 				9441B46327035DD1009226BB /* AnalysisViewController.swift in Sources */,
+				9419B216270DEE73008BC2FE /* CustomHeaderView.swift in Sources */,
 				9419B203270C7F50008BC2FE /* DataManager.swift in Sources */,
 				945779BE27047E9200A95F57 /* UserInput.swift in Sources */,
 				9419B20E270C833C008BC2FE /* DailyInfoEntity+CoreDataClass.swift in Sources */,

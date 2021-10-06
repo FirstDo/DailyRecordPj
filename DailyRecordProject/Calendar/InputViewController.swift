@@ -44,13 +44,13 @@ class InputViewController: UIViewController {
         
         switch tag {
         case 1:
-            UserInputData.shared.mood = "기쁨"
+            UserInputData.shared.mood = "happy"
         case 2:
-            UserInputData.shared.mood = "슬픔"
+            UserInputData.shared.mood = "sad"
         case 3:
-            UserInputData.shared.mood = "보통"
+            UserInputData.shared.mood = "soso"
         case 4:
-            UserInputData.shared.mood = "화남"
+            UserInputData.shared.mood = "angry"
         default:
             break
         }
@@ -233,7 +233,7 @@ extension InputViewController: UITextFieldDelegate {
         //여기서 데이터를 저장하자!
         case "highlight":
             data.highlightThing = inputField.text
-            if let (date, mood, bad, thanks, good, highlight) = UserInputData.shared.getAllData() {
+            if let (date, mood, good, bad, thanks, highlight) = UserInputData.shared.getAllData() {
                 
                 DataManager.shared.createDailyInfo(date: date, mood: mood, good: good, bad: bad, thanks: thanks, highlight: highlight) {
                     NotificationCenter.default.post(name: CalendarViewController.taskChanged, object: nil)
