@@ -29,10 +29,13 @@ class ListViewController: UIViewController {
         view.backgroundColor = .systemBackground
         print("list 뷰 디드 로드")
         
-        list = DataManager.shared.fetchTask(10)
+        let month: Int16 = 10
+        let year: Int16 = 2021
+        
+        list = DataManager.shared.fetchTask(month, year)
         
         token = NotificationCenter.default.addObserver(forName: CalendarViewController.taskChanged, object: nil, queue: .main, using: { _ in
-            self.list = DataManager.shared.fetchTask(10)
+            self.list = DataManager.shared.fetchTask(month,year)
             self.tableView.reloadData()
         })
         
@@ -130,12 +133,11 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
         let editAction = UIContextualAction(style: .normal, title: "편집") { action, view, success in
             print("edit")
             
-            //수정기능 구현해야 합니다.
             let editTarget = self.list[indexPath.section]
             
             let editVC = InputViewController()
             InputViewController.entity = editTarget
-            UserInputData.shared.setData(date: editTarget.date, mood: editTarget.mood, good: editTarget.good, bad: editTarget.bad, thanks: editTarget.thanks, highlight: editTarget.highlight)
+            UserInputData.shared.setData(date: editTarget.date, mood: editTarget.mood, good: editTarget.good, bad: editTarget.bad, thanks: editTarget.thanks, highlight: editTarget.highlight, month: editTarget.month, year: editTarget.year)
             
             //entity update
             self.navigationController?.pushViewController(editVC, animated: true)

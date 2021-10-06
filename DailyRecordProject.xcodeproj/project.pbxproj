@@ -122,8 +122,8 @@
 		945779BA27047D7900A95F57 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				9419B20C270C833C008BC2FE /* DailyInfoEntity+CoreDataClass.swift */,
 				9419B1FF270C7F14008BC2FE /* DailyInfoModel.xcdatamodeld */,
+				9419B20C270C833C008BC2FE /* DailyInfoEntity+CoreDataClass.swift */,
 				9419B202270C7F50008BC2FE /* DataManager.swift */,
 				945779BD27047E9200A95F57 /* UserInput.swift */,
 				9419B20A270C8239008BC2FE /* DataManager+DailyInfo.swift */,

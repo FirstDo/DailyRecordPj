@@ -5,10 +5,12 @@
         <attribute name="date" attributeType="String"/>
         <attribute name="good" attributeType="String"/>
         <attribute name="highlight" attributeType="String"/>
+        <attribute name="month" attributeType="Integer 16" minValueString="1" maxValueString="12" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="mood" attributeType="String"/>
         <attribute name="thanks" attributeType="String"/>
+        <attribute name="year" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="DailyInfo" positionX="-45" positionY="0" width="128" height="119"/>
+        <element name="DailyInfo" positionX="-45" positionY="0" width="128" height="149"/>
     </elements>
 </model>

@@ -243,27 +243,31 @@ extension InputViewController: UITextFieldDelegate {
         //여기서 데이터를 저장하자!
         case "highlight":
             data.highlightThing = inputField.text
-            if let (date, mood, good, bad, thanks, highlight) = UserInputData.shared.getAllData() {
+            if let (date, mood, good, bad, thanks, highlight, month,year) = UserInputData.shared.getAllData() {
+                print("year: \(year)을 저장할꺼야!")
+                //싱글톤 클래스 초기화
+                UserInputData.shared.cleanData()
                 
-                //수정중인 상황이면
+                //해당 entity가 수정중인 entity라면..update
                 if let entity = Self.entity {
-                    DataManager.shared.updateTask(entity: entity, date: date, mood: mood, good: good, bad: bad, thanks: thanks, highlight: highlight) {
+                    DataManager.shared.updateTask(entity: entity, date: date, mood: mood, good: good, bad: bad, thanks: thanks, highlight: highlight, month: month, year: year) {
                         NotificationCenter.default.post(name: CalendarViewController.taskChanged, object: nil)
                     }
                     navigationController?.popToRootViewController(animated: true)
                     Self.entity = nil
                     return true
-                } else {
-                    DataManager.shared.createDailyInfo(date: date, mood: mood, good: good, bad: bad, thanks: thanks, highlight: highlight) {
+                }
+                //새로운 entity라면 create
+                else {
+                    DataManager.shared.createDailyInfo(date: date, mood: mood, good: good, bad: bad, thanks: thanks, highlight: highlight, month: month, year: year) {
                         NotificationCenter.default.post(name: CalendarViewController.taskChanged, object: nil)
                     }
                     navigationController?.popToRootViewController(animated: true)
                     return true
                 }
-                
-                
             } else {
-                print("저장실패!!!!")
+                //여기까지 올 일이 없긴해
+                print("데이터 저장/수정 실패")
                 return false
             }
         default:

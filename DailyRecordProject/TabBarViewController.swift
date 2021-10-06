@@ -12,9 +12,9 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // MARK: - color와 image 나중에 최종수정해야함
         tabBar.tintColor = .red
         tabBar.unselectedItemTintColor = .black
-        
         
         let CalendarVC = UINavigationController(rootViewController: CalendarViewController())
         CalendarVC.tabBarItem.selectedImage = UIImage(systemName: "calendar")
@@ -33,15 +33,10 @@ class TabBarViewController: UITabBarController {
         
         let ListVC = UINavigationController(rootViewController: ListViewController())
         ListVC.tabBarItem.selectedImage = UIImage(systemName: "list.bullet")
-        ListVC.tabBarItem.title = "리스트"
+        ListVC.tabBarItem.title = "모아보기"
         ListVC.tabBarItem.image = UIImage(systemName: "list.bullet")
         
-        //viewControllers = [AnalysisVC, CalendarVC, ListVC, SettingVC]
         viewControllers = [AnalysisVC,CalendarVC,ListVC,SettingVC]
-        
-        
-        // Do any additional setup after loading the view.
+        selectedIndex = 1
     }
-    
-
 }

@@ -55,9 +55,12 @@ class CalendarViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let month: Int16 = 10
+        let year: Int16 = 2021
+        
         //옵져버
         token = NotificationCenter.default.addObserver(forName: CalendarViewController.taskChanged, object: nil, queue: .main, using: { _ in
-            self.list = DataManager.shared.fetchTask(10)
+            self.list = DataManager.shared.fetchTask(month,year)
             print(self.list)
         })
         
@@ -124,22 +127,30 @@ extension CalendarViewController {
 extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
         formatter.locale = Locale(identifier: "ko-kr")
         
-        let now = formatter.string(from: date)
+        let selectedDate = formatter.string(from: date)
+        print("선택한 날짜는 \(selectedDate)")
         
         //내용이 있으면 보여주고,
         
         //내용이 없으면 새 내용을 만들자.
+        
+        //초기화
         UserInputData.shared.cleanData()
-        UserInputData.shared.date = now
-        let vc = InputViewController()
         InputViewController.entity = nil
         
-        navigationController?.pushViewController(vc, animated: true)
+        //날짜와 달 설정
+        UserInputData.shared.date = selectedDate
+        let curDate = Calendar.current.dateComponents([.month, .year], from: date)
+        let (month, year) = (Int16(curDate.month!), Int16(curDate.year!))
+
+        UserInputData.shared.month = month
+        UserInputData.shared.year = year
+        //push
+        navigationController?.pushViewController(InputViewController(), animated: true)
     }
     
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {

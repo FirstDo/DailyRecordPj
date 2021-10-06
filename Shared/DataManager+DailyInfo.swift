@@ -9,7 +9,8 @@ import Foundation
 import CoreData
 
 extension DataManager {
-    func createDailyInfo(date: String, mood: String, good: String, bad: String, thanks: String, highlight: String, completion: (() -> ())? = nil) {
+    //entity를 create하는 함수
+    func createDailyInfo(date: String, mood: String, good: String, bad: String, thanks: String, highlight: String, month: Int16, year: Int16, completion: (() -> ())? = nil) {
         mainContext.perform {
             print("CREATE")
             let newTask = DailyInfoEntity(context: self.mainContext)
@@ -19,18 +20,31 @@ extension DataManager {
             newTask.bad = bad
             newTask.thanks = thanks
             newTask.highlight = highlight
+            newTask.month = month
+            newTask.year = year
             
             self.saveContent()
             completion?()
         }
     }
     
-    func fetchTask(_ month: Int) -> [DailyInfoEntity] {
+    //특정 month의 기록들을 fetch하는 함수
+    func fetchTask(_ month: Int16, _ year: Int16) -> [DailyInfoEntity] {
         print("FETCH")
         var list = [DailyInfoEntity]()
         
         mainContext.performAndWait {
             let request: NSFetchRequest<DailyInfoEntity> = DailyInfoEntity.fetchRequest()
+            
+            let sortByDate = NSSortDescriptor(key: #keyPath(DailyInfoEntity.date), ascending: false)
+            
+            let monthPredicate = NSPredicate(format: "%K == %d", #keyPath(DailyInfoEntity.month), month)
+            let yearPredicate = NSPredicate(format: "%K == %d", #keyPath(DailyInfoEntity.year), year)
+
+            let combinePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [yearPredicate, monthPredicate])
+            
+            request.sortDescriptors = [sortByDate]
+            request.predicate = combinePredicate
             
             do {
                 list = try mainContext.fetch(request)
@@ -38,11 +52,11 @@ extension DataManager {
                 print(error.localizedDescription)
             }
         }
-        print("list: ",list)
         return list
     }
     
-    func updateTask(entity: DailyInfoEntity, date: String, mood: String, good: String, bad: String, thanks: String, highlight: String, completion: (()->())? = nil) {
+    //인자로 전달된 entity를 update하는 함수
+    func updateTask(entity: DailyInfoEntity, date: String, mood: String, good: String, bad: String, thanks: String, highlight: String, month: Int16, year: Int16,completion: (()->())? = nil) {
         mainContext.perform {
             
             entity.date = date
@@ -51,7 +65,8 @@ extension DataManager {
             entity.bad = bad
             entity.thanks = thanks
             entity.highlight = highlight
-            
+            entity.month = month
+            entity.year = year
             
             self.saveContent()
             completion?()
@@ -59,6 +74,7 @@ extension DataManager {
         }
     }
     
+    //entity를 삭제하는 함수
     func deleteTask(entity: DailyInfoEntity, completion: (()->())? = nil) {
         mainContext.perform {
             print("DELETE")
