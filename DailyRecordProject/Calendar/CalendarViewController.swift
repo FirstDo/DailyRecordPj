@@ -137,7 +137,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
         UserInputData.shared.cleanData()
         UserInputData.shared.date = now
         let vc = InputViewController()
-        InputViewController.isEdit = false
+        InputViewController.entity = nil
         
         navigationController?.pushViewController(vc, animated: true)
     }

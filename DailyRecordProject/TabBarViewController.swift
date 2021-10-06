@@ -13,7 +13,7 @@ class TabBarViewController: UITabBarController {
         super.viewDidLoad()
         
         tabBar.tintColor = .red
-        tabBar.unselectedItemTintColor = .blue
+        tabBar.unselectedItemTintColor = .black
         
         
         let CalendarVC = UINavigationController(rootViewController: CalendarViewController())

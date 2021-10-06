@@ -38,6 +38,7 @@ class ListViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
         setConstraint()
 
         let headerNib = UINib(nibName: "CustomHeader", bundle: nil)
@@ -53,8 +54,8 @@ class ListViewController: UIViewController {
         
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
     }
 }
 
@@ -94,6 +95,7 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
             print("error")
             return UITableViewCell()
         }
+        cell.selectionStyle = .none
         
         let target = list[indexPath.section]
         cell.goodLabel.text = "👍 " + target.good!
@@ -129,17 +131,13 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
             print("edit")
             
             //수정기능 구현해야 합니다.
-            
-            let editVC = InputViewController()
-            InputViewController.isEdit = true
-            
             let editTarget = self.list[indexPath.section]
             
+            let editVC = InputViewController()
+            InputViewController.entity = editTarget
             UserInputData.shared.setData(date: editTarget.date, mood: editTarget.mood, good: editTarget.good, bad: editTarget.bad, thanks: editTarget.thanks, highlight: editTarget.highlight)
             
             //entity update
-            
-            
             self.navigationController?.pushViewController(editVC, animated: true)
             success(true)
         }

@@ -8,8 +8,7 @@
 import UIKit
 
 class InputViewController: UIViewController {
-    
-    static var isEdit : Bool = false
+    static var entity: DailyInfoEntity?
     
     var viewTitle: String?
     // 잘한일, 못한일, 감사한일, 하이라이트를 입력받을 텍스트 필드
@@ -74,7 +73,6 @@ class InputViewController: UIViewController {
             singleTap.numberOfTouchesRequired = 1
             imageViewList[i].addGestureRecognizer(singleTap)
         }
-        
         return imageViewList
     }()
     
@@ -101,6 +99,21 @@ class InputViewController: UIViewController {
             textInputSetting()
             targetSetting()
         } else {
+            if let mood = UserInputData.shared.mood {
+                switch mood {
+                case "happy":
+                    emotionButtons[0].tintColor = .systemRed
+                case "sad":
+                    emotionButtons[1].tintColor = .systemRed
+                case "soso":
+                    emotionButtons[2].tintColor = .systemRed
+                case "angry":
+                    emotionButtons[3].tintColor = .systemRed
+                default:
+                    break
+                }
+                nextButton.isEnabled = true
+            }
             evaluateSetting()
         }
     }
@@ -120,8 +133,6 @@ class InputViewController: UIViewController {
             default:
                 break
             }
-            
-            
             inputField.becomeFirstResponder()
         }
     }
@@ -153,8 +164,7 @@ class InputViewController: UIViewController {
         inputField.delegate = self
         inputField.returnKeyType = .next
         inputField.enablesReturnKeyAutomatically = true
-        
-        //keyboardNotification
+
         //keyboardNotification()
         setInputField()
     }
@@ -235,11 +245,23 @@ extension InputViewController: UITextFieldDelegate {
             data.highlightThing = inputField.text
             if let (date, mood, good, bad, thanks, highlight) = UserInputData.shared.getAllData() {
                 
-                DataManager.shared.createDailyInfo(date: date, mood: mood, good: good, bad: bad, thanks: thanks, highlight: highlight) {
-                    NotificationCenter.default.post(name: CalendarViewController.taskChanged, object: nil)
+                //수정중인 상황이면
+                if let entity = Self.entity {
+                    DataManager.shared.updateTask(entity: entity, date: date, mood: mood, good: good, bad: bad, thanks: thanks, highlight: highlight) {
+                        NotificationCenter.default.post(name: CalendarViewController.taskChanged, object: nil)
+                    }
+                    navigationController?.popToRootViewController(animated: true)
+                    Self.entity = nil
+                    return true
+                } else {
+                    DataManager.shared.createDailyInfo(date: date, mood: mood, good: good, bad: bad, thanks: thanks, highlight: highlight) {
+                        NotificationCenter.default.post(name: CalendarViewController.taskChanged, object: nil)
+                    }
+                    navigationController?.popToRootViewController(animated: true)
+                    return true
                 }
-                navigationController?.popToRootViewController(animated: true)
-                return true
+                
+                
             } else {
                 print("저장실패!!!!")
                 return false
