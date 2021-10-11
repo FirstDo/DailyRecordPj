@@ -251,7 +251,7 @@ extension InputViewController: UITextFieldDelegate {
                 //해당 entity가 수정중인 entity라면..update
                 if let entity = Self.entity {
                     DataManager.shared.updateTask(entity: entity, date: date, mood: mood, good: good, bad: bad, thanks: thanks, highlight: highlight, month: month, year: year) {
-                        NotificationCenter.default.post(name: CalendarViewController.taskChanged, object: nil)
+                        NotificationCenter.default.post(name: .dataChanged, object: nil)
                     }
                     navigationController?.popToRootViewController(animated: true)
                     Self.entity = nil
@@ -260,7 +260,7 @@ extension InputViewController: UITextFieldDelegate {
                 //새로운 entity라면 create
                 else {
                     DataManager.shared.createDailyInfo(date: date, mood: mood, good: good, bad: bad, thanks: thanks, highlight: highlight, month: month, year: year) {
-                        NotificationCenter.default.post(name: CalendarViewController.taskChanged, object: nil)
+                        NotificationCenter.default.post(name: .dataChanged, object: nil)
                     }
                     navigationController?.popToRootViewController(animated: true)
                     return true

@@ -11,7 +11,6 @@ import FSCalendar
 class CalendarViewController: UIViewController{
     
     //notification
-    static let taskChanged = Notification.Name("taskChanged")
     var token: NSObjectProtocol?
     
     //dailyInfo
@@ -59,7 +58,7 @@ class CalendarViewController: UIViewController{
         let year: Int16 = 2021
         
         //옵져버
-        token = NotificationCenter.default.addObserver(forName: CalendarViewController.taskChanged, object: nil, queue: .main, using: { _ in
+        token = NotificationCenter.default.addObserver(forName: .dataChanged, object: nil, queue: .main, using: { _ in
             self.list = DataManager.shared.fetchTask(month,year)
             print(self.list)
         })
@@ -104,7 +103,9 @@ extension CalendarViewController {
         calendar.delegate = self
         calendar.dataSource = self
         
-        let calendarHeight = view.frame.size.height - 350
+        print(view.frame.height)
+        
+        let calendarHeight = view.frame.size.height / 3.0 * 2.0
         
         calendar.heightAnchor.constraint(equalToConstant: calendarHeight).isActive = true
         calendar.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 0).isActive = true
@@ -144,6 +145,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
         
         //날짜와 달 설정
         UserInputData.shared.date = selectedDate
+        
         let curDate = Calendar.current.dateComponents([.month, .year], from: date)
         let (month, year) = (Int16(curDate.month!), Int16(curDate.year!))
 

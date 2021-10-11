@@ -34,7 +34,8 @@ class ListCell: UITableViewCell {
     }()
     
     private func setContraint() {
-        contentView.layer.cornerRadius = 20
+        contentView.layer.cornerRadius = 10
+        contentView.backgroundColor = .systemGray6
         
         contentView.addSubview(goodLabel)
         contentView.addSubview(badLabel)
@@ -59,7 +60,7 @@ class ListCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        contentView.backgroundColor = .systemBlue
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
