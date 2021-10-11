@@ -35,14 +35,6 @@ class CalendarViewController: UIViewController{
         return calendar
     }()
     
-    //ContentView
-    let contentView: UIView = {
-        let v = UIView()
-        v.backgroundColor = .red
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
-    
     //label
     let lb: UILabel = {
         let lb = UILabel()
@@ -62,7 +54,6 @@ class CalendarViewController: UIViewController{
             self.list = DataManager.shared.fetchTask(month,year)
             print(self.list)
         })
-        
         
         view.backgroundColor = .systemBackground
         
@@ -114,9 +105,13 @@ extension CalendarViewController {
     }
     
     func contentViewSetting() {
+        
+        let calendarHeight = view.frame.size.height / 3.0 * 2.0
+        
+        let contentView = ContentView(frame: CGRect(x: 0, y: calendarHeight, width: view.safeAreaLayoutGuide.layoutFrame.width, height: 300))
+        
         scrollView.addSubview(contentView)
         
-        contentView.heightAnchor.constraint(equalToConstant: 200).isActive = true
         contentView.leadingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor).isActive = true
         contentView.trailingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor).isActive = true
         contentView.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 30).isActive = true

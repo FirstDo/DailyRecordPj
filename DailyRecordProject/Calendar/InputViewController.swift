@@ -165,7 +165,7 @@ class InputViewController: UIViewController {
         inputField.returnKeyType = .next
         inputField.enablesReturnKeyAutomatically = true
 
-        //keyboardNotification()
+        keyboardNotification()
         setInputField()
     }
     
@@ -198,20 +198,15 @@ class InputViewController: UIViewController {
         }
     }
     
-//    func keyboardNotification() {
-//        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { noti in
-//            if let frame = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-//                let keyboardRect = frame.cgRectValue
-//                let height = keyboardRect.height
-//
-//            }
-//        }
-//
-//        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
-//
-//        }
-//    }
-
+    func keyboardNotification() {
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { noti in
+            if let frame = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+                let keyboardRect = frame.cgRectValue
+                let height = keyboardRect.height
+                UserDefaults.standard.set(height, forKey: UserDefaultKey.keyboardHeight)
+            }
+        }
+    }
     
     func setInputField() {
         //textField

@@ -8,6 +8,10 @@
 import Foundation
 
 class UserDefaultKey {
+    //for ListView tap
     static let listMonth = "listMonth"
     static let listYear = "listYear"
+    
+    //for Keyboard Height
+    static let keyboardHeight = "keyboardHeight"
 }

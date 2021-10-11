@@ -6,6 +6,8 @@ import Foundation
 //list page의 month, year를 선택했을때, view를 다시 보여주기 위한 Notification
 extension Notification.Name {
     static let reloadListData = Notification.Name("reloadListData")
+    static let listDataChanged = Notification.Name("listDataChanged")
+    
     static let dataChanged = Notification.Name("dataChanged")
 }
 

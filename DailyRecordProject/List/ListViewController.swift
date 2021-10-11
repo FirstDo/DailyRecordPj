@@ -1,9 +1,5 @@
-//
 //  ListViewController.swift
-//  DailyRecordProject
-//
-//  Created by 김도연 on 2021/09/28.
-//
+//  기록들을 모아서 보여주는 View
 
 import UIKit
 
@@ -11,77 +7,26 @@ class ListViewController: UIViewController {
     private let yearList = (2015...2040).map{String($0)}
     private let monthList = (1...12).map{String($0)}
     
+    //MARK: - View의 여러가지 subview들
+    //tableView
     private let tableView: UITableView = {
         let tableview = UITableView()
         return tableview
     }()
-    
+    //DateLabel
     private let selectedDateLabel: UILabel = {
         let lb = UILabel()
         lb.textAlignment = .center
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
-    
+    //tempTextField
     private let tempTextField: UITextField = {
         let lb = UITextField()
-        lb.textAlignment = .center
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
-    
-    private let pickerToolBar: UIToolbar = {
-        let tb = UIToolbar()
-        tb.frame = CGRect(x: 0, y: 0, width: 0, height: 40)
-        tb.backgroundColor = .darkGray
-        let flexBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneBtn = UIBarButtonItem(title: "완료", style: .done, target: self, action: #selector(clickDoneBtn(_:)))
-        tb.setItems([flexBtn, doneBtn], animated: true)
-        return tb
-    }()
-    
-    @objc func clickDoneBtn(_ sender: UIButton) {
-        print("click done button")
-        
-        let yearIdx = yearPicker.selectedRow(inComponent: 0)
-        let monthIdx = monthPicker.selectedRow(inComponent: 0)
-        
-        if let selectedYear = Int(yearList[yearIdx]), let selectedMonth = Int(monthList[monthIdx]) {
-            print(selectedYear, selectedMonth)
-            //값 저장
-            UserDefaults.standard.set(selectedYear, forKey: UserDefaultKey.listYear)
-            UserDefaults.standard.set(selectedMonth, forKey: UserDefaultKey.listMonth)
-            
-            selectedDateLabel.text = "\(selectedYear)년 \(selectedMonth)월의 기록"
-
-            //reload notification post
-            NotificationCenter.default.post(name: .reloadListData, object: nil)
-        }
-        
-        UIView.animate(withDuration: 0.3) {
-            self.view.alpha = 1.0
-        }
-        self.view.endEditing(true)
-    }
-    
-    private let dateInputView: UIView = {
-        let v = UIView()
-        v.frame = CGRect(x: 0, y: 0, width: 0, height: 300)
-        return v
-    }()
-    
-    private let monthPicker: UIPickerView = {
-       let monthPicker = UIPickerView()
-        monthPicker.translatesAutoresizingMaskIntoConstraints = false
-        return monthPicker
-    }()
-    
-    private let yearPicker: UIPickerView = {
-        let yearPicker = UIPickerView()
-        yearPicker.translatesAutoresizingMaskIntoConstraints = false
-        return yearPicker
-    }()
-
+    //버튼을 누르면 InputView를 보여준다
     private let dateSelectButton: UIButton = {
         let btn = UIButton()
         btn.backgroundColor = .none
@@ -89,7 +34,6 @@ class ListViewController: UIViewController {
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
-    
     
     @objc func selectButton(_ sender: UIButton) {
         UIView.animate(withDuration: 0.3) {
@@ -99,14 +43,76 @@ class ListViewController: UIViewController {
         
         if let year = UserDefaults.standard.value(forKey: UserDefaultKey.listYear) as? Int, let month = UserDefaults.standard.value(forKey: UserDefaultKey.listMonth) as? Int{
             
-            let yearIdx = yearList.firstIndex(of: String(year))!
-            let monthIdx = monthList.firstIndex(of: String(month))!
-            
-            yearPicker.selectRow(yearIdx, inComponent: 0, animated: true)
-            monthPicker.selectRow(monthIdx, inComponent: 0, animated: true)
+            if let yearIdx = yearList.firstIndex(of: String(year)), let monthIdx = monthList.firstIndex(of: String(month)) {
+                yearPicker.selectRow(yearIdx, inComponent: 0, animated: true)
+                monthPicker.selectRow(monthIdx, inComponent: 0, animated: true)
+            } else {
+                print("SelectButton ERROR")
+            }
         }
     }
     
+    //InputView의 ToolBar
+    private let pickerToolBar: UIToolbar = {
+        let tb = UIToolbar()
+        tb.translatesAutoresizingMaskIntoConstraints = false
+        tb.frame = CGRect(x: 0, y: 0, width: 0, height: 40)
+        tb.backgroundColor = .systemBackground
+        let flexBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneBtn = UIBarButtonItem(title: "완료", style: .done, target: self, action: #selector(clickDoneBtn(_:)))
+        tb.setItems([flexBtn, doneBtn], animated: true)
+        return tb
+    }()
+    
+    //pickerView에서 Done 버튼을 눌렀을때: title Label 을 변경하고, 새로운 year, month로 fetch
+    @objc func clickDoneBtn(_ sender: UIButton) {
+        let yearIdx = yearPicker.selectedRow(inComponent: 0)
+        let monthIdx = monthPicker.selectedRow(inComponent: 0)
+        
+        if let selectedYear = Int16(yearList[yearIdx]) , let selectedMonth = Int16(monthList[monthIdx]) {
+            print(selectedYear, selectedMonth)
+            //값 저장
+            UserDefaults.standard.set(selectedYear, forKey: UserDefaultKey.listYear)
+            UserDefaults.standard.set(selectedMonth, forKey: UserDefaultKey.listMonth)
+            //새로운 값으로 list 보여주기
+            selectedDateLabel.text = "\(selectedYear)년 \(selectedMonth)월"
+            self.list = DataManager.shared.fetchTask(selectedMonth, selectedYear)
+            self.tableView.reloadData()
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.alpha = 1.0
+        }
+        self.view.endEditing(true)
+    }
+    
+    //DateInputView
+    private let dateInputView: UIView = {
+        let v = UIView()
+        v.backgroundColor = .systemBackground
+        if let height = UserDefaults.standard.value(forKey: UserDefaultKey.keyboardHeight) as? CGFloat {
+            v.frame = CGRect(x: 0, y: 0, width: 0, height: height)
+        } else {
+            print("Cannot get Keyboard Height")
+            v.frame = CGRect(x: 0, y: 0, width: 0, height: 250)
+        }
+        return v
+    }()
+    //monthPicker
+    private let monthPicker: UIPickerView = {
+       let monthPicker = UIPickerView()
+        monthPicker.backgroundColor = .systemBackground
+        monthPicker.translatesAutoresizingMaskIntoConstraints = false
+        return monthPicker
+    }()
+    //yearPicker
+    private let yearPicker: UIPickerView = {
+        let yearPicker = UIPickerView()
+        yearPicker.backgroundColor = .systemBackground
+        yearPicker.translatesAutoresizingMaskIntoConstraints = false
+        return yearPicker
+    }()
+
     var list = [DailyInfoEntity]()
     var changeToken: NSObjectProtocol?
     var reloadToken: NSObjectProtocol?
@@ -143,15 +149,6 @@ class ListViewController: UIViewController {
             self.tableView.reloadData()
         })
         
-        //fetch해야하는 month, year이 바뀌었을때
-        reloadToken = NotificationCenter.default.addObserver(forName: .reloadListData, object: nil, queue: .main, using: { _ in
-            if let month = UserDefaults.standard.value(forKey: UserDefaultKey.listMonth) as? Int16, let year = UserDefaults.standard.value(forKey: UserDefaultKey.listYear) as? Int16 {
-                self.list = DataManager.shared.fetchTask(month,year)
-            } else {
-                self.list = DataManager.shared.fetchTask(Date.month,Date.year)
-            }
-            self.tableView.reloadData()
-        })
         
         //delegate Setting
         monthPicker.delegate = self
@@ -173,16 +170,14 @@ class ListViewController: UIViewController {
     }
     
     private func setConstraint() {
-        
+        //addSubView
         self.view.addSubview(tableView)
         self.view.addSubview(tempTextField)
         self.view.addSubview(dateSelectButton)
         self.view.addSubview(selectedDateLabel)
         
-        //inputView
-
+        //DateInputView
         tempTextField.inputView = dateInputView
-        
         dateInputView.addSubview(monthPicker)
         dateInputView.addSubview(yearPicker)
         
@@ -219,6 +214,7 @@ class ListViewController: UIViewController {
         monthLabel.trailingAnchor.constraint(equalTo: dateInputView.safeAreaLayoutGuide.trailingAnchor, constant: -30).isActive = true
         
         tempTextField.inputAccessoryView = pickerToolBar
+        
         //textfield
         tempTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         tempTextField.widthAnchor.constraint(equalToConstant: 150).isActive = true
@@ -239,7 +235,6 @@ class ListViewController: UIViewController {
         
         selectedDateLabel.text = "\(Date.year)년 \(Date.month)월의 기록"
         
-        
         //tableView
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: tempTextField.bottomAnchor).isActive = true
@@ -249,6 +244,7 @@ class ListViewController: UIViewController {
     }
 }
 
+//MARK: - PickerView Delegate
 extension ListViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -269,11 +265,9 @@ extension ListViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             return yearList[row]
         }
     }
-    
-
 }
 
-//MARK: - tableViewDelegate
+//MARK: - tableView Delegate
 extension ListViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return list.count
@@ -332,13 +326,15 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
             }, completion: nil)
             
             DataManager.shared.deleteTask(entity: deleteTarget) {
-                NotificationCenter.default.post(name: .dataChanged, object: nil)
+                NotificationCenter.default.post(name: .listDataChanged, object: nil)
             }
             
-            print("delete")
+            DataManager.shared.deleteTask(entity: deleteTarget) {
+                NotificationCenter.default.post(name: .dataChanged, object: nil)
+            }
+
             success(true)
         }
-        
         deleteAction.image = UIImage(systemName: "delete.left")
         
         let editAction = UIContextualAction(style: .normal, title: "편집") { action, view, success in
@@ -350,14 +346,10 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
             InputViewController.entity = editTarget
             UserInputData.shared.setData(date: editTarget.date, mood: editTarget.mood, good: editTarget.good, bad: editTarget.bad, thanks: editTarget.thanks, highlight: editTarget.highlight, month: editTarget.month, year: editTarget.year)
             
-            //entity update
             self.navigationController?.pushViewController(editVC, animated: true)
             success(true)
         }
-        
         editAction.image = UIImage(systemName: "pencil.circle")
-        
         return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
     }
-    
 }
