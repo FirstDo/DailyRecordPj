@@ -8,7 +8,7 @@
 import UIKit
 
 class ContentView: UIView {
-    
+    //elements
     let goodTitle: UILabel = {
         var lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
@@ -57,6 +57,50 @@ class ContentView: UIView {
         return lb
     }()
     
+    //weatherView
+    let emotionLabel: UILabel = {
+        let lb =  UILabel()
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        return lb
+    }()
+    
+    //InnerView
+    let innerView: UIView = {
+        var v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.layer.cornerRadius = 20
+        return v
+    }()
+    
+    lazy var leftStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [goodTitle, badTitle, thanksTitle, highlightTitle])
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.axis = .vertical
+        sv.spacing = 20
+        sv.distribution = .fillEqually
+        sv.alignment = .fill
+        return sv
+    }()
+    
+    lazy var rightStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [goodText, badText, thanksText, highlightText])
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.axis = .vertical
+        sv.spacing = 20
+        sv.distribution = .fillEqually
+        sv.alignment = .fill
+        return sv
+    }()
+    
+    let lineView: UIView = {
+        var v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = .systemBlue
+        v.widthAnchor.constraint(equalToConstant: 1).isActive = true
+        return v
+    }()
+    
+    //Button
     let floatingButton: UIButton = {
         let btn = UIButton()
         btn.setImage(.add, for: .normal)
@@ -84,11 +128,8 @@ class ContentView: UIView {
                     self.layoutIfNeeded()
                 }
             }
-            
         }
-        
         isShow.toggle()
-        
     }
     
     let editButton: UIButton = {
@@ -105,10 +146,10 @@ class ContentView: UIView {
         return btn
     }()
     
-    lazy var stackView: UIStackView = {
+    lazy var buttonsView: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [editButton, deleteButton, floatingButton])
         sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.axis = .horizontal
+        sv.axis = .vertical
         sv.spacing = 10
         sv.distribution = .fillEqually
         return sv
@@ -118,11 +159,7 @@ class ContentView: UIView {
     lazy var buttons : [UIButton] = [deleteButton, editButton]
     
 
-    let innerView: UIView = {
-        var v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
+
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -135,45 +172,82 @@ class ContentView: UIView {
     }
     
     private func initSetting() {
-        self.backgroundColor = .systemGray
+        self.backgroundColor = .systemBackground
         setConstraint()
     }
     
+
+    
     private func setConstraint() {
         
-        //stackView layout
-        self.addSubview(stackView)
+        //buttonsView layout
+        innerView.addSubview(buttonsView)
+        buttonsView.trailingAnchor.constraint(equalTo: innerView.safeAreaLayoutGuide.trailingAnchor, constant: -5).isActive = true
+        buttonsView.bottomAnchor.constraint(equalTo: innerView.safeAreaLayoutGuide.bottomAnchor, constant: -5).isActive = true
         
-        stackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -5).isActive = true
-        stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+        //emotionLabel
+        
+        self.addSubview(emotionLabel)
+        emotionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
+        emotionLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
+        
         
         //innerView layout
         self.addSubview(innerView)
         
         innerView.backgroundColor = .systemGray6
-        
         innerView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 5).isActive = true
         innerView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -5).isActive = true
         innerView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
-        innerView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 10).isActive = true
+        innerView.topAnchor.constraint(equalTo: emotionLabel.bottomAnchor, constant: 10).isActive = true
+        //innerView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
+      
+        innerView.addSubview(leftStackView)
+        innerView.addSubview(rightStackView)
+        innerView.addSubview(lineView)
         
-
-        innerView.addSubview(goodTitle)
-        innerView.addSubview(goodText)
+        leftStackView.leadingAnchor.constraint(equalTo: innerView.leadingAnchor, constant: 10).isActive = true
+        leftStackView.topAnchor.constraint(equalTo: innerView.topAnchor, constant: 10).isActive = true
+        leftStackView.bottomAnchor.constraint(equalTo: innerView.bottomAnchor, constant: -10).isActive = true
+        leftStackView.trailingAnchor.constraint(equalTo: lineView.leadingAnchor, constant: -10).isActive = true
         
-        innerView.addSubview(badTitle)
-        innerView.addSubview(badText)
+        lineView.topAnchor.constraint(equalTo: innerView.topAnchor, constant: 10).isActive = true
+        lineView.bottomAnchor.constraint(equalTo: innerView.bottomAnchor, constant: -10).isActive = true
         
-        innerView.addSubview(thanksTitle)
-        innerView.addSubview(thanksText)
         
-        innerView.addSubview(highlightTitle)
-        innerView.addSubview(highlightText)
+        rightStackView.leadingAnchor.constraint(equalTo: lineView.trailingAnchor, constant: 10).isActive = true
+        rightStackView.topAnchor.constraint(equalTo: innerView.topAnchor, constant: 10).isActive = true
+        rightStackView.bottomAnchor.constraint(equalTo: innerView.bottomAnchor, constant: -10).isActive = true
+        rightStackView.trailingAnchor.constraint(lessThanOrEqualTo: innerView.trailingAnchor, constant: -10).isActive = true
 
     }
     
     func setData(_ entity: DailyInfoEntity) {
-        print("데이터 세팅을하자!")
+        self.goodText.text = entity.good
+        self.goodTitle.text = "😀"
+        
+        self.badText.text = entity.bad
+        self.badTitle.text = "🙁"
+        
+        self.thanksText.text = entity.thanks
+        self.thanksTitle.text = "🥰"
+        
+        self.highlightText.text = entity.highlight
+        self.highlightTitle.text = "🧐"
+        
+
+        switch entity.mood {
+        case "happy":
+            emotionLabel.text = "☀️"
+        case "sad":
+            emotionLabel.text = "🌧"
+        case "soso":
+            emotionLabel.text = "🌤"
+        case "angry":
+            emotionLabel.text = "⚡️"
+        default:
+            emotionLabel.text = "🌀"
+        }
     }
     
 }

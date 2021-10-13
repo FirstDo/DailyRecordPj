@@ -9,7 +9,6 @@ import UIKit
 import FSCalendar
 
 class CalendarViewController: UIViewController{
-    
     //notification
     var token: NSObjectProtocol?
     
@@ -17,14 +16,23 @@ class CalendarViewController: UIViewController{
     var temp = [DailyInfoEntity]()
     var listDict  = [Int: DailyInfoEntity]()
     
-    
-    
     //scrollView
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
+    
+    //stackView
+    let stackView: UIStackView = {
+        let sv = UIStackView()
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.alignment = .fill
+        sv.distribution = .fill
+        sv.axis = .vertical
+        return sv
+    }()
+    
     //FSCalendar
     let calendar: FSCalendar = {
         let calendar = FSCalendar()
@@ -38,12 +46,10 @@ class CalendarViewController: UIViewController{
         return calendar
     }()
     
-    //label
-    let lb: UILabel = {
-        let lb = UILabel()
-        lb.text = "hi"
-        lb.translatesAutoresizingMaskIntoConstraints = false
-        return lb
+    let contentView: ContentView = {
+        let v = ContentView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
     }()
     
     override func viewDidLoad() {
@@ -83,9 +89,10 @@ class CalendarViewController: UIViewController{
         let backBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.backBarButtonItem = backBarBtn
         
+        stackViewSetting()
         scrollViewSetting()
         calendarSetting()
-        //contentViewSetting()
+        contentViewSetting()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,17 +105,21 @@ class CalendarViewController: UIViewController{
         super.navigationController?.isNavigationBarHidden = false
     }
     
-    lazy var contentView: ContentView = {
-        let v = ContentView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
+    
     
     //Hide navigation Bar
 }
 
 //MARK: - scrollView, contentView, calendar
 extension CalendarViewController {
+    func stackViewSetting() {
+        scrollView.addSubview(stackView)
+        stackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+    }
     
     func scrollViewSetting() {
         view.addSubview(scrollView)
@@ -122,24 +133,14 @@ extension CalendarViewController {
     func calendarSetting() {
         calendar.delegate = self
         calendar.dataSource = self
-
         let calendarHeight = view.frame.size.height / 3.0 * 2.0
-        
         calendar.heightAnchor.constraint(equalToConstant: calendarHeight).isActive = true
-        calendar.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 0).isActive = true
-        calendar.leadingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        calendar.trailingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor).isActive = true
-
+        stackView.addArrangedSubview(calendar)
     }
     
-    func contentViewSetting(_ entity: DailyInfoEntity) {
-        scrollView.addSubview(contentView)
+    func contentViewSetting() {
         contentView.heightAnchor.constraint(equalToConstant: 200).isActive = true
-        contentView.leadingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        contentView.trailingAnchor.constraint(equalTo: scrollView.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        contentView.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 30).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -40).isActive = true
-
+        stackView.addArrangedSubview(contentView)
     }
 }
 
@@ -156,13 +157,14 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
         
         let day = Calendar.current.component(.day, from: date)
         
-        //내용이 있으면 보여주고
+        //내용이 있으면 해당 내용을 보여주고
         if let entity = listDict[day]{
-            contentViewSetting(entity)
             contentView.setData(entity)
+            contentView.isHidden = false
         } else {
-            contentView.removeFromSuperview()
             //내용이 없으면 새 내용을 만들자.
+            contentView.isHidden = true
+            
             //초기화
             UserInputData.shared.cleanData()
             InputViewController.entity = nil
@@ -178,8 +180,6 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
             //push
             navigationController?.pushViewController(InputViewController(), animated: true)
         }
-        
-        
     }
     
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
