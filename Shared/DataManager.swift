@@ -9,7 +9,6 @@ import Foundation
 import CoreData
 
 
-
 class DataManager {
     static let shared = DataManager()
     
@@ -20,7 +19,7 @@ class DataManager {
     var mainContext: NSManagedObjectContext {
         guard let context = container?.viewContext else {
             print("CoreDataError")
-            return NSManagedObjectContext()
+            return NSManagedObjectContext.init(concurrencyType: .mainQueueConcurrencyType)
         }
         return context
     }
