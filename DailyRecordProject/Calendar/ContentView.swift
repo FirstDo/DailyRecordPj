@@ -100,64 +100,12 @@ class ContentView: UIView {
         return v
     }()
     
-    //Button
-    let floatingButton: UIButton = {
-        let btn = UIButton()
-        btn.setImage(.add, for: .normal)
-        btn.addTarget(self, action: #selector(floating(_:)), for: .touchUpInside)
+    let tapButton: UIButton = {
+        var btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
-    
-    @objc func floating(_ sender: UIButton) {
-        //현재 펼쳐있을경우
-        if isShow {
-            buttons.reversed().forEach { btn in
-                UIView.animate(withDuration: 0.3) {
-                    btn.isHidden = true
-                    self.layoutIfNeeded()
-                }
-            }
-            
-        } else {
-            buttons.forEach { btn in
-                btn.isHidden = false
-                btn.alpha = 0
-                
-                UIView.animate(withDuration: 0.3) {
-                    btn.alpha = 1
-                    self.layoutIfNeeded()
-                }
-            }
-        }
-        isShow.toggle()
-    }
-    
-    let editButton: UIButton = {
-        let btn = UIButton()
-        btn.setImage(.checkmark, for: .normal)
-        btn.isHidden = true
-        return btn
-    }()
-    
-    let deleteButton: UIButton = {
-        let btn = UIButton()
-        btn.setImage(.remove, for: .normal)
-        btn.isHidden = true
-        return btn
-    }()
-    
-    lazy var buttonsView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [editButton, deleteButton, floatingButton])
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.axis = .vertical
-        sv.spacing = 10
-        sv.distribution = .fillEqually
-        return sv
-    }()
-    
-    var isShow = false
-    lazy var buttons : [UIButton] = [deleteButton, editButton]
-    
+ 
 
 
 
@@ -173,24 +121,18 @@ class ContentView: UIView {
     
     private func initSetting() {
         self.backgroundColor = .systemBackground
+        self.isUserInteractionEnabled = true
         setConstraint()
     }
     
 
     
     private func setConstraint() {
-        
-        //buttonsView layout
-        innerView.addSubview(buttonsView)
-        buttonsView.trailingAnchor.constraint(equalTo: innerView.safeAreaLayoutGuide.trailingAnchor, constant: -5).isActive = true
-        buttonsView.bottomAnchor.constraint(equalTo: innerView.safeAreaLayoutGuide.bottomAnchor, constant: -5).isActive = true
-        
         //emotionLabel
         
         self.addSubview(emotionLabel)
         emotionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
         emotionLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
-        
         
         //innerView layout
         self.addSubview(innerView)
@@ -201,11 +143,19 @@ class ContentView: UIView {
         innerView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
         innerView.topAnchor.constraint(equalTo: emotionLabel.bottomAnchor, constant: 10).isActive = true
         //innerView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
-      
+        
+        
+        innerView.addSubview(tapButton)
         innerView.addSubview(leftStackView)
         innerView.addSubview(rightStackView)
         innerView.addSubview(lineView)
+        //tapButtonm
+        tapButton.leadingAnchor.constraint(equalTo: innerView.leadingAnchor).isActive = true
+        tapButton.trailingAnchor.constraint(equalTo: innerView.trailingAnchor).isActive = true
+        tapButton.topAnchor.constraint(equalTo: innerView.topAnchor).isActive = true
+        tapButton.bottomAnchor.constraint(equalTo: innerView.bottomAnchor).isActive = true
         
+        //stackView
         leftStackView.leadingAnchor.constraint(equalTo: innerView.leadingAnchor, constant: 10).isActive = true
         leftStackView.topAnchor.constraint(equalTo: innerView.topAnchor, constant: 10).isActive = true
         leftStackView.bottomAnchor.constraint(equalTo: innerView.bottomAnchor, constant: -10).isActive = true

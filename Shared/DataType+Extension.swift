@@ -2,6 +2,7 @@
 //  여러 type들의 extension을
 
 import Foundation
+import UIKit
 
 //list page의 month, year를 선택했을때, view를 다시 보여주기 위한 Notification
 extension Notification.Name {
@@ -23,5 +24,6 @@ extension Date {
         return Int16(curDate.month!)
     }
 }
+
 
 

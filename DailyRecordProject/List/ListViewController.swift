@@ -115,7 +115,7 @@ class ListViewController: UIViewController {
 
     var list = [DailyInfoEntity]()
     var changeToken: NSObjectProtocol?
-    var reloadToken: NSObjectProtocol?
+//    var reloadToken: NSObjectProtocol?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -325,9 +325,9 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
                 tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
             }, completion: nil)
             
-            DataManager.shared.deleteTask(entity: deleteTarget) {
-                NotificationCenter.default.post(name: .listDataChanged, object: nil)
-            }
+//            DataManager.shared.deleteTask(entity: deleteTarget) {
+//                NotificationCenter.default.post(name: .listDataChanged, object: nil)
+//            }
             
             DataManager.shared.deleteTask(entity: deleteTarget) {
                 NotificationCenter.default.post(name: .dataChanged, object: nil)

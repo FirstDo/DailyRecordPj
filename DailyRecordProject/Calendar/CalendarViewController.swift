@@ -11,10 +11,11 @@ import FSCalendar
 class CalendarViewController: UIViewController{
     //notification
     var token: NSObjectProtocol?
-    
     //dailyInfo
     var temp = [DailyInfoEntity]()
     var listDict  = [Int: DailyInfoEntity]()
+    
+    var globalEntity: DailyInfoEntity?
     
     //scrollView
     let scrollView: UIScrollView = {
@@ -49,8 +50,41 @@ class CalendarViewController: UIViewController{
     let contentView: ContentView = {
         let v = ContentView()
         v.translatesAutoresizingMaskIntoConstraints = false
+        v.tapButton.addTarget(self, action: #selector(tapUserWrite), for: .touchUpInside)
         return v
     }()
+    
+    @objc func tapUserWrite() {
+        let ac = UIAlertController(title: "무엇을 할까요?", message: nil, preferredStyle: .actionSheet)
+        
+        guard let target = globalEntity else {
+            return
+        }
+        
+        print(target)
+        
+        let delete = UIAlertAction(title: "삭제", style: .destructive) { _ in
+            DataManager.shared.deleteTask(entity: target) {
+                NotificationCenter.default.post(name: .dataChanged, object: nil)
+            }
+        }
+        
+        let edit = UIAlertAction(title: "수정", style: .default) { _ in
+            let editVC = InputViewController()
+            InputViewController.entity = target
+            UserInputData.shared.setData(date: target.date, mood: target.mood, good: target.good, bad: target.bad, thanks: target.thanks, highlight: target.highlight, month: target.month, year: target.year)
+            self.navigationController?.pushViewController(editVC, animated: true)
+        }
+        
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        
+        
+        ac.addAction(edit)
+        ac.addAction(delete)
+        ac.addAction(cancel)
+        
+        self.present(ac, animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,14 +110,15 @@ class CalendarViewController: UIViewController{
             //temp에 data fetch
             self.temp = DataManager.shared.fetchTask(Int16(month), Int16(year))
             //listDict에 일: entity 로 정렬
+            self.listDict.removeAll()
             self.temp.forEach { entity in
                 let date = entity.date
                 if let idx = date?.lastIndex(of: "."), let day = Int((date?[idx...].dropFirst())!) {
                     self.listDict[day] = entity
                 }
             }
+            self.contentView.isHidden = true
         })
-        
         view.backgroundColor = .systemBackground
         
         let backBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
@@ -98,16 +133,14 @@ class CalendarViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         super.navigationController?.isNavigationBarHidden = true
+        print(#function)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         super.navigationController?.isNavigationBarHidden = false
+        print(#function)
     }
-    
-    
-    
-    //Hide navigation Bar
 }
 
 //MARK: - scrollView, contentView, calendar
@@ -141,6 +174,7 @@ extension CalendarViewController {
     func contentViewSetting() {
         contentView.heightAnchor.constraint(equalToConstant: 200).isActive = true
         stackView.addArrangedSubview(contentView)
+        contentView.isHidden = true
     }
 }
 
@@ -151,15 +185,14 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
         formatter.locale = Locale(identifier: "ko-kr")
-        
         let selectedDate = formatter.string(from: date)
-        print("선택한 날짜는 \(selectedDate)")
         
         let day = Calendar.current.component(.day, from: date)
         
         //내용이 있으면 해당 내용을 보여주고
         if let entity = listDict[day]{
             contentView.setData(entity)
+            globalEntity = entity
             contentView.isHidden = false
         } else {
             //내용이 없으면 새 내용을 만들자.
