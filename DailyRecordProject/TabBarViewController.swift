@@ -21,7 +21,12 @@ class TabBarViewController: UITabBarController {
         CalendarVC.tabBarItem.title = "캘린더"
         CalendarVC.tabBarItem.image = UIImage(systemName: "calendar")
         
-        let SettingVC = UINavigationController(rootViewController: SettingViewController())
+        let storyboard = UIStoryboard(name: "Main", bundle: .main)
+        let vc = storyboard.instantiateViewController(withIdentifier: "Setting") as! SettingViewController
+
+        
+        let SettingVC = UINavigationController(rootViewController: vc)
+        //let SettingVC = UINavigationController(rootViewController: SettingViewController())
         SettingVC.tabBarItem.selectedImage = UIImage(systemName: "command")
         SettingVC.tabBarItem.title = "설정"
         SettingVC.tabBarItem.image = UIImage(systemName: "command")

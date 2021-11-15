@@ -34,7 +34,6 @@ class ContentView: UIView {
     let tapButton: UIButton = {
         var btn = UIButton()
         btn.setImage(UIImage(systemName: "plus"), for: .normal)
-        btn.setImage(nil, for: .disabled)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()

@@ -187,6 +187,13 @@ extension CalendarViewController {
         contentView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
         contentView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
         contentView.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 20).isActive = true
+        
+        let day = Calendar.current.component(.day, from: Date())
+        if let entity = listDict[day] {
+            contentView.setData(entity)
+        } else {
+            contentView.setEmpty()
+        }
     }
 }
 
@@ -194,16 +201,13 @@ extension CalendarViewController {
 extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
-        let curDate = Date()
-        
-        print(curDate)
-        print(date)
-        
-        let difference = Calendar.current.dateComponents([.second], from: curDate, to: date).second!
+        //미래 날짜는 선택을 금지한다
+        let difference = Calendar.current.dateComponents([.second], from: Date(), to: date).second!
         return difference <= 0
     }
 
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
         formatter.locale = Locale(identifier: "ko-kr")

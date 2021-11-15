@@ -15,7 +15,6 @@
 		9419B214270DEE19008BC2FE /* CustomHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9419B213270DEE19008BC2FE /* CustomHeader.xib */; };
 		9419B216270DEE73008BC2FE /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9419B215270DEE73008BC2FE /* CustomHeaderView.swift */; };
 		9441B46327035DD1009226BB /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B46227035DD1009226BB /* AnalysisViewController.swift */; };
-		9441B46827035DFD009226BB /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B46727035DFD009226BB /* SettingViewController.swift */; };
 		9441B46A27035E05009226BB /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B46927035E05009226BB /* ListViewController.swift */; };
 		9441B46E27036391009226BB /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B46D27036391009226BB /* TabBarViewController.swift */; };
 		9441B48227036B66009226BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9441B48127036B66009226BB /* Main.storyboard */; };
@@ -29,6 +28,7 @@
 		949AF70827033F0500F3D9B7 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949AF70727033F0500F3D9B7 /* CalendarViewController.swift */; };
 		949AF70D27033F0800F3D9B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 949AF70C27033F0800F3D9B7 /* Assets.xcassets */; };
 		949AF71027033F0800F3D9B7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 949AF70E27033F0800F3D9B7 /* LaunchScreen.storyboard */; };
+		94F6E1FA2742CD2900925007 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F6E1F92742CD2900925007 /* SettingViewController.swift */; };
 		BB7AAFCDBAA72106AE873923 /* Pods_DailyRecordProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D39FCE0BA9748CD4D2B9BB2 /* Pods_DailyRecordProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +44,6 @@
 		9419B213270DEE19008BC2FE /* CustomHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomHeader.xib; sourceTree = "<group>"; };
 		9419B215270DEE73008BC2FE /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
 		9441B46227035DD1009226BB /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
-		9441B46727035DFD009226BB /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		9441B46927035E05009226BB /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		9441B46D27036391009226BB /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		9441B48127036B66009226BB /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -61,6 +60,7 @@
 		949AF70C27033F0800F3D9B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		949AF70F27033F0800F3D9B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		949AF71127033F0800F3D9B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94F6E1F92742CD2900925007 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +110,7 @@
 		9441B46527035DDF009226BB /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				9441B46727035DFD009226BB /* SettingViewController.swift */,
+				94F6E1F92742CD2900925007 /* SettingViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -305,12 +305,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9441B46827035DFD009226BB /* SettingViewController.swift in Sources */,
 				949AF70827033F0500F3D9B7 /* CalendarViewController.swift in Sources */,
 				9441B46A27035E05009226BB /* ListViewController.swift in Sources */,
 				9419B212270C922F008BC2FE /* ListCell.swift in Sources */,
 				9419B201270C7F14008BC2FE /* DailyInfoModel.xcdatamodeld in Sources */,
 				94925FF62711A42C00E6191D /* UserDefaultSetting.swift in Sources */,
+				94F6E1FA2742CD2900925007 /* SettingViewController.swift in Sources */,
 				9441B484270372AE009226BB /* InputViewController.swift in Sources */,
 				949AF70427033F0500F3D9B7 /* AppDelegate.swift in Sources */,
 				9441B46E27036391009226BB /* TabBarViewController.swift in Sources */,
