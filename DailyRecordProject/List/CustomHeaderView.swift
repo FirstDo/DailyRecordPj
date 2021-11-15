@@ -10,7 +10,6 @@ import UIKit
 class CustomHeaderView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var dateTitle: UILabel!
-    @IBOutlet weak var moodTitle: UILabel!
 
     override class func awakeFromNib() {
         super.awakeFromNib()

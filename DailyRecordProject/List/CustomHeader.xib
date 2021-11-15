@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,14 +15,8 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mood" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wmQ-SN-Z5K">
-                    <rect key="frame" x="20" y="10" width="86.5" height="90"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSI-zl-wZu">
-                    <rect key="frame" x="321" y="10" width="34" height="90"/>
+                    <rect key="frame" x="170.5" y="40" width="34" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -31,17 +25,12 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="wmQ-SN-Z5K" secondAttribute="bottom" id="8nk-FC-DoG"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="cSI-zl-wZu" secondAttribute="trailing" constant="20" id="Jsn-eh-PLe"/>
-                <constraint firstItem="cSI-zl-wZu" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="Nqo-C3-xfD"/>
-                <constraint firstItem="wmQ-SN-Z5K" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="Xwu-z8-QU0"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="cSI-zl-wZu" secondAttribute="bottom" id="hUx-DM-3du"/>
-                <constraint firstItem="wmQ-SN-Z5K" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="mGb-VY-Zjx"/>
+                <constraint firstItem="cSI-zl-wZu" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="AoA-zK-6A9"/>
+                <constraint firstItem="cSI-zl-wZu" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="uQz-dS-aTL"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="dateTitle" destination="cSI-zl-wZu" id="yHZ-dW-o8u"/>
-                <outlet property="moodTitle" destination="wmQ-SN-Z5K" id="VhM-oP-7uk"/>
             </connections>
             <point key="canvasLocation" x="139" y="77"/>
         </view>

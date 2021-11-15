@@ -17,23 +17,6 @@ class CalendarViewController: UIViewController{
     
     var globalEntity: DailyInfoEntity?
     
-    //scrollView
-    let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
-    
-    //stackView
-    let stackView: UIStackView = {
-        let sv = UIStackView()
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.alignment = .fill
-        sv.distribution = .fill
-        sv.axis = .vertical
-        return sv
-    }()
-    
     //FSCalendar
     let calendar: FSCalendar = {
         let calendar = FSCalendar()
@@ -50,40 +33,42 @@ class CalendarViewController: UIViewController{
     let contentView: ContentView = {
         let v = ContentView()
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.tapButton.addTarget(self, action: #selector(tapUserWrite), for: .touchUpInside)
+        v.tapButton.addTarget(self, action: #selector(makeNewReport), for: .touchUpInside)
+        v.editButton.addTarget(self, action: #selector(editReport), for: .touchUpInside)
+        v.deleteButton.addTarget(self, action: #selector(deleteReport), for: .touchUpInside)
         return v
     }()
     
-    @objc func tapUserWrite() {
-        let ac = UIAlertController(title: "무엇을 할까요?", message: nil, preferredStyle: .actionSheet)
-        
+    @objc func makeNewReport() {
+        print("tapButton")
+        navigationController?.pushViewController(InputViewController(), animated: true)
+    }
+    @objc func editReport() {
         guard let target = globalEntity else {
+            print("Error. Edit Fail")
             return
         }
         
-        print(target)
-        
-        let delete = UIAlertAction(title: "삭제", style: .destructive) { _ in
+        let editVC = InputViewController()
+        InputViewController.entity = target
+        UserInputData.shared.setData(date: target.date, mood: target.mood, good: target.good, bad: target.bad, thanks: target.thanks, highlight: target.highlight, month: target.month, year: target.year)
+        navigationController?.pushViewController(editVC, animated: true)
+    }
+    @objc func deleteReport() {
+        guard let target = globalEntity else {
+            print("Error. Edit Fail")
+            return
+        }
+        let alertController = UIAlertController(title: "정말 삭제할까요?", message: nil, preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
             DataManager.shared.deleteTask(entity: target) {
                 NotificationCenter.default.post(name: .dataChanged, object: nil)
             }
         }
-        
-        let edit = UIAlertAction(title: "수정", style: .default) { _ in
-            let editVC = InputViewController()
-            InputViewController.entity = target
-            UserInputData.shared.setData(date: target.date, mood: target.mood, good: target.good, bad: target.bad, thanks: target.thanks, highlight: target.highlight, month: target.month, year: target.year)
-            self.navigationController?.pushViewController(editVC, animated: true)
-        }
-        
-        let cancel = UIAlertAction(title: "취소", style: .cancel)
-        
-        
-        ac.addAction(edit)
-        ac.addAction(delete)
-        ac.addAction(cancel)
-        
-        self.present(ac, animated: true)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -117,15 +102,20 @@ class CalendarViewController: UIViewController{
                     self.listDict[day] = entity
                 }
             }
-            self.contentView.isHidden = true
+            let day = Calendar.current.component(.day, from: self.calendar.selectedDate!)
+            if let entity = self.listDict[day]{
+                self.contentView.setData(entity)
+                self.globalEntity = entity
+                self.contentView.isHidden = false
+            } else {
+                self.contentView.isHidden = true
+            }
         })
         view.backgroundColor = .systemBackground
         
         let backBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.backBarButtonItem = backBarBtn
         
-        stackViewSetting()
-        scrollViewSetting()
         calendarSetting()
         contentViewSetting()
     }
@@ -143,43 +133,31 @@ class CalendarViewController: UIViewController{
     }
 }
 
-//MARK: - scrollView, contentView, calendar
+//MARK: - contentView, calendar
 extension CalendarViewController {
-    func stackViewSetting() {
-        scrollView.addSubview(stackView)
-        stackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-    }
-    
-    func scrollViewSetting() {
-        view.addSubview(scrollView)
-        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
-        scrollView.addSubview(calendar)
-    }
-    
     func calendarSetting() {
         calendar.delegate = self
         calendar.dataSource = self
-        let calendarHeight = view.frame.size.height / 3.0 * 2.0
+        
+        view.addSubview(calendar)
+        let calendarHeight = view.frame.size.height / 3.0 * 1.5
         calendar.heightAnchor.constraint(equalToConstant: calendarHeight).isActive = true
-        stackView.addArrangedSubview(calendar)
+        calendar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        calendar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        calendar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
     }
     
     func contentViewSetting() {
-        contentView.heightAnchor.constraint(equalToConstant: 200).isActive = true
-        stackView.addArrangedSubview(contentView)
-        contentView.isHidden = true
+        view.addSubview(contentView)
+        contentView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        contentView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
+        contentView.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 20).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
 }
 
 
-extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
+extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         let formatter = DateFormatter()
@@ -189,34 +167,33 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
         
         let day = Calendar.current.component(.day, from: date)
         
-        //내용이 있으면 해당 내용을 보여주고
+        //내용이 있으면 해당 내용을 보여주자
         if let entity = listDict[day]{
             contentView.setData(entity)
             globalEntity = entity
-            contentView.isHidden = false
-        } else {
-            //내용이 없으면 새 내용을 만들자.
-            contentView.isHidden = true
-            
+        }
+        //내용이 없으면 빈 뷰를 보여주자
+        else {
+            contentView.setEmpty()
             //초기화
             UserInputData.shared.cleanData()
             InputViewController.entity = nil
-            
+
             //날짜와 달 설정
             UserInputData.shared.date = selectedDate
-            
+
             let curDate = Calendar.current.dateComponents([.month, .year], from: date)
             let (month, year) = (Int16(curDate.month!), Int16(curDate.year!))
 
             UserInputData.shared.month = month
             UserInputData.shared.year = year
             //push
-            navigationController?.pushViewController(InputViewController(), animated: true)
         }
     }
+     
     
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print("deselect")
+
     }
 }
 

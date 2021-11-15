@@ -8,81 +8,62 @@
 import UIKit
 
 class ContentView: UIView {
+    var globalEntity: DailyInfoEntity?
+    
     //elements
-    let goodTitle: UILabel = {
+    private let dateLabel: UILabel = {
         var lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
     
-    let goodText: UILabel = {
+    let editButton: UIButton = {
+        var btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.setImage(UIImage(systemName: "pencil.circle"), for: .normal)
+        return btn
+    }()
+    
+    let deleteButton: UIButton = {
+        var btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.setImage(UIImage(systemName: "trash.circle"), for: .normal)
+        return btn
+    }()
+    
+    let tapButton: UIButton = {
+        var btn = UIButton()
+        btn.setImage(UIImage(systemName: "plus"), for: .normal)
+        btn.setImage(nil, for: .disabled)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
+    
+    private let goodText: UILabel = {
         var lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
     
-    let badTitle: UILabel = {
+    private let badText: UILabel = {
         var lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
     
-    let badText: UILabel = {
+    private let thanksText: UILabel = {
         var lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
     
-    let thanksTitle: UILabel = {
+    private let highlightText: UILabel = {
         var lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
     
-    let thanksText: UILabel = {
-        var lb = UILabel()
-        lb.translatesAutoresizingMaskIntoConstraints = false
-        return lb
-    }()
-    
-    let highlightTitle: UILabel = {
-        var lb = UILabel()
-        lb.translatesAutoresizingMaskIntoConstraints = false
-        return lb
-    }()
-    
-    let highlightText: UILabel = {
-        var lb = UILabel()
-        lb.translatesAutoresizingMaskIntoConstraints = false
-        return lb
-    }()
-    
-    //weatherView
-    let emotionLabel: UILabel = {
-        let lb =  UILabel()
-        lb.translatesAutoresizingMaskIntoConstraints = false
-        return lb
-    }()
-    
-    //InnerView
-    let innerView: UIView = {
-        var v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.layer.cornerRadius = 20
-        return v
-    }()
-    
-    lazy var leftStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [goodTitle, badTitle, thanksTitle, highlightTitle])
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.axis = .vertical
-        sv.spacing = 20
-        sv.distribution = .fillEqually
-        sv.alignment = .fill
-        return sv
-    }()
-    
-    lazy var rightStackView: UIStackView = {
+    private lazy var labelStack: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [goodText, badText, thanksText, highlightText])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.axis = .vertical
@@ -92,23 +73,6 @@ class ContentView: UIView {
         return sv
     }()
     
-    let lineView: UIView = {
-        var v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.backgroundColor = .systemBlue
-        v.widthAnchor.constraint(equalToConstant: 1).isActive = true
-        return v
-    }()
-    
-    let tapButton: UIButton = {
-        var btn = UIButton()
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        return btn
-    }()
- 
-
-
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         initSetting()
@@ -120,84 +84,66 @@ class ContentView: UIView {
     }
     
     private func initSetting() {
-        self.backgroundColor = .systemBackground
-        self.isUserInteractionEnabled = true
-        setConstraint()
-    }
-    
-
-    
-    private func setConstraint() {
-        //emotionLabel
+        backgroundColor = .systemGray6
+        layer.cornerRadius = 20
+        isUserInteractionEnabled = true
         
-        self.addSubview(emotionLabel)
-        emotionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
-        emotionLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
+        addSubview(tapButton)
+        addSubview(labelStack)
+        addSubview(dateLabel)
+        addSubview(editButton)
+        addSubview(deleteButton)
         
-        //innerView layout
-        self.addSubview(innerView)
+        dateLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
+        dateLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         
-        innerView.backgroundColor = .systemGray6
-        innerView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 5).isActive = true
-        innerView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -5).isActive = true
-        innerView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
-        innerView.topAnchor.constraint(equalTo: emotionLabel.bottomAnchor, constant: 10).isActive = true
-        //innerView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
+        deleteButton.topAnchor.constraint(equalTo: dateLabel.topAnchor).isActive = true
+        deleteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
+        editButton.topAnchor.constraint(equalTo: dateLabel.topAnchor).isActive = true
+        editButton.trailingAnchor.constraint(equalTo: deleteButton.leadingAnchor, constant: -10).isActive = true
         
+        //for 4 report Label
+        labelStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
+        labelStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
+        labelStack.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10).isActive = true
+        labelStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
         
-        innerView.addSubview(tapButton)
-        innerView.addSubview(leftStackView)
-        innerView.addSubview(rightStackView)
-        innerView.addSubview(lineView)
-        //tapButtonm
-        tapButton.leadingAnchor.constraint(equalTo: innerView.leadingAnchor).isActive = true
-        tapButton.trailingAnchor.constraint(equalTo: innerView.trailingAnchor).isActive = true
-        tapButton.topAnchor.constraint(equalTo: innerView.topAnchor).isActive = true
-        tapButton.bottomAnchor.constraint(equalTo: innerView.bottomAnchor).isActive = true
-        
-        //stackView
-        leftStackView.leadingAnchor.constraint(equalTo: innerView.leadingAnchor, constant: 10).isActive = true
-        leftStackView.topAnchor.constraint(equalTo: innerView.topAnchor, constant: 10).isActive = true
-        leftStackView.bottomAnchor.constraint(equalTo: innerView.bottomAnchor, constant: -10).isActive = true
-        leftStackView.trailingAnchor.constraint(equalTo: lineView.leadingAnchor, constant: -10).isActive = true
-        
-        lineView.topAnchor.constraint(equalTo: innerView.topAnchor, constant: 10).isActive = true
-        lineView.bottomAnchor.constraint(equalTo: innerView.bottomAnchor, constant: -10).isActive = true
-        
-        
-        rightStackView.leadingAnchor.constraint(equalTo: lineView.trailingAnchor, constant: 10).isActive = true
-        rightStackView.topAnchor.constraint(equalTo: innerView.topAnchor, constant: 10).isActive = true
-        rightStackView.bottomAnchor.constraint(equalTo: innerView.bottomAnchor, constant: -10).isActive = true
-        rightStackView.trailingAnchor.constraint(lessThanOrEqualTo: innerView.trailingAnchor, constant: -10).isActive = true
-
+        //for empty View tap
+        tapButton.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        tapButton.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        tapButton.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        tapButton.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
     }
     
     func setData(_ entity: DailyInfoEntity) {
-        self.goodText.text = entity.good
-        self.goodTitle.text = "😀"
+        globalEntity = entity
         
-        self.badText.text = entity.bad
-        self.badTitle.text = "🙁"
-        
-        self.thanksText.text = entity.thanks
-        self.thanksTitle.text = "🥰"
-        
-        self.highlightText.text = entity.highlight
-        self.highlightTitle.text = "🧐"
-        
-
-        switch entity.mood {
-        case "happy":
-            emotionLabel.text = "☀️"
-        case "sad":
-            emotionLabel.text = "🌧"
-        case "soso":
-            emotionLabel.text = "🌤"
-        case "angry":
-            emotionLabel.text = "⚡️"
-        default:
-            emotionLabel.text = "🌀"
-        }
+        tapButton.isHidden = true
+        goodText.textAlignment = .left
+        deleteButton.isHidden = false
+        editButton.isHidden = false
+            
+        self.dateLabel.text = entity.date! + " 기록"
+        self.goodText.text = "😀 "+entity.good!
+        self.badText.text = "🙁 "+entity.bad!
+        self.thanksText.text = "🥰 "+entity.thanks!
+        self.highlightText.text = "🧐 "+entity.highlight!
     }
     
+    func setEmpty() {
+        globalEntity = nil
+        tapButton.isHidden = false
+        deleteButton.isHidden = true
+        editButton.isHidden = true
+        
+        self.dateLabel.text = nil
+        self.goodText.text = "기록이 없어요 :("
+        goodText.textAlignment = .center
+        self.badText.text = nil
+        self.thanksText.text = nil
+        self.highlightText.text = nil
+    }
+
 }
+
+

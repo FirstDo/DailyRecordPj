@@ -165,6 +165,7 @@ class ListViewController: UIViewController {
         let headerNib = UINib(nibName: "CustomHeader", bundle: nil)
         tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: "customHeader")
         tableView.register(ListCell.self, forCellReuseIdentifier: "ListCell")
+        
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = UITableView.automaticDimension
     }
@@ -233,7 +234,7 @@ class ListViewController: UIViewController {
         selectedDateLabel.topAnchor.constraint(equalTo: tempTextField.topAnchor).isActive = true
         selectedDateLabel.bottomAnchor.constraint(equalTo: tempTextField.bottomAnchor).isActive = true
         
-        selectedDateLabel.text = "\(Date.year)년 \(Date.month)월의 기록"
+        selectedDateLabel.text = "\(Date.year)년 \(Date.month)월"
         
         //tableView
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -275,22 +276,8 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "customHeader") as! CustomHeaderView
-        header.dateTitle.text = list[section].date
-        var mood = ""
-        switch list[section].mood {
-        case "happy":
-            mood = "☀️"
-        case "sad":
-            mood = "🌧"
-        case "soso":
-            mood = "🌤"
-        case "angry":
-            mood = "⚡️"
-        default:
-            mood = "🌀"
-        }
-        
-        header.moodTitle.text = mood
+        header.dateTitle.text = list[section].date! + " 기록"
+
         return header
     }
     
@@ -306,8 +293,8 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
         cell.selectionStyle = .none
         
         let target = list[indexPath.section]
-        cell.goodLabel.text = "👍 " + target.good!
-        cell.badLabel.text = "👎 " + target.bad!
+        cell.goodLabel.text = "😀 " + target.good!
+        cell.badLabel.text = "🙁 " + target.bad!
         cell.thanksLabel.text = "🥰 " + target.thanks!
         cell.highlightLabel.text = "🤔 " + target.highlight!
 
