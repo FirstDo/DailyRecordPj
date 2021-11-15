@@ -30,6 +30,34 @@ class CalendarViewController: UIViewController{
         return calendar
     }()
     
+    let nextButton: UIButton = {
+        let btn = UIButton()
+        btn.addTarget(self, action: #selector(nextTapped), for: .touchUpInside)
+        btn.setTitle("next", for: .normal)
+        btn.setTitleColor(.black, for: .normal)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
+    
+    let prevButton: UIButton = {
+        let btn = UIButton()
+        btn.addTarget(self, action: #selector(previousTapped), for: .touchUpInside)
+        btn.setTitle("prev", for: .normal)
+        btn.setTitleColor(.black, for: .normal)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
+    
+    @objc func nextTapped() {
+        let date = Calendar.current.date(byAdding: .month, value: 1, to: calendar.currentPage)!
+        calendar.setCurrentPage(date, animated: true)
+    }
+    
+    @objc func previousTapped() {
+        let date = Calendar.current.date(byAdding: .month, value: -1, to: calendar.currentPage)!
+        calendar.setCurrentPage(date, animated: true)
+    }
+    
     let contentView: ContentView = {
         let v = ContentView()
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -145,6 +173,13 @@ extension CalendarViewController {
         calendar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         calendar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         calendar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        
+        view.addSubview(prevButton)
+        prevButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        prevButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        view.addSubview(nextButton)
+        nextButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
     }
     
     func contentViewSetting() {
@@ -152,13 +187,22 @@ extension CalendarViewController {
         contentView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
         contentView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
         contentView.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 20).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
 }
 
 
 extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        let curDate = Date()
+        
+        print(curDate)
+        print(date)
+        
+        let difference = Calendar.current.dateComponents([.second], from: curDate, to: date).second!
+        return difference <= 0
+    }
+
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
