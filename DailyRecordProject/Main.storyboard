@@ -52,20 +52,20 @@
                             <tableViewSection headerTitle="앱 설정" id="TBL-ER-W5b">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="PKq-fq-0yx">
-                                        <rect key="frame" x="20" y="49.5" width="374" height="53"/>
+                                        <rect key="frame" x="20" y="49.5" width="374" height="53.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PKq-fq-0yx" id="Ppu-HU-aes">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="53"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="53.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="한 주의 시작 요일 변경" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4yT-ak-04I">
-                                                    <rect key="frame" x="40" y="16" width="150" height="21"/>
+                                                    <rect key="frame" x="40" y="16" width="150" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="HNc-6Y-pno">
-                                                    <rect key="frame" x="259" y="11" width="105" height="32"/>
+                                                    <rect key="frame" x="259" y="11.5" width="105" height="32"/>
                                                     <segments>
                                                         <segment title="일요일"/>
                                                         <segment title="월요일"/>
@@ -86,20 +86,20 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="JZF-CD-lgd">
-                                        <rect key="frame" x="20" y="102.5" width="374" height="53.5"/>
+                                        <rect key="frame" x="20" y="103" width="374" height="53"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JZF-CD-lgd" id="DKi-4b-Czl">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="53.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="53"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LoH-mf-PY7">
-                                                    <rect key="frame" x="315" y="11.5" width="51" height="31"/>
+                                                    <rect key="frame" x="315" y="11" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="togglePushAlarm:" destination="bMe-1e-W8U" eventType="valueChanged" id="fM6-T9-Em4"/>
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="푸쉬 알림 설정" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Chv-u7-kVn">
-                                                    <rect key="frame" x="40" y="16" width="97" height="21.5"/>
+                                                    <rect key="frame" x="40" y="16" width="97" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -120,14 +120,14 @@
                             <tableViewSection headerTitle="기타" id="URa-gD-p9v">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="cSh-m1-Ujw">
-                                        <rect key="frame" x="20" y="206" width="374" height="53.5"/>
+                                        <rect key="frame" x="20" y="206" width="374" height="53"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cSh-m1-Ujw" id="8g9-Xp-pNY">
-                                            <rect key="frame" x="0.0" y="0.0" width="344.5" height="53.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="344.5" height="53"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="리뷰 남기기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XdT-rk-7n9">
-                                                    <rect key="frame" x="40" y="16" width="78" height="21.5"/>
+                                                    <rect key="frame" x="40" y="16" width="78" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -142,14 +142,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="i3u-HS-fes">
-                                        <rect key="frame" x="20" y="259.5" width="374" height="53"/>
+                                        <rect key="frame" x="20" y="259" width="374" height="53.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="i3u-HS-fes" id="pCc-ha-uKs">
-                                            <rect key="frame" x="0.0" y="0.0" width="344.5" height="53"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="344.5" height="53.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오픈소스 라이센스 &amp; 버전" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2kN-ai-HPu">
-                                                    <rect key="frame" x="40" y="16" width="172" height="21"/>
+                                                    <rect key="frame" x="40" y="16" width="172" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>

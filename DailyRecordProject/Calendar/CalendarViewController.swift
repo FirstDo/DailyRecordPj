@@ -15,7 +15,7 @@ class CalendarViewController: UIViewController{
     
     //dailyInfo
     var temp = [DailyInfoEntity]()
-    var listDict  = [Int: DailyInfoEntity]()
+    //var listDict  = [Int: DailyInfoEntity]()
     
     var globalEntity: DailyInfoEntity?
     
@@ -113,7 +113,8 @@ class CalendarViewController: UIViewController{
         temp.forEach { entity in
             let date = entity.date
             if let idx = date?.lastIndex(of: "."), let day = Int((date?[idx...].dropFirst())!) {
-                listDict[day] = entity
+                EntityDict.shared.listDict[day] = entity
+                //listDict[day] = entity
             }
         }
         
@@ -131,15 +132,15 @@ class CalendarViewController: UIViewController{
             //temp에 data fetch
             self.temp = DataManager.shared.fetchTask(Int16(month), Int16(year))
             //listDict에 일: entity 로 정렬
-            self.listDict.removeAll()
+            EntityDict.shared.listDict.removeAll()
             self.temp.forEach { entity in
                 let date = entity.date
                 if let idx = date?.lastIndex(of: "."), let day = Int((date?[idx...].dropFirst())!) {
-                    self.listDict[day] = entity
+                    EntityDict.shared.listDict[day] = entity
                 }
             }
             let day = Calendar.current.component(.day, from: self.calendar.selectedDate!)
-            if let entity = self.listDict[day]{
+            if let entity = EntityDict.shared.listDict[day]{
                 self.contentView.setData(entity)
                 self.globalEntity = entity
                 self.contentView.isHidden = false
@@ -197,7 +198,7 @@ extension CalendarViewController {
         contentView.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 20).isActive = true
         
         let day = Calendar.current.component(.day, from: Date())
-        if let entity = listDict[day] {
+        if let entity = EntityDict.shared.listDict[day] {
             contentView.setData(entity)
         } else {
             contentView.setEmpty()
@@ -224,7 +225,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
         let day = Calendar.current.component(.day, from: date)
         
         //내용이 있으면 해당 내용을 보여주자
-        if let entity = listDict[day]{
+        if let entity = EntityDict.shared.listDict[day]{
             contentView.setData(entity)
             globalEntity = entity
         }

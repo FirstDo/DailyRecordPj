@@ -43,5 +43,6 @@ class TabBarViewController: UITabBarController {
         
         viewControllers = [AnalysisVC,CalendarVC,ListVC,SettingVC]
         selectedIndex = 1
+        
     }
 }
