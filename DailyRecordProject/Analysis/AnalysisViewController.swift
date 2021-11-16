@@ -32,55 +32,19 @@ class AnalysisViewController: UIViewController {
         view.addSubview(maxLenLabel)
         maxLenLabel.leadingAnchor.constraint(equalTo: currentLenLabel.leadingAnchor).isActive = true
         maxLenLabel.topAnchor.constraint(equalTo: currentLenLabel.bottomAnchor, constant: 10).isActive = true
+        
+        let idxView = IndexView()
+        view.addSubview(idxView)
+        idxView.translatesAutoresizingMaskIntoConstraints = false
+        idxView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        idxView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
+        idxView.widthAnchor.constraint(equalToConstant: view.frame.size.width * 0.4).isActive = true
+        idxView.heightAnchor.constraint(equalToConstant: view.frame.size.height * 0.10).isActive = true
+        
+        
     }
     
     func calculateLen() {
-        let calendar = Calendar.current
-        let curDate = Date()
-        let prevDate = Calendar.current.date(byAdding: .day, value: -1, to: curDate)!
-        
-        let curComponents = calendar.dateComponents([.year, .month, .day], from: curDate)
-        
-        let prevComponents = calendar.dateComponents([.year, .month, .day], from: prevDate)
-        let prevMonth = prevComponents.month!
-        let prevYear = prevComponents.year!
-        let prevDay = prevComponents.day!
-        
-        //어제 기록이 없으면 연속기록 끊기
-        let list = DataManager.shared.fetchTask(Int16(prevMonth), Int16(prevYear))
-        print(list)
-    }
-    
-    func drawPieChart() {
-        let width = self.view.frame.width
-        let height = self.view.frame.height
-        
-        let pieChartView = ChartView(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        pieChartView.center = self.view.center
-        pieChartView.slices = [Slice(percent: 0.495, color: .systemOrange),
-                               Slice(percent: 0.3, color: .systemTeal),
-                               Slice(percent: 0.2, color: .systemRed),
-                               Slice(percent: 0.005, color: .systemIndigo)]
-        
-        view.addSubview(pieChartView)
-        pieChartView.animateChart()
-        
-        print(pieChartView.frame)
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        print("willappear")
-        //drawPieChart()
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        setConstraint()
-        calculateLen()
-        drawPieChart()
-        
-        
-        
         let curInt = 10
         let curStr = String(curInt)
         
@@ -97,6 +61,31 @@ class AnalysisViewController: UIViewController {
         let maxRange = (maxText as NSString).range(of: maxStr)
         changeFontSize(currentText, size: 40, range: curRange, type: 0)
         changeFontSize(maxText, size: 30, range: maxRange, type: 1)
+    }
+    
+    func drawPieChart() {
+        let width = self.view.frame.width
+        let height = self.view.frame.height
+        
+        let pieChartView = ChartView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        pieChartView.center = self.view.center
+        pieChartView.slices = [Slice(percent: 0.2, color: .systemYellow),
+                               Slice(percent: 0.3, color: .systemBlue),
+                               Slice(percent: 0.4, color: .systemGreen),
+                               Slice(percent: 0.1, color: .systemRed)]
+        
+        view.addSubview(pieChartView)
+        pieChartView.animateChart()
+        
+        print(pieChartView.frame)
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .systemBackground
+        setConstraint()
+        calculateLen()
+        drawPieChart()
     }
     
     func changeFontSize(_ text: String, size: CGFloat, range: NSRange, type: Int) {
