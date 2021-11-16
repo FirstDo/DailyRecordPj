@@ -32,7 +32,7 @@
             <connections>
                 <outlet property="dateTitle" destination="cSI-zl-wZu" id="yHZ-dW-o8u"/>
             </connections>
-            <point key="canvasLocation" x="139" y="77"/>
+            <point key="canvasLocation" x="138.40000000000001" y="76.46176911544228"/>
         </view>
     </objects>
     <resources>

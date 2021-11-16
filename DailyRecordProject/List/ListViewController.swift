@@ -278,13 +278,26 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "customHeader") as! CustomHeaderView
         
-        if let target = list[section].date {
-            if let idx = target.lastIndex(of: "."), let day = Int((target[idx...].dropFirst())) {
-                header.dateTitle.text = " \(day) 일의 기록"
+        let target = list[section]
+        
+        if let date = target.date {
+            if let idx = date.lastIndex(of: "."), let day = Int((date[idx...].dropFirst())) {
+                var moodStr = ""
+                switch target.mood {
+                case "happy":
+                    moodStr = "☀️"
+                case "sad":
+                    moodStr = "🌧"
+                case "soso":
+                    moodStr = ""
+                case "angry":
+                    moodStr = "⚡️"
+                default:
+                    break
+                }
+                header.dateTitle.text = " \(day) 일의 기록 " + moodStr
             }
         }
-
-
         return header
     }
     
@@ -308,42 +321,43 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "삭제") { action, view, success in
-            
-            let deleteTarget = self.list[indexPath.section]
-            
-            tableView.performBatchUpdates({
-                let deleteIndex = self.list.firstIndex(of: deleteTarget)!
-                self.list.remove(at: deleteIndex)
-                tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
-            }, completion: nil)
-            
+    
+//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let deleteAction = UIContextualAction(style: .destructive, title: "삭제") { action, view, success in
+//            
+//            let deleteTarget = self.list[indexPath.section]
+//            
+//            tableView.performBatchUpdates({
+//                let deleteIndex = self.list.firstIndex(of: deleteTarget)!
+//                self.list.remove(at: deleteIndex)
+//                tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+//            }, completion: nil)
+//            
+////            DataManager.shared.deleteTask(entity: deleteTarget) {
+////                NotificationCenter.default.post(name: .listDataChanged, object: nil)
+////            }
+//            
 //            DataManager.shared.deleteTask(entity: deleteTarget) {
-//                NotificationCenter.default.post(name: .listDataChanged, object: nil)
+//                NotificationCenter.default.post(name: .dataChanged, object: nil)
 //            }
-            
-            DataManager.shared.deleteTask(entity: deleteTarget) {
-                NotificationCenter.default.post(name: .dataChanged, object: nil)
-            }
-
-            success(true)
-        }
-        deleteAction.image = UIImage(systemName: "delete.left")
-        
-        let editAction = UIContextualAction(style: .normal, title: "편집") { action, view, success in
-            print("edit")
-            
-            let editTarget = self.list[indexPath.section]
-            
-            let editVC = InputViewController()
-            InputViewController.entity = editTarget
-            UserInputData.shared.setData(date: editTarget.date, mood: editTarget.mood, good: editTarget.good, bad: editTarget.bad, thanks: editTarget.thanks, highlight: editTarget.highlight, month: editTarget.month, year: editTarget.year)
-            
-            self.navigationController?.pushViewController(editVC, animated: true)
-            success(true)
-        }
-        editAction.image = UIImage(systemName: "pencil.circle")
-        return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
-    }
+//
+//            success(true)
+//        }
+//        deleteAction.image = UIImage(systemName: "delete.left")
+//        
+//        let editAction = UIContextualAction(style: .normal, title: "편집") { action, view, success in
+//            print("edit")
+//            
+//            let editTarget = self.list[indexPath.section]
+//            
+//            let editVC = InputViewController()
+//            InputViewController.entity = editTarget
+//            UserInputData.shared.setData(date: editTarget.date, mood: editTarget.mood, good: editTarget.good, bad: editTarget.bad, thanks: editTarget.thanks, highlight: editTarget.highlight, month: editTarget.month, year: editTarget.year)
+//            
+//            self.navigationController?.pushViewController(editVC, animated: true)
+//            success(true)
+//        }
+//        editAction.image = UIImage(systemName: "pencil.circle")
+//        return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+//    }
 }
