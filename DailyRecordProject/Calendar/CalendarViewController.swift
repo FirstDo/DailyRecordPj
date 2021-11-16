@@ -11,6 +11,8 @@ import FSCalendar
 class CalendarViewController: UIViewController{
     //notification
     var token: NSObjectProtocol?
+    var weekToken: NSObjectProtocol?
+    
     //dailyInfo
     var temp = [DailyInfoEntity]()
     var listDict  = [Int: DailyInfoEntity]()
@@ -114,6 +116,12 @@ class CalendarViewController: UIViewController{
                 listDict[day] = entity
             }
         }
+        
+        weekToken = NotificationCenter.default.addObserver(forName: .weekChanged, object: nil, queue: .main, using: { noti in
+            if let noti = noti.userInfo?["week"] as? Int {
+                self.calendar.firstWeekday = UInt(noti)
+            }
+        })
         
         //옵져버
         token = NotificationCenter.default.addObserver(forName: .dataChanged, object: nil, queue: .main, using: { _ in

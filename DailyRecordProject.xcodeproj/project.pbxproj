@@ -14,6 +14,9 @@
 		9419B212270C922F008BC2FE /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9419B211270C922F008BC2FE /* ListCell.swift */; };
 		9419B214270DEE19008BC2FE /* CustomHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9419B213270DEE19008BC2FE /* CustomHeader.xib */; };
 		9419B216270DEE73008BC2FE /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9419B215270DEE73008BC2FE /* CustomHeaderView.swift */; };
+		941D47E427436861009D9A67 /* OpenSourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941D47E327436860009D9A67 /* OpenSourceViewController.swift */; };
+		941D47E6274369DF009D9A67 /* PlainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941D47E5274369DF009D9A67 /* PlainTableViewCell.swift */; };
+		941D47E82743708B009D9A67 /* InfoModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941D47E72743708B009D9A67 /* InfoModalViewController.swift */; };
 		9441B46327035DD1009226BB /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B46227035DD1009226BB /* AnalysisViewController.swift */; };
 		9441B46A27035E05009226BB /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B46927035E05009226BB /* ListViewController.swift */; };
 		9441B46E27036391009226BB /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B46D27036391009226BB /* TabBarViewController.swift */; };
@@ -43,6 +46,9 @@
 		9419B211270C922F008BC2FE /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		9419B213270DEE19008BC2FE /* CustomHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomHeader.xib; sourceTree = "<group>"; };
 		9419B215270DEE73008BC2FE /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
+		941D47E327436860009D9A67 /* OpenSourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSourceViewController.swift; sourceTree = "<group>"; };
+		941D47E5274369DF009D9A67 /* PlainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainTableViewCell.swift; sourceTree = "<group>"; };
+		941D47E72743708B009D9A67 /* InfoModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoModalViewController.swift; sourceTree = "<group>"; };
 		9441B46227035DD1009226BB /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
 		9441B46927035E05009226BB /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		9441B46D27036391009226BB /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -111,6 +117,9 @@
 			isa = PBXGroup;
 			children = (
 				94F6E1F92742CD2900925007 /* SettingViewController.swift */,
+				941D47E327436860009D9A67 /* OpenSourceViewController.swift */,
+				941D47E5274369DF009D9A67 /* PlainTableViewCell.swift */,
+				941D47E72743708B009D9A67 /* InfoModalViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -307,6 +316,7 @@
 			files = (
 				949AF70827033F0500F3D9B7 /* CalendarViewController.swift in Sources */,
 				9441B46A27035E05009226BB /* ListViewController.swift in Sources */,
+				941D47E6274369DF009D9A67 /* PlainTableViewCell.swift in Sources */,
 				9419B212270C922F008BC2FE /* ListCell.swift in Sources */,
 				9419B201270C7F14008BC2FE /* DailyInfoModel.xcdatamodeld in Sources */,
 				94925FF62711A42C00E6191D /* UserDefaultSetting.swift in Sources */,
@@ -319,10 +329,12 @@
 				9419B216270DEE73008BC2FE /* CustomHeaderView.swift in Sources */,
 				9419B203270C7F50008BC2FE /* DataManager.swift in Sources */,
 				945779BE27047E9200A95F57 /* UserInput.swift in Sources */,
+				941D47E82743708B009D9A67 /* InfoModalViewController.swift in Sources */,
 				94925FFA2714703A00E6191D /* ContentView.swift in Sources */,
 				9419B20E270C833C008BC2FE /* DailyInfoEntity+CoreDataClass.swift in Sources */,
 				94925FF827145D5100E6191D /* DataType+Extension.swift in Sources */,
 				949AF70627033F0500F3D9B7 /* SceneDelegate.swift in Sources */,
+				941D47E427436861009D9A67 /* OpenSourceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

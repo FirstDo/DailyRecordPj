@@ -23,6 +23,7 @@ class ListViewController: UIViewController {
     //tempTextField
     private let tempTextField: UITextField = {
         let lb = UITextField()
+        
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
@@ -276,7 +277,13 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "customHeader") as! CustomHeaderView
-        header.dateTitle.text = list[section].date! + " 기록"
+        
+        if let target = list[section].date {
+            if let idx = target.lastIndex(of: "."), let day = Int((target[idx...].dropFirst())) {
+                header.dateTitle.text = " \(day) 일의 기록"
+            }
+        }
+
 
         return header
     }
