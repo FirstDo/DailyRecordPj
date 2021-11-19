@@ -25,6 +25,21 @@ extension Date {
         let curDate = Calendar.current.dateComponents([.month], from: Date())
         return Int16(curDate.month!)
     }
+    
+    var year: Int16 {
+        let comp = Calendar.current.dateComponents([.year], from: self)
+        return Int16(comp.year!)
+    }
+    
+    var month: Int16 {
+        let comp = Calendar.current.dateComponents([.month], from: self)
+        return Int16(comp.month!)
+    }
+    
+    var day: Int16 {
+        let comp = Calendar.current.dateComponents([.day], from: self)
+        return Int16(comp.day!)
+    }
 }
 
 

@@ -175,24 +175,31 @@ class InputViewController: UIViewController {
         
         //title
         navigationController!.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 20)]
-        title = "말조각 작성중 📝"
+        title = "기분을 기록중... 📝"
     }
     
     func targetSetting() {
+        let txt = Self.entity==nil ? "작성중..." : "수정중..."
+        
         if let viewTitle = viewTitle {
             switch viewTitle {
             case "good":
+                title = "잘한일 " + txt
                 inputField.placeholder = "잘한일 ✌️"
             case "bad":
+                title = "못한일 " + txt
                 inputField.placeholder = "못한일 😵"
             case "thanks":
+                title = "감사한일 " + txt
                 inputField.placeholder = "감사한일 🥰"
             case "highlight":
+                title = "하이라이트 " + txt
                 inputField.placeholder = "내일의 하이라이트 🤔"
                 inputField.returnKeyType = .done
             default:
                 break
             }
+
         } else {
             
         }

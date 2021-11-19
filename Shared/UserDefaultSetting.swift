@@ -14,8 +14,4 @@ class UserDefaultKey {
     
     //for Keyboard Height
     static let keyboardHeight = "keyboardHeight"
-    
-    //for maxLen record
-    static let currentLen = "currentLen"
-    static let maxLen = "maxLen"
 }

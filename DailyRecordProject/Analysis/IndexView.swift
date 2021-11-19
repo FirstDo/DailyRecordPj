@@ -11,24 +11,28 @@ class IndexView: UIView {
     
     let happyColor: UIView = {
         let v = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        v.layer.cornerRadius = 10
         v.backgroundColor = .systemYellow
         return v
     }()
     
     let sadColor: UIView = {
         let v = UIView()
+        v.layer.cornerRadius = 10
         v.backgroundColor = .systemBlue
         return v
     }()
     
     let sosoColor: UIView = {
         let v = UIView()
+        v.layer.cornerRadius = 10
         v.backgroundColor = .systemGreen
         return v
     }()
     
     let angryColor: UIView = {
         let v = UIView()
+        v.layer.cornerRadius = 10
         v.backgroundColor = .systemRed
         return v
     }()
@@ -105,7 +109,7 @@ class IndexView: UIView {
         labelStackView.leadingAnchor.constraint(equalTo: colorStackView.leadingAnchor).isActive = true
         labelStackView.trailingAnchor.constraint(equalTo: colorStackView.trailingAnchor).isActive = true
         labelStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        labelStackView.topAnchor.constraint(equalTo: colorStackView.bottomAnchor).isActive = true
+        //labelStackView.topAnchor.constraint(equalTo: colorStackView.bottomAnchor).isActive = true
 
         labelStackView.heightAnchor.constraint(equalTo: colorStackView.heightAnchor, constant: 10).isActive = true
     }

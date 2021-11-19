@@ -20,6 +20,7 @@ class ChartView: UIView {
     var currentPercent: CGFloat = 0.0
     
     func animateChart() {
+        print(#function)
         sliceIndex = 0
         currentPercent = 0.0
         self.layer.sublayers = nil
@@ -33,6 +34,7 @@ class ChartView: UIView {
     }
     
     func addSlice(_ slice: Slice) {
+        print(#function)
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.fromValue = 0
         animation.toValue = 1
@@ -100,14 +102,11 @@ class ChartView: UIView {
     func getDuration(_ slice: Slice) -> CFTimeInterval {
         return CFTimeInterval(slice.percent / 1.0 * animationDuration)
     }
-    
-
 }
 
 extension ChartView: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if flag {
-            
             currentPercent += slices![sliceIndex].percent
             sliceIndex += 1
             
@@ -116,7 +115,6 @@ extension ChartView: CAAnimationDelegate {
                 addSlice(nextSlice)
                 addLabel(nextSlice)
             }
-            
         }
     }
 }

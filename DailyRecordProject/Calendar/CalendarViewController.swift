@@ -15,9 +15,18 @@ class CalendarViewController: UIViewController{
     
     //dailyInfo
     var temp = [DailyInfoEntity]()
-    //var listDict  = [Int: DailyInfoEntity]()
+    var listDict  = [Int: DailyInfoEntity]()
     
     var globalEntity: DailyInfoEntity?
+    
+    
+    lazy var formatter :DateFormatter =  {
+        let f = DateFormatter()
+        f.dateFormat = "yyyy.MM.dd"
+        f.locale = Locale(identifier: "ko-kr")
+        return f
+    }()
+    
     
     //FSCalendar
     let calendar: FSCalendar = {
@@ -103,6 +112,8 @@ class CalendarViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        calendar.register(CalendarCustomCell.self, forCellReuseIdentifier: "cell")
         //초기화 코드: 현재 페이지의 년 월 로 fetch
         let currentPageData = calendar.currentPage
         let month = Calendar.current.component(.month, from: currentPageData)
@@ -110,14 +121,15 @@ class CalendarViewController: UIViewController{
         //temp에 data fetch
         temp = DataManager.shared.fetchTask(Int16(month), Int16(year))
         //listDict에 일: entity 로 정렬
+        listDict.removeAll()
         temp.forEach { entity in
             let date = entity.date
             if let idx = date?.lastIndex(of: "."), let day = Int((date?[idx...].dropFirst())!) {
-                EntityDict.shared.listDict[day] = entity
-                //listDict[day] = entity
+                listDict[day] = entity
             }
         }
         
+        //한주의 시작을 바꾸는 노티피케이션
         weekToken = NotificationCenter.default.addObserver(forName: .weekChanged, object: nil, queue: .main, using: { noti in
             if let noti = noti.userInfo?["week"] as? Int {
                 self.calendar.firstWeekday = UInt(noti)
@@ -126,26 +138,42 @@ class CalendarViewController: UIViewController{
         
         //옵져버
         token = NotificationCenter.default.addObserver(forName: .dataChanged, object: nil, queue: .main, using: { _ in
+            print("delete noti")
             let currentPageData = self.calendar.currentPage
             let month = Calendar.current.component(.month, from: currentPageData)
             let year = Calendar.current.component(.year, from: currentPageData)
             //temp에 data fetch
             self.temp = DataManager.shared.fetchTask(Int16(month), Int16(year))
             //listDict에 일: entity 로 정렬
-            EntityDict.shared.listDict.removeAll()
+            self.listDict.removeAll()
             self.temp.forEach { entity in
                 let date = entity.date
                 if let idx = date?.lastIndex(of: "."), let day = Int((date?[idx...].dropFirst())!) {
-                    EntityDict.shared.listDict[day] = entity
+                    self.listDict[day] = entity
                 }
             }
-            let day = Calendar.current.component(.day, from: self.calendar.selectedDate!)
-            if let entity = EntityDict.shared.listDict[day]{
+            print(self.listDict)
+            let date = self.calendar.selectedDate!
+            let day = Int(date.day)
+            
+            if let entity = self.listDict[day]{
                 self.contentView.setData(entity)
                 self.globalEntity = entity
-                self.contentView.isHidden = false
+
             } else {
-                self.contentView.isHidden = true
+                self.contentView.setEmpty()
+                let selectedDate = self.formatter.string(from: date)
+                
+                //초기화
+                UserInputData.shared.cleanData()
+                InputViewController.entity = nil
+                //날짜와 달 설정
+                UserInputData.shared.date = selectedDate
+                
+                let month = date.month, year = date.year
+                
+                UserInputData.shared.month = month
+                UserInputData.shared.year = year
             }
         })
         view.backgroundColor = .systemBackground
@@ -198,10 +226,27 @@ extension CalendarViewController {
         contentView.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 20).isActive = true
         
         let day = Calendar.current.component(.day, from: Date())
-        if let entity = EntityDict.shared.listDict[day] {
+        calendar.select(calendar.today)
+        if let entity = listDict[day] {
+            globalEntity = entity
             contentView.setData(entity)
         } else {
             contentView.setEmpty()
+            let date = Date()
+            
+            let selectedDate = formatter.string(from: date)
+            
+            //초기화
+            UserInputData.shared.cleanData()
+            InputViewController.entity = nil
+            //날짜와 달 설정
+            UserInputData.shared.date = selectedDate
+            
+            let month = date.month, year = date.year
+            
+            UserInputData.shared.month = month
+            UserInputData.shared.year = year
+            //push
         }
     }
 }
@@ -209,23 +254,25 @@ extension CalendarViewController {
 
 extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     
+//    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+//
+//
+//    }
+    
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         //미래 날짜는 선택을 금지한다
         let difference = Calendar.current.dateComponents([.second], from: Date(), to: date).second!
         return difference <= 0
     }
-
+    
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy.MM.dd"
-        formatter.locale = Locale(identifier: "ko-kr")
+        print("didselect")
         let selectedDate = formatter.string(from: date)
         
-        let day = Calendar.current.component(.day, from: date)
+        let day = Int(date.day)
         
         //내용이 있으면 해당 내용을 보여주자
-        if let entity = EntityDict.shared.listDict[day]{
+        if let entity = listDict[day]{
             contentView.setData(entity)
             globalEntity = entity
         }
@@ -235,22 +282,19 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
             //초기화
             UserInputData.shared.cleanData()
             InputViewController.entity = nil
-
             //날짜와 달 설정
             UserInputData.shared.date = selectedDate
-
-            let curDate = Calendar.current.dateComponents([.month, .year], from: date)
-            let (month, year) = (Int16(curDate.month!), Int16(curDate.year!))
-
+            
+            let month = date.month, year = date.year
+            
             UserInputData.shared.month = month
             UserInputData.shared.year = year
             //push
         }
     }
-     
     
-    func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
-
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        print("pageChanged")
     }
 }
 

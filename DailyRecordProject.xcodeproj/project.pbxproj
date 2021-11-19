@@ -23,8 +23,8 @@
 		9441B48227036B66009226BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9441B48127036B66009226BB /* Main.storyboard */; };
 		9441B484270372AE009226BB /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B483270372AE009226BB /* InputViewController.swift */; };
 		9451FBA0274417FE003B0D6E /* IndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9451FB9F274417FE003B0D6E /* IndexView.swift */; };
+		9451FBA62747ADC2003B0D6E /* CalendarCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9451FBA52747ADC2003B0D6E /* CalendarCustomCell.swift */; };
 		945779BE27047E9200A95F57 /* UserInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945779BD27047E9200A95F57 /* UserInput.swift */; };
-		946BF4F1274397BB00774526 /* EntityDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946BF4F0274397BB00774526 /* EntityDict.swift */; };
 		946BF4F32743B2AA00774526 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946BF4F22743B2AA00774526 /* ChartView.swift */; };
 		94925FF62711A42C00E6191D /* UserDefaultSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94925FF52711A42C00E6191D /* UserDefaultSetting.swift */; };
 		94925FF827145D5100E6191D /* DataType+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94925FF727145D5100E6191D /* DataType+Extension.swift */; };
@@ -58,9 +58,9 @@
 		9441B48127036B66009226BB /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9441B483270372AE009226BB /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InputViewController.swift; path = Calendar/InputViewController.swift; sourceTree = "<group>"; };
 		9451FB9F274417FE003B0D6E /* IndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexView.swift; sourceTree = "<group>"; };
+		9451FBA52747ADC2003B0D6E /* CalendarCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCustomCell.swift; sourceTree = "<group>"; };
 		945779B927047CA000A95F57 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		945779BD27047E9200A95F57 /* UserInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInput.swift; sourceTree = "<group>"; };
-		946BF4F0274397BB00774526 /* EntityDict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityDict.swift; sourceTree = "<group>"; };
 		946BF4F22743B2AA00774526 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		94925FF52711A42C00E6191D /* UserDefaultSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultSetting.swift; sourceTree = "<group>"; };
 		94925FF727145D5100E6191D /* DataType+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataType+Extension.swift"; sourceTree = "<group>"; };
@@ -107,6 +107,7 @@
 			children = (
 				949AF70727033F0500F3D9B7 /* CalendarViewController.swift */,
 				94925FF92714703A00E6191D /* ContentView.swift */,
+				9451FBA52747ADC2003B0D6E /* CalendarCustomCell.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -153,7 +154,6 @@
 				9419B20A270C8239008BC2FE /* DataManager+DailyInfo.swift */,
 				94925FF52711A42C00E6191D /* UserDefaultSetting.swift */,
 				94925FF727145D5100E6191D /* DataType+Extension.swift */,
-				946BF4F0274397BB00774526 /* EntityDict.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -323,6 +323,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9451FBA62747ADC2003B0D6E /* CalendarCustomCell.swift in Sources */,
 				949AF70827033F0500F3D9B7 /* CalendarViewController.swift in Sources */,
 				9441B46A27035E05009226BB /* ListViewController.swift in Sources */,
 				941D47E6274369DF009D9A67 /* PlainTableViewCell.swift in Sources */,
@@ -330,7 +331,6 @@
 				9419B201270C7F14008BC2FE /* DailyInfoModel.xcdatamodeld in Sources */,
 				94925FF62711A42C00E6191D /* UserDefaultSetting.swift in Sources */,
 				946BF4F32743B2AA00774526 /* ChartView.swift in Sources */,
-				946BF4F1274397BB00774526 /* EntityDict.swift in Sources */,
 				94F6E1FA2742CD2900925007 /* SettingViewController.swift in Sources */,
 				9441B484270372AE009226BB /* InputViewController.swift in Sources */,
 				949AF70427033F0500F3D9B7 /* AppDelegate.swift in Sources */,
@@ -494,6 +494,7 @@
 				INFOPLIST_KEY_NSMainNibFile = Main;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -524,6 +525,7 @@
 				INFOPLIST_KEY_NSMainNibFile = Main;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
