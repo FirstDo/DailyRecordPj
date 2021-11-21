@@ -27,6 +27,7 @@ class InputViewController: UIViewController {
         btn.backgroundColor = .systemGray
         btn.isEnabled = false
         btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.layer.cornerRadius = 10
         return btn
     }()
     
@@ -53,7 +54,7 @@ class InputViewController: UIViewController {
         default:
             break
         }
-        nextButton.backgroundColor = .systemYellow
+        nextButton.backgroundColor = .systemOrange
         nextButton.isEnabled = true
         
     }
@@ -63,6 +64,9 @@ class InputViewController: UIViewController {
         let sadImg = UIImageView(image: UIImage(systemName: "cloud.drizzle"))
         let sosoImg = UIImageView(image: UIImage(systemName: "moon"))
         let angryImg = UIImageView(image: UIImage(systemName: "cloud.bolt.rain"))
+        
+
+        
         let imageViewList = [happyImg,sadImg,sosoImg,angryImg]
         for i in 0..<4 {
             imageViewList[i].contentMode = .scaleAspectFit
@@ -112,10 +116,13 @@ class InputViewController: UIViewController {
                 default:
                     break
                 }
+                nextButton.backgroundColor = .systemOrange
                 nextButton.isEnabled = true
             }
             evaluateSetting()
         }
+        
+        print(nextButton.isEnabled)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -147,9 +154,9 @@ class InputViewController: UIViewController {
         view.addSubview(nextButton)
         nextButton.addTarget(self, action: #selector(gotoGoodViewAction), for: .touchUpInside)
         nextButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        nextButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
-        nextButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
-        nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
+        nextButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
+        nextButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40).isActive = true
+        nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50).isActive = true
 
     }
     

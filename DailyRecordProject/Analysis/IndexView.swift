@@ -12,28 +12,28 @@ class IndexView: UIView {
     let happyColor: UIView = {
         let v = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         v.layer.cornerRadius = 10
-        v.backgroundColor = .systemYellow
+        v.backgroundColor = colorDict["happy"]!
         return v
     }()
     
     let sadColor: UIView = {
         let v = UIView()
         v.layer.cornerRadius = 10
-        v.backgroundColor = .systemBlue
+        v.backgroundColor = colorDict["sad"]!
         return v
     }()
     
     let sosoColor: UIView = {
         let v = UIView()
         v.layer.cornerRadius = 10
-        v.backgroundColor = .systemGreen
+        v.backgroundColor = colorDict["soso"]!
         return v
     }()
     
     let angryColor: UIView = {
         let v = UIView()
         v.layer.cornerRadius = 10
-        v.backgroundColor = .systemRed
+        v.backgroundColor = colorDict["angry"]!
         return v
     }()
     

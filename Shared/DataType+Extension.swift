@@ -42,5 +42,7 @@ extension Date {
     }
 }
 
+let colorDict: [String: UIColor] = ["happy": .systemYellow, "sad": .systemBlue, "soso": .systemGreen, "angry": .systemRed]
+
 
 

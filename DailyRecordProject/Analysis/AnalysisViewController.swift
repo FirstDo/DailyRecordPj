@@ -11,7 +11,7 @@ class AnalysisViewController: UIViewController {
     let titleLabel: UILabel = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
-        lb.text = "이번달의 기록 📑"
+        lb.text = "이번달의 기록 🧐"
         lb.font = UIFont.boldSystemFont(ofSize: 30)
         return lb
     }()
@@ -56,7 +56,7 @@ class AnalysisViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         var percentList: [CGFloat] = [0,0,0,0]
-        var colorList: [UIColor] = [.systemYellow, .systemBlue, .systemGreen, .systemRed]
+        var colorList: [UIColor] = [colorDict["happy"], colorDict["sad"], colorDict["soso"],colorDict["angry"]].compactMap{$0}
         
         let month = Date().month
         let year = Date().year

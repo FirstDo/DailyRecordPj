@@ -34,6 +34,8 @@ class CalendarViewController: UIViewController{
         calendar.locale = Locale(identifier: "ko_KR")
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0
         calendar.headerHeight = 40
+        calendar.placeholderType = .none
+        
         calendar.appearance.headerTitleColor = .black
         calendar.appearance.headerDateFormat = "YYYY년 M월"
         calendar.appearance.headerTitleFont = UIFont.systemFont(ofSize: 24)
@@ -44,7 +46,10 @@ class CalendarViewController: UIViewController{
     let nextButton: UIButton = {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(nextTapped), for: .touchUpInside)
-        btn.setTitle("next", for: .normal)
+        
+        let config = UIImage.SymbolConfiguration(pointSize: 25, weight: .regular, scale: .default)
+        btn.setPreferredSymbolConfiguration(config, forImageIn: .normal)
+        btn.setImage(UIImage(systemName: "greaterthan.circle"), for: .normal)
         btn.setTitleColor(.black, for: .normal)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
@@ -53,7 +58,10 @@ class CalendarViewController: UIViewController{
     let prevButton: UIButton = {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(previousTapped), for: .touchUpInside)
-        btn.setTitle("prev", for: .normal)
+        
+        let config = UIImage.SymbolConfiguration(pointSize: 25, weight: .regular, scale: .default)
+        btn.setPreferredSymbolConfiguration(config, forImageIn: .normal)
+        btn.setImage(UIImage(systemName: "lessthan.circle"), for: .normal)
         btn.setTitleColor(.black, for: .normal)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
@@ -113,7 +121,7 @@ class CalendarViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        calendar.register(CalendarCustomCell.self, forCellReuseIdentifier: "cell")
+
         //초기화 코드: 현재 페이지의 년 월 로 fetch
         let currentPageData = calendar.currentPage
         let month = Calendar.current.component(.month, from: currentPageData)
@@ -140,10 +148,12 @@ class CalendarViewController: UIViewController{
         token = NotificationCenter.default.addObserver(forName: .dataChanged, object: nil, queue: .main, using: { _ in
             print("delete noti")
             let currentPageData = self.calendar.currentPage
-            let month = Calendar.current.component(.month, from: currentPageData)
-            let year = Calendar.current.component(.year, from: currentPageData)
+            let month = currentPageData.month
+            let year = currentPageData.year
+            //let month = Calendar.current.component(.month, from: currentPageData)
+            //let year = Calendar.current.component(.year, from: currentPageData)
             //temp에 data fetch
-            self.temp = DataManager.shared.fetchTask(Int16(month), Int16(year))
+            self.temp = DataManager.shared.fetchTask(month, year)
             //listDict에 일: entity 로 정렬
             self.listDict.removeAll()
             self.temp.forEach { entity in
@@ -212,10 +222,10 @@ extension CalendarViewController {
         calendar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         
         view.addSubview(prevButton)
-        prevButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        prevButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
         prevButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         view.addSubview(nextButton)
-        nextButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        nextButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
         nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
     }
     
@@ -253,11 +263,47 @@ extension CalendarViewController {
 
 
 extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
+    //border Color
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderDefaultColorFor date: Date) -> UIColor? {
+        guard let entity = listDict[Int(date.day)], let mood = entity.mood else {
+            return nil
+        }
+        return colorDict[mood] ?? nil
+    }
     
-//    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
-//
-//
-//    }
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderSelectionColorFor date: Date) -> UIColor? {
+        guard let entity = listDict[Int(date.day)], let mood = entity.mood else {
+            return nil
+        }
+        return colorDict[mood] ?? nil
+    }
+    
+    //calendar fill color
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
+        return .white
+    }
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
+        return .white
+    }
+    
+    //calendar title color
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
+        return .systemBlue
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        guard let _ = listDict[Int(date.day)] else {
+            return .systemGray3
+        }
+        return .black
+    }
+
+    //will display cell
+    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
+        if cell.dateIsToday {
+            cell.titleLabel.text = "today"
+        }
+    }
     
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         //미래 날짜는 선택을 금지한다
@@ -292,9 +338,14 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
             //push
         }
     }
+
+    
+
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        print("pageChanged")
+        UserDefaults.standard.set(calendar.currentPage.month, forKey: UserDefaultKey.listMonth)
+        UserDefaults.standard.set(calendar.currentPage.year, forKey: UserDefaultKey.listYear)
+        NotificationCenter.default.post(name: .dataChanged, object: nil)
     }
 }
 

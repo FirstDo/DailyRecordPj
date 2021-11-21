@@ -33,6 +33,7 @@ class ChartView: UIView {
         }
     }
     
+    //pieChart 그리기
     func addSlice(_ slice: Slice) {
         print(#function)
         let animation = CABasicAnimation(keyPath: "strokeEnd")
@@ -43,7 +44,7 @@ class ChartView: UIView {
         animation.delegate = self
         
         let canvasWidth = self.frame.width * 0.7
-        let path = UIBezierPath(arcCenter: self.center, radius: canvasWidth * 3 / 8, startAngle: percentToRadian(currentPercent), endAngle: percentToRadian(currentPercent+slice.percent), clockwise: true)
+        let path = UIBezierPath(arcCenter: self.center, radius: canvasWidth * 3 / 8, startAngle: percentToRadian(currentPercent) + 0.0001, endAngle: percentToRadian(currentPercent+slice.percent), clockwise: true)
         
         let sliceLayer = CAShapeLayer()
         sliceLayer.path = path.cgPath
@@ -56,6 +57,7 @@ class ChartView: UIView {
         self.layer.addSublayer(sliceLayer)
     }
     
+    //lable 그리기
     func addLabel(_ slice: Slice) {
         print(#function)
         let center = self.center
@@ -68,7 +70,22 @@ class ChartView: UIView {
         addSubview(label)
         
         let roundedPercentage = round(slice.percent * 1000) / 10
-        label.text = "\(roundedPercentage)%"
+        
+        var temp = ""
+        
+        switch slice.color {
+        case .systemYellow:
+            temp = "🌈\n"
+        case .systemBlue:
+            temp = "💦\n"
+        case .systemGreen:
+            temp = "🌤\n"
+        case .systemRed:
+            temp = "🔥\n"
+        default:
+            break
+        }
+        label.text = temp + "\(roundedPercentage)%"
         
         label.translatesAutoresizingMaskIntoConstraints = false
         label.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: labelCenter.x - center.x).isActive = true
