@@ -92,12 +92,15 @@ class ListViewController: UIViewController {
     private let dateInputView: UIView = {
         let v = UIView()
         v.backgroundColor = .systemBackground
-        if let height = UserDefaults.standard.value(forKey: UserDefaultKey.keyboardHeight) as? CGFloat {
-            v.frame = CGRect(x: 0, y: 0, width: 0, height: height)
-        } else {
-            print("Cannot get Keyboard Height")
-            v.frame = CGRect(x: 0, y: 0, width: 0, height: 250)
-        }
+        
+        //v.frame = CGRect(x: 0, y: 0, width: 0, height: 250)
+        
+//        if let height = UserDefaults.standard.value(forKey: UserDefaultKey.keyboardHeight) as? CGFloat {
+//            v.frame = CGRect(x: 0, y: 0, width: 0, height: height)
+//        } else {
+//            print("Cannot get Keyboard Height")
+//            v.frame = CGRect(x: 0, y: 0, width: 0, height: 250)
+//        }
         return v
     }()
     //monthPicker
@@ -186,6 +189,9 @@ class ListViewController: UIViewController {
         tempTextField.inputView = dateInputView
         dateInputView.addSubview(monthPicker)
         dateInputView.addSubview(yearPicker)
+        
+        dateInputView.translatesAutoresizingMaskIntoConstraints = false
+        //dateInputView.heightAnchor.constraint(equalToConstant: view.frame.height / 3).isActive = true
         
         let yearLabel = UILabel()
         yearLabel.text = "년"

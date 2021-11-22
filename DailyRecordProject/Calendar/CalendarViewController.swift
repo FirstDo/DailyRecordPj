@@ -188,6 +188,7 @@ class CalendarViewController: UIViewController{
                 UserInputData.shared.month = month
                 UserInputData.shared.year = year
             }
+            self.calendar.reloadData()
         })
         view.backgroundColor = .systemBackground
         
