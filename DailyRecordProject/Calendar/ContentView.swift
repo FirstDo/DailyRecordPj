@@ -20,14 +20,14 @@ class ContentView: UIView {
     let editButton: UIButton = {
         var btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.setImage(UIImage(systemName: "pencil.circle"), for: .normal)
+        btn.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
         return btn
     }()
     
     let deleteButton: UIButton = {
         var btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.setImage(UIImage(systemName: "trash.circle"), for: .normal)
+        btn.setImage(UIImage(systemName: "trash"), for: .normal)
         return btn
     }()
     

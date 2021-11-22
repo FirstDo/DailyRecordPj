@@ -36,6 +36,9 @@ class CalendarViewController: UIViewController{
         calendar.headerHeight = 40
         calendar.placeholderType = .none
         
+        calendar.appearance.weekdayTextColor = .black
+        
+        
         calendar.appearance.headerTitleColor = .black
         calendar.appearance.headerDateFormat = "YYYY년 M월"
         calendar.appearance.headerTitleFont = UIFont.systemFont(ofSize: 24)
@@ -50,7 +53,7 @@ class CalendarViewController: UIViewController{
         let config = UIImage.SymbolConfiguration(pointSize: 25, weight: .regular, scale: .default)
         btn.setPreferredSymbolConfiguration(config, forImageIn: .normal)
         btn.setImage(UIImage(systemName: "greaterthan.circle"), for: .normal)
-        btn.setTitleColor(.black, for: .normal)
+        btn.tintColor = .black
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -62,7 +65,7 @@ class CalendarViewController: UIViewController{
         let config = UIImage.SymbolConfiguration(pointSize: 25, weight: .regular, scale: .default)
         btn.setPreferredSymbolConfiguration(config, forImageIn: .normal)
         btn.setImage(UIImage(systemName: "lessthan.circle"), for: .normal)
-        btn.setTitleColor(.black, for: .normal)
+        btn.tintColor = .black
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -280,10 +283,10 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
     
     //calendar fill color
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
-        return .white
+        return .systemBackground
     }
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
-        return .white
+        return .systemBackground
     }
     
     //calendar title color
@@ -292,6 +295,10 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        if calendar.today == date {
+            return .systemRed
+        }
+        
         guard let _ = listDict[Int(date.day)] else {
             return .systemGray3
         }
@@ -302,6 +309,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
         if cell.dateIsToday {
             cell.titleLabel.text = "today"
+            cell.titleLabel.textColor = .systemRed
         }
     }
     

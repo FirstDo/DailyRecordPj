@@ -11,6 +11,7 @@ class ListViewController: UIViewController {
     //tableView
     private let tableView: UITableView = {
         let tableview = UITableView()
+        
         return tableview
     }()
     //DateLabel
@@ -58,7 +59,7 @@ class ListViewController: UIViewController {
         let tb = UIToolbar()
         tb.translatesAutoresizingMaskIntoConstraints = false
         tb.frame = CGRect(x: 0, y: 0, width: 0, height: 40)
-        tb.backgroundColor = .systemBackground
+        tb.barTintColor = .systemBackground
         let flexBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let doneBtn = UIBarButtonItem(title: "완료", style: .done, target: self, action: #selector(clickDoneBtn(_:)))
         tb.setItems([flexBtn, doneBtn], animated: true)
