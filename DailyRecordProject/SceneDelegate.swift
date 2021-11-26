@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -27,8 +28,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        //set badgeNumber to zero
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -37,6 +38,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
+        UNUserNotificationCenter.current().getNotificationSettings { setting in
+            switch setting.authorizationStatus {
+            case .authorized:
+                reservePushNoti()
+            case .denied:
+                removePushNoti()
+            default:
+                break
+            }
+            
+        }
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
     }

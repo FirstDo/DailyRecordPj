@@ -14,4 +14,7 @@ class UserDefaultKey {
     
     //for Keyboard Height
     static let keyboardHeight = "keyboardHeight"
+    
+    //push switch
+    static let switchState = "switchState"
 }

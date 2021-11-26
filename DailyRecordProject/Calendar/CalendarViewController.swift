@@ -141,14 +141,14 @@ class CalendarViewController: UIViewController{
         }
         
         //한주의 시작을 바꾸는 노티피케이션
-        weekToken = NotificationCenter.default.addObserver(forName: .weekChanged, object: nil, queue: .main, using: { noti in
+        weekToken = NotificationCenter.default.addObserver(forName: .weekChanged, object: nil, queue: .main, using: { [weak self] noti in
             if let noti = noti.userInfo?["week"] as? Int {
-                self.calendar.firstWeekday = UInt(noti)
+                self?.calendar.firstWeekday = UInt(noti)
             }
         })
         
         //옵져버
-        token = NotificationCenter.default.addObserver(forName: .dataChanged, object: nil, queue: .main, using: { _ in
+        token = NotificationCenter.default.addObserver(forName: .dataChanged, object: nil, queue: .main, using: { [unowned self]_ in
             print("delete noti")
             let currentPageData = self.calendar.currentPage
             let month = currentPageData.month

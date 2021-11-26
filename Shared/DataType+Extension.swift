@@ -12,6 +12,8 @@ extension Notification.Name {
     static let dataChanged = Notification.Name("dataChanged")
     
     static let weekChanged = Notification.Name("weekChanged")
+    
+    static let pushChanged = Notification.Name("pushChanged")
 }
 
 //current Year Month를 얻을 수 있는 extension

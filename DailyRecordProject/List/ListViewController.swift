@@ -144,18 +144,18 @@ class ListViewController: UIViewController {
         
         //notification setting
         //data가 바뀌었을때!
-        changeToken = NotificationCenter.default.addObserver(forName: .dataChanged, object: nil, queue: .main, using: { _ in
+        changeToken = NotificationCenter.default.addObserver(forName: .dataChanged, object: nil, queue: .main, using: { [weak self]_ in
             print("list noti called")
             
             if let month = UserDefaults.standard.value(forKey: UserDefaultKey.listMonth) as? Int16, let year = UserDefaults.standard.value(forKey: UserDefaultKey.listYear) as? Int16 {
                 
                 print(month, year)
                 
-                self.list = DataManager.shared.fetchTask(month,year)
+                self?.list = DataManager.shared.fetchTask(month,year)
             } else {
-                self.list = DataManager.shared.fetchTask(Date.month,Date.year)
+                self?.list = DataManager.shared.fetchTask(Date.month,Date.year)
             }
-            self.tableView.reloadData()
+            self?.tableView.reloadData()
         })
         
         //delegate Setting

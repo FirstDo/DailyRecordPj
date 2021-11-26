@@ -6,17 +6,29 @@
 //
 
 import UIKit
+import UserNotifications
+import NotificationCenter
 
 class SettingViewController: UITableViewController {
-    //한주의 시작 요일을 변경하자
+    @IBOutlet weak var pushSwitch: UISwitch!
+    
+    var token: NSObjectProtocol?
+    
+    //한주의 시작 요일 변경 action
     @IBAction func changeStartDay(_ sender: UISegmentedControl) {
         let value = sender.selectedSegmentIndex + 1
         NotificationCenter.default.post(name: .weekChanged, object: nil, userInfo: ["week": value])
     }
     
-    //푸쉬알람 설정 코드
+    //푸쉬알람 스위치 action
     @IBAction func togglePushAlarm(_ sender: UISwitch) {
+        guard let url = URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
         
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -26,7 +38,6 @@ class SettingViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             //리뷰 남기기
-            
             
         } else {
             //오픈소스 라이센스
@@ -38,6 +49,16 @@ class SettingViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "앱 설정"
+        
+        if let value = UserDefaults.standard.value(forKey: UserDefaultKey.switchState) as? Bool {
+            pushSwitch.isOn = value
+        }
+        
+        token = NotificationCenter.default.addObserver(forName: .pushChanged, object: nil, queue: .main, using: { [weak self]_ in
+            if let value = UserDefaults.standard.value(forKey: UserDefaultKey.switchState) as? Bool {
+                self?.pushSwitch.isOn = value
+            }
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,6 +67,9 @@ class SettingViewController: UITableViewController {
         if let selectedIdx = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selectedIdx, animated: true)
         }
+        
+        print("viewWillAppear")
+        
     }
 }
 
