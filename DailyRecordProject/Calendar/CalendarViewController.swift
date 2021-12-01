@@ -36,9 +36,8 @@ class CalendarViewController: UIViewController{
         calendar.headerHeight = 40
         calendar.placeholderType = .none
         
+        calendar.appearance.borderRadius = 0
         calendar.appearance.weekdayTextColor = .black
-        
-        
         calendar.appearance.headerTitleColor = .black
         calendar.appearance.headerDateFormat = "YYYY년 M월"
         calendar.appearance.headerTitleFont = UIFont.systemFont(ofSize: 24)
@@ -83,26 +82,28 @@ class CalendarViewController: UIViewController{
     let contentView: ContentView = {
         let v = ContentView()
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.tapButton.addTarget(self, action: #selector(makeNewReport), for: .touchUpInside)
+        //v.tapButton.addTarget(self, action: #selector(makeNewReport), for: .touchUpInside)
         v.editButton.addTarget(self, action: #selector(editReport), for: .touchUpInside)
         v.deleteButton.addTarget(self, action: #selector(deleteReport), for: .touchUpInside)
         return v
     }()
     
-    @objc func makeNewReport() {
-        print("tapButton")
-        navigationController?.pushViewController(InputViewController(), animated: true)
-    }
+//    @objc func makeNewReport() {
+//        print("tapButton")
+//
+//    }
     @objc func editReport() {
-        guard let target = globalEntity else {
-            print("Error. Edit Fail")
-            return
+        //기존 데이터의 수정
+        if let target = globalEntity {
+            let editVC = InputViewController()
+            InputViewController.entity = target
+            UserInputData.shared.setData(date: target.date, mood: target.mood, good: target.good, bad: target.bad, thanks: target.thanks, highlight: target.highlight, month: target.month, year: target.year)
+            navigationController?.pushViewController(editVC, animated: true)
         }
-        
-        let editVC = InputViewController()
-        InputViewController.entity = target
-        UserInputData.shared.setData(date: target.date, mood: target.mood, good: target.good, bad: target.bad, thanks: target.thanks, highlight: target.highlight, month: target.month, year: target.year)
-        navigationController?.pushViewController(editVC, animated: true)
+        //새로운 데이터의 생성
+        else {
+            navigationController?.pushViewController(InputViewController(), animated: true)
+        }
     }
     @objc func deleteReport() {
         guard let target = globalEntity else {
@@ -124,6 +125,9 @@ class CalendarViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //view.backgroundColor = UIColor(named: "bgColor")
+        view.backgroundColor = .systemBackground
+
 
         //초기화 코드: 현재 페이지의 년 월 로 fetch
         let currentPageData = calendar.currentPage
@@ -190,7 +194,7 @@ class CalendarViewController: UIViewController{
             }
             self.calendar.reloadData()
         })
-        view.backgroundColor = .systemBackground
+//        view.backgroundColor = .systemBackground
         
         let backBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.backBarButtonItem = backBarBtn
@@ -237,7 +241,8 @@ extension CalendarViewController {
         view.addSubview(contentView)
         contentView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
         contentView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-        contentView.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 20).isActive = true
+        //contentView.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 20).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
         
         let day = Calendar.current.component(.day, from: Date())
         calendar.select(calendar.today)
@@ -269,30 +274,33 @@ extension CalendarViewController {
 extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     //border Color
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderDefaultColorFor date: Date) -> UIColor? {
-        guard let entity = listDict[Int(date.day)], let mood = entity.mood else {
-            return nil
-        }
-        return colorDict[mood] ?? nil
+        return .systemGray6
+    }
+
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderSelectionColorFor date: Date) -> UIColor? {
+        return .systemGray6
     }
     
-    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderSelectionColorFor date: Date) -> UIColor? {
-        guard let entity = listDict[Int(date.day)], let mood = entity.mood else {
-            return nil
-        }
-        return colorDict[mood] ?? nil
-    }
+    
     
     //calendar fill color
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
-        return .systemBackground
+        guard let entity = listDict[Int(date.day)], let mood = entity.mood else {
+            return .systemBackground
+        }
+        return colorDict[mood]
     }
+    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
-        return .systemBackground
+        guard let entity = listDict[Int(date.day)], let mood = entity.mood else {
+            return UIColor(named: "bgColor")
+        }
+        return colorDict[mood]
     }
     
     //calendar title color
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
-        return .systemBlue
+        return .white
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
@@ -303,6 +311,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
         guard let _ = listDict[Int(date.day)] else {
             return .systemGray3
         }
+        
         return .black
     }
 
@@ -321,7 +330,6 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print("didselect")
         let selectedDate = formatter.string(from: date)
         
         let day = Int(date.day)
@@ -348,9 +356,6 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
         }
     }
 
-    
-
-    
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         UserDefaults.standard.set(calendar.currentPage.month, forKey: UserDefaultKey.listMonth)
         UserDefaults.standard.set(calendar.currentPage.year, forKey: UserDefaultKey.listYear)

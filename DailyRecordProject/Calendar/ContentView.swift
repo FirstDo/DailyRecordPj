@@ -31,12 +31,12 @@ class ContentView: UIView {
         return btn
     }()
     
-    let tapButton: UIButton = {
-        var btn = UIButton()
-        btn.setImage(UIImage(systemName: "plus"), for: .normal)
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        return btn
-    }()
+//    let tapButton: UIButton = {
+//        var btn = UIButton()
+//        btn.setImage(UIImage(systemName: "plus"), for: .normal)
+//        btn.translatesAutoresizingMaskIntoConstraints = false
+//        return btn
+//    }()
     
     private let goodText: UILabel = {
         var lb = UILabel()
@@ -87,7 +87,7 @@ class ContentView: UIView {
         layer.cornerRadius = 20
         isUserInteractionEnabled = true
         
-        addSubview(tapButton)
+        //addSubview(tapButton)
         addSubview(labelStack)
         addSubview(dateLabel)
         addSubview(editButton)
@@ -107,20 +107,20 @@ class ContentView: UIView {
         labelStack.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10).isActive = true
         labelStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
         
-        //for empty View tap
-        tapButton.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        tapButton.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        tapButton.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        tapButton.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+//        //for empty View tap
+//        tapButton.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+//        tapButton.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+//        tapButton.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+//        tapButton.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
     }
     
     func setData(_ entity: DailyInfoEntity) {
         globalEntity = entity
         
-        tapButton.isHidden = true
+        //tapButton.isHidden = true
         goodText.textAlignment = .left
         deleteButton.isHidden = false
-        editButton.isHidden = false
+        //editButton.isHidden = false
             
         self.dateLabel.text = entity.date! + " 기록"
         self.goodText.text = "😀 "+entity.good!
@@ -131,9 +131,9 @@ class ContentView: UIView {
     
     func setEmpty() {
         globalEntity = nil
-        tapButton.isHidden = false
+        //tapButton.isHidden = false
         deleteButton.isHidden = true
-        editButton.isHidden = true
+        //editButton.isHidden = true
         
         self.dateLabel.text = nil
         self.goodText.text = "기록이 없어요 :("

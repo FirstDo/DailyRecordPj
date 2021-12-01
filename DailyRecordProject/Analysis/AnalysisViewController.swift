@@ -22,13 +22,13 @@ class AnalysisViewController: UIViewController {
         lb.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         lb.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         
-//        let idxView = IndexView()
-//        view.addSubview(idxView)
-//        idxView.translatesAutoresizingMaskIntoConstraints = false
-//        idxView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        idxView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
-//        idxView.widthAnchor.constraint(equalToConstant: view.frame.size.width * 0.4).isActive = true
-//        idxView.heightAnchor.constraint(equalToConstant: view.frame.size.height * 0.10).isActive = true
+        let idxView = IndexView()
+        view.addSubview(idxView)
+        idxView.translatesAutoresizingMaskIntoConstraints = false
+        idxView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        idxView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
+        idxView.widthAnchor.constraint(equalToConstant: view.frame.size.width * 0.4).isActive = true
+        idxView.heightAnchor.constraint(equalToConstant: view.frame.size.height * 0.10).isActive = true
     }
     
     func drawPieChart(_ percent: [CGFloat], _ color: [UIColor]) {

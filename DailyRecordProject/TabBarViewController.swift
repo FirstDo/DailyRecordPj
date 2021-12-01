@@ -11,10 +11,9 @@ class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // MARK: - color와 image 나중에 최종수정해야함
-        tabBar.tintColor = .red
-        tabBar.unselectedItemTintColor = .black
+        tabBar.tintColor = .black
+        tabBar.unselectedItemTintColor = .systemGray3
         
         let CalendarVC = UINavigationController(rootViewController: CalendarViewController())
         CalendarVC.tabBarItem.selectedImage = UIImage(systemName: "calendar")
@@ -27,9 +26,9 @@ class TabBarViewController: UITabBarController {
         
         let SettingVC = UINavigationController(rootViewController: vc)
         //let SettingVC = UINavigationController(rootViewController: SettingViewController())
-        SettingVC.tabBarItem.selectedImage = UIImage(systemName: "command")
+        SettingVC.tabBarItem.selectedImage = UIImage(systemName: "gearshape.fill")
         SettingVC.tabBarItem.title = "설정"
-        SettingVC.tabBarItem.image = UIImage(systemName: "command")
+        SettingVC.tabBarItem.image = UIImage(systemName: "gearshape.fill")
         
         let AnalysisVC = UINavigationController(rootViewController: AnalysisViewController())
         AnalysisVC.tabBarItem.selectedImage = UIImage(systemName: "chart.pie.fill")
