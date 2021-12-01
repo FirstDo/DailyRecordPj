@@ -27,6 +27,11 @@ class CalendarViewController: UIViewController{
         return f
     }()
     
+    let indexView: IndexStackView = {
+        let v = IndexStackView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
     
     //FSCalendar
     let calendar: FSCalendar = {
@@ -235,6 +240,14 @@ extension CalendarViewController {
         view.addSubview(nextButton)
         nextButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
         nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        
+        
+        view.addSubview(indexView)
+        indexView.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 20).isActive = true
+        indexView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+       // indexView.bottomAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: -10).isActive = true
+//        indexView.leadingAnchor.constraint(equalTo: calendar.leadingAnchor).isActive = true
+//        indexView.trailingAnchor.constraint(equalTo: calendar.trailingAnchor).isActive = true
     }
     
     func contentViewSetting() {
