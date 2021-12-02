@@ -37,13 +37,13 @@ class IndexStackView: UIStackView {
 //        self.spacing = 5
         
         let nameList = ["happy", "sad", "soso", "angry"]
-        let korName = ["행복","슬픔","보통","화남"]
+        let korName = ["행복 ","슬픔 ","보통 ","화남 "]
 
         for (idx,name) in nameList.enumerated() {
             let v = UIView()
-            v.heightAnchor.constraint(equalToConstant: 14).isActive = true
-            v.widthAnchor.constraint(equalToConstant: 14).isActive = true
-            v.layer.cornerRadius = 7
+            v.heightAnchor.constraint(equalToConstant: 16).isActive = true
+            v.widthAnchor.constraint(equalToConstant: 16).isActive = true
+            v.layer.cornerRadius = 8
             v.backgroundColor = colorDict[name]!
             self.addArrangedSubview(v)
 
@@ -53,7 +53,6 @@ class IndexStackView: UIStackView {
         }
         self.distribution = .fillProportionally
         self.spacing = 5
-        
+        self.clipsToBounds = false
     }
-
 }

@@ -13,12 +13,14 @@ class ContentView: UIView {
     //elements
     private let dateLabel: UILabel = {
         var lb = UILabel()
+        lb.font = UIFont.systemFont(ofSize: 20)
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
     
     let editButton: UIButton = {
         var btn = UIButton()
+        btn.tintColor = .black
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
         return btn
@@ -26,6 +28,7 @@ class ContentView: UIView {
     
     let deleteButton: UIButton = {
         var btn = UIButton()
+        btn.tintColor = .systemRed
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(systemName: "trash"), for: .normal)
         return btn
@@ -62,6 +65,13 @@ class ContentView: UIView {
         return lb
     }()
     
+    let lineView: UIView = {
+        let v = UIView()
+        v.backgroundColor = colorDict["angry"]!
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
     private lazy var labelStack: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [goodText, badText, thanksText, highlightText])
         sv.translatesAutoresizingMaskIntoConstraints = false
@@ -92,6 +102,7 @@ class ContentView: UIView {
         addSubview(dateLabel)
         addSubview(editButton)
         addSubview(deleteButton)
+        addSubview(lineView)
         
         dateLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
         dateLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
@@ -101,10 +112,15 @@ class ContentView: UIView {
         editButton.topAnchor.constraint(equalTo: dateLabel.topAnchor).isActive = true
         editButton.trailingAnchor.constraint(equalTo: deleteButton.leadingAnchor, constant: -10).isActive = true
         
+        lineView.leadingAnchor.constraint(equalTo: dateLabel.leadingAnchor, constant: -5).isActive = true
+        lineView.trailingAnchor.constraint(equalTo: dateLabel.trailingAnchor, constant: 5).isActive = true
+        lineView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 3).isActive = true
+        lineView.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        
         //for 4 report Label
         labelStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
         labelStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
-        labelStack.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10).isActive = true
+        labelStack.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 10).isActive = true
         labelStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
         
 //        //for empty View tap
@@ -116,15 +132,14 @@ class ContentView: UIView {
     
     func setData(_ entity: DailyInfoEntity) {
         globalEntity = entity
-        
         //tapButton.isHidden = true
-        goodText.textAlignment = .left
+        badText.textAlignment = .left
         deleteButton.isHidden = false
         //editButton.isHidden = false
-            
+
         self.dateLabel.text = entity.date! + " 기록"
         self.goodText.text = "😀 "+entity.good!
-        self.badText.text = "🙁 "+entity.bad!
+        self.badText.text = "😵 "+entity.bad!
         self.thanksText.text = "🥰 "+entity.thanks!
         self.highlightText.text = "🧐 "+entity.highlight!
     }
@@ -135,12 +150,12 @@ class ContentView: UIView {
         deleteButton.isHidden = true
         //editButton.isHidden = true
         
-        self.dateLabel.text = nil
-        self.goodText.text = "기록이 없어요 :("
-        goodText.textAlignment = .center
-        self.badText.text = nil
-        self.thanksText.text = nil
-        self.highlightText.text = nil
+        self.dateLabel.text = " "
+        self.goodText.text = " "
+        self.badText.text = "기록이 없어요 :("
+        badText.textAlignment = .center
+        self.thanksText.text = " "
+        self.highlightText.text = " "
     }
 
 }

@@ -29,7 +29,7 @@ class ChartView: UIView {
         if slices != nil && slices!.count > 0 {
             let firstSlice = slices![0]
             addSlice(firstSlice)
-            addLabel(firstSlice)
+            //addLabel(firstSlice)
         }
     }
     
@@ -69,23 +69,24 @@ class ChartView: UIView {
         label.textAlignment = .center
         addSubview(label)
         
-        let roundedPercentage = round(slice.percent * 1000) / 10
+        //let roundedPercentage = round(slice.percent * 1000) / 10
         
         var temp = ""
         
         switch slice.color {
         case .systemYellow:
-            temp = "🌈\n"
+            temp = "🌈"
         case .systemBlue:
-            temp = "💦\n"
+            temp = "💦"
         case .systemGreen:
-            temp = "🌤\n"
+            temp = "🌤"
         case .systemRed:
-            temp = "🔥\n"
+            temp = "🔥"
         default:
             break
         }
-        label.text = temp + "\(roundedPercentage)%"
+        label.text = temp
+        //label.text = temp + "\(roundedPercentage)%"
         
         label.translatesAutoresizingMaskIntoConstraints = false
         label.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: labelCenter.x - center.x).isActive = true
@@ -130,7 +131,7 @@ extension ChartView: CAAnimationDelegate {
             if sliceIndex < slices!.count {
                 let nextSlice = slices![sliceIndex]
                 addSlice(nextSlice)
-                addLabel(nextSlice)
+                //addLabel(nextSlice)
             }
         }
     }

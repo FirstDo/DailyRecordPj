@@ -41,7 +41,7 @@ class CalendarViewController: UIViewController{
         calendar.headerHeight = 40
         calendar.placeholderType = .none
         
-        calendar.appearance.borderRadius = 0
+        //calendar.appearance.borderRadius = 
         calendar.appearance.weekdayTextColor = .black
         calendar.appearance.headerTitleColor = .black
         calendar.appearance.headerDateFormat = "YYYY년 M월"
@@ -132,8 +132,7 @@ class CalendarViewController: UIViewController{
         
         //view.backgroundColor = UIColor(named: "bgColor")
         view.backgroundColor = .systemBackground
-
-
+        
         //초기화 코드: 현재 페이지의 년 월 로 fetch
         let currentPageData = calendar.currentPage
         let month = Calendar.current.component(.month, from: currentPageData)
@@ -243,7 +242,7 @@ extension CalendarViewController {
         
         
         view.addSubview(indexView)
-        indexView.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 20).isActive = true
+        indexView.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 5).isActive = true
         indexView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
        // indexView.bottomAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: -10).isActive = true
 //        indexView.leadingAnchor.constraint(equalTo: calendar.leadingAnchor).isActive = true
@@ -255,7 +254,7 @@ extension CalendarViewController {
         contentView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
         contentView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
         //contentView.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 20).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30).isActive = true
         
         let day = Calendar.current.component(.day, from: Date())
         calendar.select(calendar.today)
@@ -287,14 +286,16 @@ extension CalendarViewController {
 extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     //border Color
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderDefaultColorFor date: Date) -> UIColor? {
-        return .systemGray6
+        return .systemBackground
+        //return .systemGray6
     }
 
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderSelectionColorFor date: Date) -> UIColor? {
-        return .systemGray6
+        guard let entity = listDict[Int(date.day)], let mood = entity.mood else {
+            return .black
+        }
+        return colorDict[mood]
     }
-    
-    
     
     //calendar fill color
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
@@ -306,35 +307,30 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
         guard let entity = listDict[Int(date.day)], let mood = entity.mood else {
-            return UIColor(named: "bgColor")
+            return .systemBackground
         }
         return colorDict[mood]
     }
     
     //calendar title color
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
-        return .white
+        return .black
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        if calendar.today == date {
-            return .systemRed
-        }
-        
         guard let _ = listDict[Int(date.day)] else {
             return .systemGray3
         }
-        
         return .black
     }
 
     //will display cell
-    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
-        if cell.dateIsToday {
-            cell.titleLabel.text = "today"
-            cell.titleLabel.textColor = .systemRed
-        }
-    }
+//    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
+//        if cell.dateIsToday {
+//            cell.titleLabel.text = "today"
+//            cell.titleLabel.textColor = .systemRed
+//        }
+//    }
     
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         //미래 날짜는 선택을 금지한다
@@ -349,11 +345,14 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
         
         //내용이 있으면 해당 내용을 보여주자
         if let entity = listDict[day]{
+            //contentView.lineView.backgroundColor = colorDict[entity.mood!]!
             contentView.setData(entity)
             globalEntity = entity
         }
         //내용이 없으면 빈 뷰를 보여주자
         else {
+            //contentView.lineView.backgroundColor = .black
+            globalEntity = nil
             contentView.setEmpty()
             //초기화
             UserInputData.shared.cleanData()

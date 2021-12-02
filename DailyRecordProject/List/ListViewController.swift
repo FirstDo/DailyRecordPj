@@ -292,22 +292,23 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
         
         if let date = target.date {
             if let idx = date.lastIndex(of: "."), let day = Int((date[idx...].dropFirst())) {
-                var moodStr = ""
-                switch target.mood {
-                case "happy":
-                    moodStr = "🌈"
-                case "sad":
-                    moodStr = "💦"
-                case "soso":
-                    moodStr = "🌤"
-                case "angry":
-                    moodStr = "🔥"
-                default:
-                    break
-                }
-                header.dateTitle.text = " \(day) 일의 기록 " + moodStr
+                header.dateTitle.text = " \(day) 일의 기록"
             }
         }
+        
+        switch target.mood {
+        case "happy":
+            header.moodImage.image = UIImage(named: "happy")
+        case "sad":
+            header.moodImage.image = UIImage(named: "sad1")
+        case "soso":
+            header.moodImage.image = UIImage(named: "soso")
+        case "angry":
+            header.moodImage.image = UIImage(named: "angry")
+        default:
+            break
+        }
+        
         return header
     }
     
@@ -324,7 +325,7 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
         
         let target = list[indexPath.section]
         cell.goodLabel.text = "😀 " + target.good!
-        cell.badLabel.text = "🙁 " + target.bad!
+        cell.badLabel.text = "😵 " + target.bad!
         cell.thanksLabel.text = "🥰 " + target.thanks!
         cell.highlightLabel.text = "🤔 " + target.highlight!
 

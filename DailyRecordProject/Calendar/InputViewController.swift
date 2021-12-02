@@ -32,15 +32,15 @@ class InputViewController: UIViewController {
     }()
     
     @objc func singleTapGesture(_ sender: UITapGestureRecognizer) {
-        guard let tag = sender.view?.tag, let selectedView = view.viewWithTag(tag) as? UIImageView else {
-            fatalError("tap tag Error")
+        guard let tag = sender.view?.tag else {
+            //fatalError("tap tag Error")
+            return
         }
         
-        for i in 0..<4 {
-            emotionButtons[i].tintColor = .systemBlue
+        lineView.arrangedSubviews.forEach{$0.backgroundColor = .systemBackground}
+        UIView.animate(withDuration: 1) {
+            self.lineView.arrangedSubviews[tag-1].backgroundColor = .systemRed
         }
-        
-        selectedView.tintColor = .systemRed
         
         switch tag {
         case 1:
@@ -54,18 +54,20 @@ class InputViewController: UIViewController {
         default:
             break
         }
+        
         nextButton.backgroundColor = .systemOrange
         nextButton.isEnabled = true
-        
     }
     
+    
+    
     lazy var emotionButtons : [UIImageView] = {
-        let happyImg = UIImageView(image: UIImage(systemName: "sun.max"))
-        let sadImg = UIImageView(image: UIImage(systemName: "cloud.drizzle"))
-        let sosoImg = UIImageView(image: UIImage(systemName: "moon"))
-        let angryImg = UIImageView(image: UIImage(systemName: "cloud.bolt.rain"))
+        let happyImg = UIImageView(image: UIImage(named: "happy"))
+        let sadImg = UIImageView(image: UIImage(named: "sad1"))
+        let sosoImg = UIImageView(image: UIImage(named: "soso"))
+        let angryImg = UIImageView(image: UIImage(named: "angry"))
         
-
+        
         
         let imageViewList = [happyImg,sadImg,sosoImg,angryImg]
         for i in 0..<4 {
@@ -80,6 +82,18 @@ class InputViewController: UIViewController {
         return imageViewList
     }()
     
+    lazy var lineView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [UIView(),UIView(),UIView(),UIView()])
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.isLayoutMarginsRelativeArrangement = true
+        sv.layoutMargins.left = 10
+        sv.layoutMargins.right = 10
+        sv.axis = .horizontal
+        sv.spacing = 20
+        sv.distribution = .fillEqually
+        return sv
+    }()
+    
     lazy var stackView: UIStackView = {
         let stackV = UIStackView(arrangedSubviews: emotionButtons)
         stackV.translatesAutoresizingMaskIntoConstraints = false
@@ -89,8 +103,8 @@ class InputViewController: UIViewController {
         stackV.axis = .horizontal
         stackV.spacing = 20
         stackV.distribution = .fillEqually
-        stackV.backgroundColor = .systemGroupedBackground
-       
+        //stackV.backgroundColor = .systemGroupedBackground
+        
         return stackV
     }()
     
@@ -104,18 +118,11 @@ class InputViewController: UIViewController {
             targetSetting()
         } else {
             if let mood = UserInputData.shared.mood {
-                switch mood {
-                case "happy":
-                    emotionButtons[0].tintColor = .systemRed
-                case "sad":
-                    emotionButtons[1].tintColor = .systemRed
-                case "soso":
-                    emotionButtons[2].tintColor = .systemRed
-                case "angry":
-                    emotionButtons[3].tintColor = .systemRed
-                default:
-                    break
+                let list = ["happy", "sad", "soso", "angry"]
+                if let index = list.firstIndex(of: mood) {
+                    lineView.arrangedSubviews[index].backgroundColor = .systemRed
                 }
+
                 nextButton.backgroundColor = .systemOrange
                 nextButton.isEnabled = true
             }
@@ -151,13 +158,19 @@ class InputViewController: UIViewController {
         stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
         stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100).isActive = true
         
+        view.addSubview(lineView)
+        lineView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor).isActive = true
+        lineView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor).isActive = true
+        lineView.topAnchor.constraint(equalTo: stackView.bottomAnchor).isActive = true
+        lineView.heightAnchor.constraint(equalToConstant: 5).isActive = true
+        
         view.addSubview(nextButton)
         nextButton.addTarget(self, action: #selector(gotoGoodViewAction), for: .touchUpInside)
         nextButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         nextButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 40).isActive = true
         nextButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40).isActive = true
         nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50).isActive = true
-
+        
     }
     
     @objc func gotoGoodViewAction() {
@@ -171,7 +184,7 @@ class InputViewController: UIViewController {
         inputField.delegate = self
         inputField.returnKeyType = .next
         inputField.enablesReturnKeyAutomatically = true
-
+        
         keyboardNotification()
         setInputField()
     }
@@ -192,7 +205,7 @@ class InputViewController: UIViewController {
             switch viewTitle {
             case "good":
                 title = "잘한일 " + txt
-                inputField.placeholder = "잘한일 ✌️"
+                inputField.placeholder = "잘한일 😀"
             case "bad":
                 title = "못한일 " + txt
                 inputField.placeholder = "못한일 😵"
@@ -206,7 +219,7 @@ class InputViewController: UIViewController {
             default:
                 break
             }
-
+            
         } else {
             
         }
@@ -230,7 +243,7 @@ class InputViewController: UIViewController {
         inputField.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100).isActive = true
         inputField.becomeFirstResponder()
     }
-
+    
 }
 
 extension InputViewController: UITextFieldDelegate {
@@ -249,7 +262,7 @@ extension InputViewController: UITextFieldDelegate {
         case "thanks":
             data.thanksThing = inputField.text
             nextVC.viewTitle = "highlight"
-        //여기서 데이터를 저장하자!
+            //여기서 데이터를 저장하자!
         case "highlight":
             data.highlightThing = inputField.text
             if let (date, mood, good, bad, thanks, highlight, month,year) = UserInputData.shared.getAllData() {
