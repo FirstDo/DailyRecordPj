@@ -18,7 +18,6 @@ class DataManager {
     
     var mainContext: NSManagedObjectContext {
         guard let context = container?.viewContext else {
-            print("CoreDataError")
             return NSManagedObjectContext.init(concurrencyType: .mainQueueConcurrencyType)
         }
         return context
@@ -39,7 +38,7 @@ class DataManager {
                 do {
                     try self.mainContext.save()
                 } catch {
-                    print("save Error")
+                    print(error.localizedDescription)
                 }
             }
         }

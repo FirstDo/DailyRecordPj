@@ -10,10 +10,9 @@ import UserNotifications
 import NotificationCenter
 
 func reservePushNoti() {
-    print("reservePushNoti")
     let content = UNMutableNotificationContent()
-    content.title = "제목입니다"
-    content.body = "내용입니다"
+    content.title = "하루기록"
+    content.body = "오늘의 하루를 기록하세요"
     content.badge = 1
     content.sound = UNNotificationSound.default
     
@@ -27,8 +26,6 @@ func reservePushNoti() {
     UNUserNotificationCenter.current().add(request) { error in
         if let error = error {
             print(error)
-        } else {
-            print("Done")
         }
     }
     UserDefaults.standard.set(true, forKey: UserDefaultKey.switchState)
@@ -36,7 +33,6 @@ func reservePushNoti() {
 }
 
 func removePushNoti() {
-    print("removePushNoti")
     UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     UserDefaults.standard.set(false, forKey: UserDefaultKey.switchState)
     NotificationCenter.default.post(name: .pushChanged, object: nil)

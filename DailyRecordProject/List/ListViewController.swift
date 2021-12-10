@@ -49,7 +49,7 @@ class ListViewController: UIViewController {
                 yearPicker.selectRow(yearIdx, inComponent: 0, animated: true)
                 monthPicker.selectRow(monthIdx, inComponent: 0, animated: true)
             } else {
-                print("SelectButton ERROR")
+
             }
         }
     }
@@ -59,9 +59,9 @@ class ListViewController: UIViewController {
         let tb = UIToolbar()
         tb.translatesAutoresizingMaskIntoConstraints = false
         tb.frame = CGRect(x: 0, y: 0, width: 0, height: 40)
-        tb.barTintColor = .systemBackground
         let flexBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let doneBtn = UIBarButtonItem(title: "완료", style: .done, target: self, action: #selector(clickDoneBtn(_:)))
+        doneBtn.tintColor = .black
         tb.setItems([flexBtn, doneBtn], animated: true)
         return tb
     }()
@@ -92,15 +92,6 @@ class ListViewController: UIViewController {
     private let dateInputView: UIView = {
         let v = UIView()
         v.backgroundColor = .systemBackground
-        
-        //v.frame = CGRect(x: 0, y: 0, width: 0, height: 250)
-        
-//        if let height = UserDefaults.standard.value(forKey: UserDefaultKey.keyboardHeight) as? CGFloat {
-//            v.frame = CGRect(x: 0, y: 0, width: 0, height: height)
-//        } else {
-//            print("Cannot get Keyboard Height")
-//            v.frame = CGRect(x: 0, y: 0, width: 0, height: 250)
-//        }
         return v
     }()
     //monthPicker
@@ -145,15 +136,12 @@ class ListViewController: UIViewController {
         //notification setting
         //data가 바뀌었을때!
         changeToken = NotificationCenter.default.addObserver(forName: .dataChanged, object: nil, queue: .main, using: { [weak self]_ in
-            print("list noti called")
-            
             if let month = UserDefaults.standard.value(forKey: UserDefaultKey.listMonth) as? Int16, let year = UserDefaults.standard.value(forKey: UserDefaultKey.listYear) as? Int16 {
-                
-                print(month, year)
-                
                 self?.list = DataManager.shared.fetchTask(month,year)
+                self?.selectedDateLabel.text = "\(year)년 \(month)월"
             } else {
                 self?.list = DataManager.shared.fetchTask(Date.month,Date.year)
+                self?.selectedDateLabel.text = "\(Date.year)년 \(Date.month)월"
             }
             self?.tableView.reloadData()
         })
@@ -318,7 +306,6 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath) as? ListCell else {
-            print("error")
             return UITableViewCell()
         }
         cell.selectionStyle = .none

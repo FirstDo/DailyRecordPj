@@ -19,22 +19,8 @@ class IndexStackView: UIStackView {
         setUp()
     }
     
-    
     private func setUp() {
-        print("HI")
         axis = .horizontal
-        
-        
-//        let v = UIView()
-//        v.widthAnchor.constraint(equalToConstant: 10).isActive = true
-//        v.backgroundColor = .systemRed
-//        let lb = UILabel()
-//        lb.text = "hi"
-//
-//        self.addArrangedSubview(v)
-//        self.addArrangedSubview(lb)
-//        self.distribution = .fill
-//        self.spacing = 5
         
         let nameList = ["happy", "sad", "soso", "angry"]
         let korName = ["행복 ","슬픔 ","보통 ","화남 "]

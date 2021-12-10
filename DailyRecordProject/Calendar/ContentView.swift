@@ -34,13 +34,6 @@ class ContentView: UIView {
         return btn
     }()
     
-//    let tapButton: UIButton = {
-//        var btn = UIButton()
-//        btn.setImage(UIImage(systemName: "plus"), for: .normal)
-//        btn.translatesAutoresizingMaskIntoConstraints = false
-//        return btn
-//    }()
-    
     private let goodText: UILabel = {
         var lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
@@ -135,6 +128,7 @@ class ContentView: UIView {
         //tapButton.isHidden = true
         badText.textAlignment = .left
         deleteButton.isHidden = false
+        lineView.isHidden = false
         //editButton.isHidden = false
 
         self.dateLabel.text = entity.date! + " 기록"
@@ -149,6 +143,7 @@ class ContentView: UIView {
         //tapButton.isHidden = false
         deleteButton.isHidden = true
         //editButton.isHidden = true
+        lineView.isHidden = true
         
         self.dateLabel.text = " "
         self.goodText.text = " "
@@ -159,5 +154,6 @@ class ContentView: UIView {
     }
 
 }
+
 
 

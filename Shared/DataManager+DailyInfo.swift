@@ -12,7 +12,6 @@ extension DataManager {
     //entity를 create하는 함수
     func createDailyInfo(date: String, mood: String, good: String, bad: String, thanks: String, highlight: String, month: Int16, year: Int16, completion: (() -> ())? = nil) {
         mainContext.perform {
-            print("CREATE")
             let newTask = DailyInfoEntity(context: self.mainContext)
             newTask.date = date
             newTask.mood = mood
@@ -30,7 +29,6 @@ extension DataManager {
     
     //특정 month의 기록들을 fetch하는 함수
     func fetchTask(_ month: Int16, _ year: Int16) -> [DailyInfoEntity] {
-        print("FETCH")
         var list = [DailyInfoEntity]()
         
         mainContext.performAndWait {
@@ -70,14 +68,12 @@ extension DataManager {
             
             self.saveContent()
             completion?()
-            print("UPDATE")
         }
     }
     
     //entity를 삭제하는 함수
     func deleteTask(entity: DailyInfoEntity, completion: (()->())? = nil) {
         mainContext.perform {
-            print("DELETE")
             self.mainContext.delete(entity)
             self.saveContent()
             completion?()

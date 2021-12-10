@@ -157,7 +157,6 @@ class CalendarViewController: UIViewController{
         
         //옵져버
         token = NotificationCenter.default.addObserver(forName: .dataChanged, object: nil, queue: .main, using: { [unowned self]_ in
-            print("delete noti")
             let currentPageData = self.calendar.currentPage
             let month = currentPageData.month
             let year = currentPageData.year
@@ -173,7 +172,6 @@ class CalendarViewController: UIViewController{
                     self.listDict[day] = entity
                 }
             }
-            print(self.listDict)
             let date = self.calendar.selectedDate!
             let day = Int(date.day)
             
@@ -324,14 +322,6 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
         return .black
     }
 
-    //will display cell
-//    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
-//        if cell.dateIsToday {
-//            cell.titleLabel.text = "today"
-//            cell.titleLabel.textColor = .systemRed
-//        }
-//    }
-    
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         //미래 날짜는 선택을 금지한다
         let difference = Calendar.current.dateComponents([.second], from: Date(), to: date).second!
@@ -364,7 +354,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
             
             UserInputData.shared.month = month
             UserInputData.shared.year = year
-            //push
+
         }
     }
 
@@ -372,6 +362,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
         UserDefaults.standard.set(calendar.currentPage.month, forKey: UserDefaultKey.listMonth)
         UserDefaults.standard.set(calendar.currentPage.year, forKey: UserDefaultKey.listYear)
         NotificationCenter.default.post(name: .dataChanged, object: nil)
+        print("didchanged")
     }
 }
 

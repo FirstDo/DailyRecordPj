@@ -10,7 +10,7 @@ import UIKit
 class OpenSourceViewController: UITableViewController {
     
     let versionInfo = ["1.0.0"]
-    let versionContent = [""]
+    let versionContent = ["최초버전: 업데이트내용 없음"]
     let openSource = ["FSCalendar"]
     let openSourceContent = [
 """
@@ -41,6 +41,10 @@ class OpenSourceViewController: UITableViewController {
         title = "오픈소스 & 앱 버전"
         super.viewDidLoad()
         tableView.register(PlainTableViewCell.self, forCellReuseIdentifier: "cell")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     // MARK: - Table view data source
@@ -85,7 +89,10 @@ class OpenSourceViewController: UITableViewController {
             modalVC.content = openSourceContent[indexPath.row]
         } else {
             modalVC.infoTitle = versionInfo[indexPath.row]
+            modalVC.content = versionContent[indexPath.row]
         }
         present(modalVC, animated: true, completion: nil)
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

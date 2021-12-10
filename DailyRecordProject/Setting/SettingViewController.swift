@@ -67,9 +67,6 @@ class SettingViewController: UITableViewController {
         if let selectedIdx = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selectedIdx, animated: true)
         }
-        
-        print("viewWillAppear")
-        
     }
 }
 

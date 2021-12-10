@@ -4,6 +4,8 @@
 import Foundation
 import UIKit
 
+let colorDict: [String: UIColor] = ["happy": UIColor(named: "happyColor")!, "sad": UIColor(named: "sadColor")!, "soso": UIColor(named: "sosoColor")!, "angry": UIColor(named: "angryColor")!]
+
 //list page의 month, year를 선택했을때, view를 다시 보여주기 위한 Notification
 extension Notification.Name {
     static let reloadListData = Notification.Name("reloadListData")
@@ -43,8 +45,6 @@ extension Date {
         return Int16(comp.day!)
     }
 }
-
-let colorDict: [String: UIColor] = ["happy": UIColor(named: "happyColor")!, "sad": UIColor(named: "sadColor")!, "soso": UIColor(named: "sosoColor")!, "angry": UIColor(named: "angryColor")!]
 
 
 

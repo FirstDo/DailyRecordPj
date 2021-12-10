@@ -11,6 +11,7 @@ class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // MARK: - color와 image 나중에 최종수정해야함
         tabBar.tintColor = .black
         tabBar.unselectedItemTintColor = .systemGray3
@@ -42,6 +43,5 @@ class TabBarViewController: UITabBarController {
         
         viewControllers = [AnalysisVC,CalendarVC,ListVC,SettingVC]
         selectedIndex = 1
-        
     }
 }

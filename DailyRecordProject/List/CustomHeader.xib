@@ -22,10 +22,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="INi-SF-H67">
-                    <rect key="frame" x="234.5" y="35" width="30" height="30"/>
+                    <rect key="frame" x="340" y="37.5" width="25" height="25"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="30" id="1Xp-X8-ygA"/>
-                        <constraint firstAttribute="width" constant="30" id="ugO-QN-ykb"/>
+                        <constraint firstAttribute="height" constant="25" id="1Xp-X8-ygA"/>
+                        <constraint firstAttribute="width" constant="25" id="ugO-QN-ykb"/>
                     </constraints>
                 </imageView>
             </subviews>
@@ -33,10 +33,8 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="cSI-zl-wZu" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="AoA-zK-6A9"/>
-                <constraint firstItem="INi-SF-H67" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="top" constant="5" id="Pwa-GT-GNT"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="INi-SF-H67" secondAttribute="trailing" constant="10" id="V70-H6-6yv"/>
                 <constraint firstItem="cSI-zl-wZu" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="mRH-9C-nEz"/>
-                <constraint firstItem="INi-SF-H67" firstAttribute="leading" secondItem="cSI-zl-wZu" secondAttribute="trailing" constant="30" id="n6J-3d-0g6"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="INi-SF-H67" secondAttribute="bottom" constant="5" id="nQZ-Lu-yZI"/>
                 <constraint firstItem="INi-SF-H67" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="qmr-kL-ajJ"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

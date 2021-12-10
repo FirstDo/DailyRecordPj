@@ -58,16 +58,11 @@ class InputViewController: UIViewController {
         nextButton.backgroundColor = .systemOrange
         nextButton.isEnabled = true
     }
-    
-    
-    
     lazy var emotionButtons : [UIImageView] = {
         let happyImg = UIImageView(image: UIImage(named: "happy"))
         let sadImg = UIImageView(image: UIImage(named: "sad1"))
         let sosoImg = UIImageView(image: UIImage(named: "soso"))
         let angryImg = UIImageView(image: UIImage(named: "angry"))
-        
-        
         
         let imageViewList = [happyImg,sadImg,sosoImg,angryImg]
         for i in 0..<4 {
@@ -195,11 +190,11 @@ class InputViewController: UIViewController {
         
         //title
         navigationController!.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 20)]
-        title = "기분을 기록중... 📝"
+        title = "기분을 기록중"
     }
     
     func targetSetting() {
-        let txt = Self.entity==nil ? "작성중..." : "수정중..."
+        let txt = "기록중"
         
         if let viewTitle = viewTitle {
             switch viewTitle {
@@ -266,7 +261,6 @@ extension InputViewController: UITextFieldDelegate {
         case "highlight":
             data.highlightThing = inputField.text
             if let (date, mood, good, bad, thanks, highlight, month,year) = UserInputData.shared.getAllData() {
-                print("year: \(year)을 저장할꺼야!")
                 //싱글톤 클래스 초기화
                 UserInputData.shared.cleanData()
                 
@@ -289,7 +283,6 @@ extension InputViewController: UITextFieldDelegate {
                 }
             } else {
                 //여기까지 올 일이 없긴해
-                print("데이터 저장/수정 실패")
                 return false
             }
         default:

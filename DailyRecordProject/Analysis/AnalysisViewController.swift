@@ -11,8 +11,8 @@ class AnalysisViewController: UIViewController {
     let titleLabel: UILabel = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
-        lb.text = "이번달의 기록 🧐"
-        lb.font = UIFont.boldSystemFont(ofSize: 30)
+        lb.text = "\(Date.month)월달의 기록 🧐"
+        lb.font = UIFont.boldSystemFont(ofSize: 35)
         return lb
     }()
     
@@ -20,7 +20,7 @@ class AnalysisViewController: UIViewController {
         let lb = titleLabel
         view.addSubview(lb)
         lb.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        lb.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        lb.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         
         let indexView = IndexStackView()
         indexView.translatesAutoresizingMaskIntoConstraints = false
@@ -56,10 +56,11 @@ class AnalysisViewController: UIViewController {
         var percentList: [CGFloat] = [0,0,0,0]
         var colorList: [UIColor] = [colorDict["happy"], colorDict["sad"], colorDict["soso"],colorDict["angry"]].compactMap{$0}
         
-        let month = Date().month
-        let year = Date().year
+        let month = UserDefaults.standard.value(forKey: UserDefaultKey.listMonth) as? Int16 ?? Date().month
+        let year = UserDefaults.standard.value(forKey: UserDefaultKey.listYear) as? Int16 ?? Date().year
+        titleLabel.text = "\(month)월달의 기록 🧐"
         
-        let list = DataManager.shared.fetchTask(Int16(month), Int16(year))
+        let list = DataManager.shared.fetchTask(month, year)
         
         if list.count == 0 {
             drawPieChart([],[])
