@@ -20,7 +20,6 @@ class ChartView: UIView {
     var currentPercent: CGFloat = 0.0
     
     func animateChart() {
-        print(#function)
         sliceIndex = 0
         currentPercent = 0.0
         self.layer.sublayers = nil
@@ -29,13 +28,11 @@ class ChartView: UIView {
         if slices != nil && slices!.count > 0 {
             let firstSlice = slices![0]
             addSlice(firstSlice)
-            //addLabel(firstSlice)
         }
     }
     
     //pieChart 그리기
     func addSlice(_ slice: Slice) {
-        print(#function)
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.fromValue = 0
         animation.toValue = 1
@@ -57,42 +54,7 @@ class ChartView: UIView {
         self.layer.addSublayer(sliceLayer)
     }
     
-    //lable 그리기
-    func addLabel(_ slice: Slice) {
-        print(#function)
-        let center = self.center
-        let labelCenter = getLabelCenter(currentPercent, currentPercent + slice.percent)
-        
-        let label = UILabel()
-        label.textColor = .black
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        addSubview(label)
-        
-        //let roundedPercentage = round(slice.percent * 1000) / 10
-        
-        var temp = ""
-        
-        switch slice.color {
-        case .systemYellow:
-            temp = "🌈"
-        case .systemBlue:
-            temp = "💦"
-        case .systemGreen:
-            temp = "🌤"
-        case .systemRed:
-            temp = "🔥"
-        default:
-            break
-        }
-        label.text = temp
-        //label.text = temp + "\(roundedPercentage)%"
-        
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: labelCenter.x - center.x).isActive = true
-        label.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: labelCenter.y - center.y).isActive = true
-        self.layoutIfNeeded()
-    }
+
     
     private func getLabelCenter(_ fromPercent: CGFloat, _ toPercent: CGFloat) -> CGPoint {
         let canvasWidth = self.frame.width * 0.7
@@ -131,7 +93,6 @@ extension ChartView: CAAnimationDelegate {
             if sliceIndex < slices!.count {
                 let nextSlice = slices![sliceIndex]
                 addSlice(nextSlice)
-                //addLabel(nextSlice)
             }
         }
     }

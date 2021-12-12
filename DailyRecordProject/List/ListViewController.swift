@@ -72,7 +72,6 @@ class ListViewController: UIViewController {
         let monthIdx = monthPicker.selectedRow(inComponent: 0)
         
         if let selectedYear = Int16(yearList[yearIdx]) , let selectedMonth = Int16(monthList[monthIdx]) {
-            print(selectedYear, selectedMonth)
             //값 저장
             UserDefaults.standard.set(selectedYear, forKey: UserDefaultKey.listYear)
             UserDefaults.standard.set(selectedMonth, forKey: UserDefaultKey.listMonth)

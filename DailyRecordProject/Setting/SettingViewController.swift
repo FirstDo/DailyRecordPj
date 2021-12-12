@@ -36,14 +36,8 @@ class SettingViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            //리뷰 남기기
-            
-        } else {
-            //오픈소스 라이센스
-            let openVC = OpenSourceViewController()
-            navigationController?.pushViewController(openVC, animated: true)
-        }
+        let openVC = OpenSourceViewController()
+        navigationController?.pushViewController(openVC, animated: true)
     }
     
     override func viewDidLoad() {

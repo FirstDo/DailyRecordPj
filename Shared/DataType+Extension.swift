@@ -1,5 +1,5 @@
 //  DataType+Extension.swift
-//  여러 type들의 extension을
+//  Notification Extension & Date Extension
 
 import Foundation
 import UIKit

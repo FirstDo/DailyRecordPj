@@ -1,8 +1,6 @@
 //
 //  IndexStackView.swift
-//  DailyRecordProject
 //
-//  Created by 김도연 on 2021/12/02.
 //
 
 import UIKit

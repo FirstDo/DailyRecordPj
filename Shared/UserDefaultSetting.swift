@@ -1,8 +1,5 @@
 //
-//  UserDefaultSetting.swift
-//  DailyRecordProject
-//
-//  Created by 김도연 on 2021/10/09.
+//UserDefault key
 //
 
 import Foundation

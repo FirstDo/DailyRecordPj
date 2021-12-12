@@ -1,8 +1,5 @@
 //
-//  DataManager+DailyInfo.swift
-//  DailyRecordProject
-//
-//  Created by 김도연 on 2021/10/05.
+//Create, Fetch, Delete, Update를 수행하는 DataManager Extension
 //
 
 import Foundation

@@ -124,7 +124,6 @@ class InputViewController: UIViewController {
             evaluateSetting()
         }
         
-        print(nextButton.isEnabled)
     }
     
     override func viewWillAppear(_ animated: Bool) {

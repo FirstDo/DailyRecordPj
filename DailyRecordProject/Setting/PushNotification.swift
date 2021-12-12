@@ -23,10 +23,8 @@ func reservePushNoti() {
     let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
     let request = UNNotificationRequest(identifier: "alarm", content: content, trigger: trigger)
     
-    UNUserNotificationCenter.current().add(request) { error in
-        if let error = error {
-            print(error)
-        }
+    UNUserNotificationCenter.current().add(request) { _ in
+        
     }
     UserDefaults.standard.set(true, forKey: UserDefaultKey.switchState)
     NotificationCenter.default.post(name: .pushChanged, object: nil)

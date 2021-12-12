@@ -7,6 +7,7 @@
 
 import UIKit
 import FSCalendar
+import StoreKit
 
 class CalendarViewController: UIViewController{
     //notification
@@ -41,7 +42,7 @@ class CalendarViewController: UIViewController{
         calendar.headerHeight = 40
         calendar.placeholderType = .none
         
-        //calendar.appearance.borderRadius = 
+        //calendar.appearance.borderRadius =
         calendar.appearance.weekdayTextColor = .black
         calendar.appearance.headerTitleColor = .black
         calendar.appearance.headerDateFormat = "YYYY년 M월"
@@ -93,10 +94,6 @@ class CalendarViewController: UIViewController{
         return v
     }()
     
-//    @objc func makeNewReport() {
-//        print("tapButton")
-//
-//    }
     @objc func editReport() {
         //기존 데이터의 수정
         if let target = globalEntity {
@@ -112,7 +109,6 @@ class CalendarViewController: UIViewController{
     }
     @objc func deleteReport() {
         guard let target = globalEntity else {
-            print("Error. Edit Fail")
             return
         }
         let alertController = UIAlertController(title: "정말 삭제할까요?", message: nil, preferredStyle: .alert)
@@ -178,7 +174,7 @@ class CalendarViewController: UIViewController{
             if let entity = self.listDict[day]{
                 self.contentView.setData(entity)
                 self.globalEntity = entity
-
+                
             } else {
                 self.contentView.setEmpty()
                 let selectedDate = self.formatter.string(from: date)
@@ -196,25 +192,33 @@ class CalendarViewController: UIViewController{
             }
             self.calendar.reloadData()
         })
-//        view.backgroundColor = .systemBackground
+        //        view.backgroundColor = .systemBackground
         
         let backBarBtn = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationItem.backBarButtonItem = backBarBtn
         
         calendarSetting()
         contentViewSetting()
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         super.navigationController?.isNavigationBarHidden = true
-        print(#function)
+        
+        //review Code
+        if #available(iOS 14.0, *) {
+            if let scene = UIApplication.shared.connectedScenes.first(where: {$0.activationState == .foregroundActive}) as? UIWindowScene {
+                SKStoreReviewController.requestReview(in: scene)
+            }
+        } else {
+            SKStoreReviewController.requestReview()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         super.navigationController?.isNavigationBarHidden = false
-        print(#function)
     }
 }
 
@@ -242,9 +246,9 @@ extension CalendarViewController {
         view.addSubview(indexView)
         indexView.topAnchor.constraint(equalTo: calendar.bottomAnchor, constant: 5).isActive = true
         indexView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-       // indexView.bottomAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: -10).isActive = true
-//        indexView.leadingAnchor.constraint(equalTo: calendar.leadingAnchor).isActive = true
-//        indexView.trailingAnchor.constraint(equalTo: calendar.trailingAnchor).isActive = true
+        // indexView.bottomAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: -10).isActive = true
+        //        indexView.leadingAnchor.constraint(equalTo: calendar.leadingAnchor).isActive = true
+        //        indexView.trailingAnchor.constraint(equalTo: calendar.trailingAnchor).isActive = true
     }
     
     func contentViewSetting() {
@@ -287,7 +291,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
         return .systemBackground
         //return .systemGray6
     }
-
+    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderSelectionColorFor date: Date) -> UIColor? {
         guard let entity = listDict[Int(date.day)], let mood = entity.mood else {
             return .black
@@ -321,7 +325,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
         }
         return .black
     }
-
+    
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         //미래 날짜는 선택을 금지한다
         let difference = Calendar.current.dateComponents([.second], from: Date(), to: date).second!
@@ -354,15 +358,14 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
             
             UserInputData.shared.month = month
             UserInputData.shared.year = year
-
+            
         }
     }
-
+    
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         UserDefaults.standard.set(calendar.currentPage.month, forKey: UserDefaultKey.listMonth)
         UserDefaults.standard.set(calendar.currentPage.year, forKey: UserDefaultKey.listYear)
         NotificationCenter.default.post(name: .dataChanged, object: nil)
-        print("didchanged")
     }
 }
 

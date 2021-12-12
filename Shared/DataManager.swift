@@ -1,9 +1,4 @@
-//
-//  DataManager.swift
-//  DailyRecordProject
-//
-//  Created by 김도연 on 2021/10/05.
-//
+//DataManager Class. 코어데이터 setUp과 save를 담당
 
 import Foundation
 import CoreData

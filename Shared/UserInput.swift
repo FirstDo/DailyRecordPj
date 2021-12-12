@@ -1,6 +1,6 @@
 /*
  데이터 저장을 위한 singleton class
- 유저의 입력을 저장해 놨다가, 마지막 highlight를 저장할때 저장된 데이터를 읽어오는데 쓰인다.
+ 유저의 입력을 저장해 놨다가, 마지막 highlight를 저장할때 저장된 데이터를 읽고 코어데이터에 저장
  */
 
 import Foundation
