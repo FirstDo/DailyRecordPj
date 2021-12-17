@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class InfoModalViewController: UIViewController {
     
@@ -15,7 +16,6 @@ class InfoModalViewController: UIViewController {
     lazy var infoView: UITextView = {
         let v = UITextView()
         v.isEditable = false
-        v.translatesAutoresizingMaskIntoConstraints = false
         v.textContainer.lineBreakMode = .byWordWrapping
         v.font = UIFont.systemFont(ofSize: 15)
         v.dataDetectorTypes = .link
@@ -25,7 +25,6 @@ class InfoModalViewController: UIViewController {
     
     lazy var titleLabel: UILabel = {
         let lb = UILabel()
-        lb.translatesAutoresizingMaskIntoConstraints = false
         lb.font = UIFont.systemFont(ofSize: 25)
         lb.text = infoTitle
         return lb
@@ -34,17 +33,21 @@ class InfoModalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        
+        constraintSetting()
+    }
+    
+    private func constraintSetting() {
         view.addSubview(titleLabel)
-        titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        titleLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        titleLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(view)
+            make.top.equalToSuperview().offset(20)
+        }
         
         view.addSubview(infoView)
-        infoView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
-        infoView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-        infoView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
-        infoView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
-        
-        //infoView.text = content
+        infoView.contentInset = UIEdgeInsets(top: 50, left: 15, bottom: 20, right: 15)
+        infoView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom)
+            make.leading.bottom.trailing.equalToSuperview()
+        }
     }
 }
