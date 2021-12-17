@@ -9,19 +9,12 @@ import UIKit
 
 class ContentView: UIView {
     var globalEntity: DailyInfoEntity?
-    
     //elements
-    private let dateLabel: UILabel = {
-        var lb = UILabel()
-        lb.font = UIFont.systemFont(ofSize: 20)
-        lb.translatesAutoresizingMaskIntoConstraints = false
-        return lb
-    }()
+    private let dateLabel = UILabel()
     
     let editButton: UIButton = {
         var btn = UIButton()
         btn.tintColor = .CustomBlack
-        btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
         return btn
     }()
@@ -29,47 +22,30 @@ class ContentView: UIView {
     let deleteButton: UIButton = {
         var btn = UIButton()
         btn.tintColor = .systemRed
-        btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(systemName: "trash"), for: .normal)
         return btn
     }()
     
-    private let goodText: UILabel = {
-        var lb = UILabel()
-        lb.translatesAutoresizingMaskIntoConstraints = false
-        return lb
-    }()
+    private let goodText = UILabel()
+    private let badText = UILabel()
+    private let thanksText = UILabel()
+    private let highlightText = UILabel()
     
-    private let badText: UILabel = {
-        var lb = UILabel()
-        lb.translatesAutoresizingMaskIntoConstraints = false
-        return lb
-    }()
-    
-    private let thanksText: UILabel = {
-        var lb = UILabel()
-        lb.translatesAutoresizingMaskIntoConstraints = false
-        return lb
-    }()
-    
-    private let highlightText: UILabel = {
-        var lb = UILabel()
-        lb.translatesAutoresizingMaskIntoConstraints = false
-        return lb
-    }()
-    
-    let lineView: UIView = {
-        let v = UIView()
-        v.backgroundColor = colorDict["angry"]!
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
+    private let lineView = UIView()
     
     private lazy var labelStack: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [goodText, badText, thanksText, highlightText])
-        sv.translatesAutoresizingMaskIntoConstraints = false
         sv.axis = .vertical
         sv.spacing = 20
+        sv.distribution = .fillEqually
+        sv.alignment = .fill
+        return sv
+    }()
+    
+    private lazy var buttonStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [editButton, deleteButton])
+        sv.axis = .horizontal
+        sv.spacing = 5
         sv.distribution = .fillEqually
         sv.alignment = .fill
         return sv
@@ -78,58 +54,57 @@ class ContentView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         initSetting()
+        setConstraint()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         initSetting()
+        setConstraint()
+    }
+    
+    private func setConstraint() {
+        addSubview(labelStack)
+        addSubview(dateLabel)
+        addSubview(lineView)
+        addSubview(buttonStackView)
+        
+        dateLabel.font = UIFont.systemFont(ofSize: 20)
+        dateLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.top).offset(10)
+            make.centerX.equalToSuperview()
+        }
+        
+        buttonStackView.snp.makeConstraints { make in
+            make.trailing.equalTo(self.snp.trailing).offset(-10)
+            make.top.equalTo(dateLabel.snp.top)
+        }
+        
+        lineView.backgroundColor = colorDict["angry"]!
+        lineView.snp.makeConstraints { make in
+            make.height.equalTo(2)
+            make.top.equalTo(dateLabel.snp.bottom).offset(3)
+            make.leading.trailing.equalTo(dateLabel)
+        }
+        
+        labelStack.snp.makeConstraints { make in
+            make.leading.equalTo(self.snp.leading).offset(10)
+            make.trailing.equalTo(self.snp.trailing).offset(-10)
+            make.top.equalTo(lineView.snp.bottom).offset(10)
+            make.bottom.equalTo(self.snp.bottom).offset(-10)
+        }
     }
     
     private func initSetting() {
         backgroundColor = .systemGray6
         layer.cornerRadius = 20
-        isUserInteractionEnabled = true
-        
-        //addSubview(tapButton)
-        addSubview(labelStack)
-        addSubview(dateLabel)
-        addSubview(editButton)
-        addSubview(deleteButton)
-        addSubview(lineView)
-        
-        dateLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
-        dateLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        
-        deleteButton.topAnchor.constraint(equalTo: dateLabel.topAnchor).isActive = true
-        deleteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
-        editButton.topAnchor.constraint(equalTo: dateLabel.topAnchor).isActive = true
-        editButton.trailingAnchor.constraint(equalTo: deleteButton.leadingAnchor, constant: -10).isActive = true
-        
-        lineView.leadingAnchor.constraint(equalTo: dateLabel.leadingAnchor, constant: -5).isActive = true
-        lineView.trailingAnchor.constraint(equalTo: dateLabel.trailingAnchor, constant: 5).isActive = true
-        lineView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 3).isActive = true
-        lineView.heightAnchor.constraint(equalToConstant: 2).isActive = true
-        
-        //for 4 report Label
-        labelStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
-        labelStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
-        labelStack.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 10).isActive = true
-        labelStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
-        
-//        //for empty View tap
-//        tapButton.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-//        tapButton.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-//        tapButton.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-//        tapButton.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
     }
     
     func setData(_ entity: DailyInfoEntity) {
         globalEntity = entity
-        //tapButton.isHidden = true
         badText.textAlignment = .left
         deleteButton.isHidden = false
         lineView.isHidden = false
-        //editButton.isHidden = false
 
         self.dateLabel.text = entity.date! + " 기록"
         self.goodText.text = "😀 "+entity.good!
@@ -140,9 +115,7 @@ class ContentView: UIView {
     
     func setEmpty() {
         globalEntity = nil
-        //tapButton.isHidden = false
         deleteButton.isHidden = true
-        //editButton.isHidden = true
         lineView.isHidden = true
         
         self.dateLabel.text = " "
@@ -152,7 +125,6 @@ class ContentView: UIView {
         self.thanksText.text = " "
         self.highlightText.text = " "
     }
-
 }
 
 

@@ -50,8 +50,6 @@ class SettingViewController: UITableViewController {
                 print("error")
             }
         }
-        
-
     }
     
     override func viewDidLoad() {

@@ -237,7 +237,6 @@ class InputViewController: UIViewController {
         inputField.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100).isActive = true
         inputField.becomeFirstResponder()
     }
-    
 }
 
 extension InputViewController: UITextFieldDelegate {
@@ -262,7 +261,6 @@ extension InputViewController: UITextFieldDelegate {
             if let (date, mood, good, bad, thanks, highlight, month,year) = UserInputData.shared.getAllData() {
                 //싱글톤 클래스 초기화
                 UserInputData.shared.cleanData()
-                
                 //해당 entity가 수정중인 entity라면..update
                 if let entity = Self.entity {
                     DataManager.shared.updateTask(entity: entity, date: date, mood: mood, good: good, bad: bad, thanks: thanks, highlight: highlight, month: month, year: year) {
@@ -278,11 +276,9 @@ extension InputViewController: UITextFieldDelegate {
                         NotificationCenter.default.post(name: .dataChanged, object: nil)
                     }
                     navigationController?.popToRootViewController(animated: true)
-                    
                     return true
                 }
             } else {
-                //여기까지 올 일이 없긴해
                 return false
             }
         default:

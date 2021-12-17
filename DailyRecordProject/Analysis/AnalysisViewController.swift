@@ -6,28 +6,15 @@
 //
 
 import UIKit
+import SnapKit
 
 class AnalysisViewController: UIViewController {
     let titleLabel: UILabel = {
         let lb = UILabel()
-        lb.translatesAutoresizingMaskIntoConstraints = false
         lb.text = "\(Date.month)월달의 기록 🧐"
         lb.font = UIFont.boldSystemFont(ofSize: 35)
         return lb
     }()
-    
-    func setConstraint() {
-        let lb = titleLabel
-        view.addSubview(lb)
-        lb.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        lb.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        
-        let indexView = IndexStackView()
-        indexView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(indexView)
-        indexView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        indexView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
-    }
     
     func drawPieChart(_ percent: [CGFloat], _ color: [UIColor]) {
         let width = self.view.frame.width
@@ -92,9 +79,6 @@ class AnalysisViewController: UIViewController {
         }
         
         let total = CGFloat(list.count)
-        
-        
-        
         percentList = percentList.map{$0/total}
         
         drawPieChart(percentList,colorList)
@@ -105,5 +89,20 @@ class AnalysisViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setConstraint()
+    }
+    
+    //View Constraint
+    private func setConstraint() {
+        view.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.leading.top.equalTo(view.safeAreaLayoutGuide).offset(10)
+        }
+        
+        let indexView = IndexStackView()
+        view.addSubview(indexView)
+        indexView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-40)
+        }
     }
 }

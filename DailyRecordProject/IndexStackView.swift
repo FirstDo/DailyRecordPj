@@ -6,7 +6,6 @@
 import UIKit
 
 class IndexStackView: UIStackView {
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
@@ -14,7 +13,6 @@ class IndexStackView: UIStackView {
     
     required init(coder: NSCoder) {
         super.init(coder: coder)
-        setUp()
     }
     
     private func setUp() {

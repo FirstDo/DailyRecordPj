@@ -2,6 +2,7 @@
 //  기록들을 모아서 보여주는 View
 
 import UIKit
+import SnapKit
 
 class ListViewController: UIViewController {
     private let yearList = (2015...2040).map{String($0)}
@@ -61,7 +62,7 @@ class ListViewController: UIViewController {
         tb.frame = CGRect(x: 0, y: 0, width: 0, height: 40)
         let flexBtn = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let doneBtn = UIBarButtonItem(title: "완료", style: .done, target: self, action: #selector(clickDoneBtn(_:)))
-        doneBtn.tintColor = .black
+        doneBtn.tintColor = .CustomBlack
         tb.setItems([flexBtn, doneBtn], animated: true)
         return tb
     }()
@@ -76,7 +77,7 @@ class ListViewController: UIViewController {
             UserDefaults.standard.set(selectedYear, forKey: UserDefaultKey.listYear)
             UserDefaults.standard.set(selectedMonth, forKey: UserDefaultKey.listMonth)
             //새로운 값으로 list 보여주기
-            selectedDateLabel.text = "\(selectedYear)년 \(selectedMonth)월"
+            selectedDateLabel.text = "\(selectedYear)년 \(selectedMonth)월 🔽"
             self.list = DataManager.shared.fetchTask(selectedMonth, selectedYear)
             self.tableView.reloadData()
         }
@@ -110,7 +111,6 @@ class ListViewController: UIViewController {
 
     var list = [DailyInfoEntity]()
     var changeToken: NSObjectProtocol?
-//    var reloadToken: NSObjectProtocol?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -134,13 +134,13 @@ class ListViewController: UIViewController {
         
         //notification setting
         //data가 바뀌었을때!
-        changeToken = NotificationCenter.default.addObserver(forName: .dataChanged, object: nil, queue: .main, using: { [weak self]_ in
+        changeToken = NotificationCenter.default.addObserver(forName: .dataChanged, object: nil, queue: .main, using: { [weak self] _ in
             if let month = UserDefaults.standard.value(forKey: UserDefaultKey.listMonth) as? Int16, let year = UserDefaults.standard.value(forKey: UserDefaultKey.listYear) as? Int16 {
                 self?.list = DataManager.shared.fetchTask(month,year)
-                self?.selectedDateLabel.text = "\(year)년 \(month)월"
+                self?.selectedDateLabel.text = "\(year)년 \(month)월 🔽"
             } else {
                 self?.list = DataManager.shared.fetchTask(Date.month,Date.year)
-                self?.selectedDateLabel.text = "\(Date.year)년 \(Date.month)월"
+                self?.selectedDateLabel.text = "\(Date.year)년 \(Date.month)월 🔽"
             }
             self?.tableView.reloadData()
         })
@@ -165,6 +165,14 @@ class ListViewController: UIViewController {
         tableView.estimatedRowHeight = UITableView.automaticDimension
     }
     
+    private func setPickerContraint() {
+        
+    }
+    
+    private func setConfigure() {
+        
+    }
+    
     private func setConstraint() {
         //addSubView
         self.view.addSubview(tableView)
@@ -178,7 +186,6 @@ class ListViewController: UIViewController {
         dateInputView.addSubview(yearPicker)
         
         dateInputView.translatesAutoresizingMaskIntoConstraints = false
-        //dateInputView.heightAnchor.constraint(equalToConstant: view.frame.height / 3).isActive = true
         
         let yearLabel = UILabel()
         yearLabel.text = "년"
@@ -191,55 +198,58 @@ class ListViewController: UIViewController {
         monthLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let width = view.safeAreaLayoutGuide.layoutFrame.width / 3
-        yearPicker.widthAnchor.constraint(equalToConstant: width).isActive = true
-        monthPicker.widthAnchor.constraint(equalToConstant: width).isActive = true
         
         dateInputView.addSubview(yearLabel)
-        dateInputView.addSubview(monthLabel)
-        
-        yearPicker.leadingAnchor.constraint(equalTo: dateInputView.safeAreaLayoutGuide.leadingAnchor, constant: 30).isActive = true
-        yearPicker.topAnchor.constraint(equalTo: dateInputView.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        yearPicker.bottomAnchor.constraint(equalTo: dateInputView.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
-        yearPicker.trailingAnchor.constraint(equalTo: yearLabel.leadingAnchor).isActive = true
-        
         yearLabel.centerYAnchor.constraint(equalTo: yearPicker.centerYAnchor).isActive = true
         
-        monthPicker.leadingAnchor.constraint(equalTo: yearLabel.trailingAnchor).isActive = true
-        monthPicker.topAnchor.constraint(equalTo: yearPicker.topAnchor).isActive = true
-        monthPicker.bottomAnchor.constraint(equalTo: yearPicker.bottomAnchor).isActive = true
-        monthPicker.trailingAnchor.constraint(equalTo: monthLabel.leadingAnchor).isActive = true
-        
+        dateInputView.addSubview(monthLabel)
         monthLabel.centerYAnchor.constraint(equalTo: yearPicker.centerYAnchor).isActive = true
         monthLabel.trailingAnchor.constraint(equalTo: dateInputView.safeAreaLayoutGuide.trailingAnchor, constant: -30).isActive = true
         
-        tempTextField.inputAccessoryView = pickerToolBar
+        yearPicker.snp.makeConstraints { make in
+            make.width.equalTo(width)
+            make.leading.equalTo(dateInputView.safeAreaLayoutGuide.snp.leading).offset(30)
+            make.top.equalTo(dateInputView.safeAreaLayoutGuide.snp.top).offset(10)
+            make.bottom.equalTo(dateInputView.safeAreaLayoutGuide.snp.bottom).offset(-10)
+            make.trailing.equalTo(yearLabel.snp.leading)
+        }
         
+        monthPicker.snp.makeConstraints { make in
+            make.width.equalTo(width)
+            make.top.bottom.equalTo(yearPicker)
+            make.leading.equalTo(yearLabel.snp.trailing)
+            make.trailing.equalTo(monthLabel.snp.leading)
+        }
+
         //textfield
-        tempTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        tempTextField.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        tempTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        tempTextField.inputAccessoryView = pickerToolBar
         tempTextField.isHidden = true
+        tempTextField.snp.makeConstraints { make in
+            make.centerX.equalTo(view)
+            make.width.equalTo(150)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            
+        }
 
         //selectButton
-        dateSelectButton.leadingAnchor.constraint(equalTo: tempTextField.leadingAnchor).isActive = true
-        dateSelectButton.trailingAnchor.constraint(equalTo: tempTextField.trailingAnchor).isActive = true
-        dateSelectButton.topAnchor.constraint(equalTo: tempTextField.topAnchor).isActive = true
-        dateSelectButton.bottomAnchor.constraint(equalTo: tempTextField.bottomAnchor).isActive = true
+        dateSelectButton.snp.makeConstraints { make in
+            make.directionalEdges.equalTo(tempTextField)
+        }
         
         //selectedTitlelabel
-        selectedDateLabel.leadingAnchor.constraint(equalTo: tempTextField.leadingAnchor).isActive = true
-        selectedDateLabel.trailingAnchor.constraint(equalTo: tempTextField.trailingAnchor).isActive = true
-        selectedDateLabel.topAnchor.constraint(equalTo: tempTextField.topAnchor).isActive = true
-        selectedDateLabel.bottomAnchor.constraint(equalTo: tempTextField.bottomAnchor).isActive = true
+        selectedDateLabel.snp.makeConstraints { make in
+            make.directionalEdges.equalTo(tempTextField)
+        }
         
-        selectedDateLabel.text = "\(Date.year)년 \(Date.month)월"
+        selectedDateLabel.text = "\(Date.year)년 \(Date.month)월 🔽"
         
         //tableView
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: tempTextField.bottomAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(tempTextField.snp.bottom)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-20)
+        }
     }
 }
 
@@ -282,7 +292,6 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
                 header.dateTitle.text = " \(day) 일의 기록"
             }
         }
-        
         switch target.mood {
         case "happy":
             header.moodImage.image = UIImage(named: "happy")
@@ -314,7 +323,6 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
         cell.badLabel.text = "😵 " + target.bad!
         cell.thanksLabel.text = "🥰 " + target.thanks!
         cell.highlightLabel.text = "🤔 " + target.highlight!
-
         return cell
     }
 }

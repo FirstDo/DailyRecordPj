@@ -6,41 +6,13 @@
 //
 
 import UIKit
+import SnapKit
 
 class ListCell: UITableViewCell {
-    
-    let lableView: UIStackView! = {
-        let sv = UIStackView()
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.distribution = .fillEqually
-        sv.axis = .vertical
-        return sv
-    }()
-    
-    let goodLabel: UILabel! = {
-        let lb = UILabel()
-        lb.translatesAutoresizingMaskIntoConstraints = false
-        return lb
-    }()
-    
-    let badLabel: UILabel! = {
-        let lb = UILabel()
-        lb.translatesAutoresizingMaskIntoConstraints = false
-        return lb
-    }()
-
-    let thanksLabel: UILabel! = {
-        let lb = UILabel()
-        lb.translatesAutoresizingMaskIntoConstraints = false
-        return lb
-    }()
-    
-    let highlightLabel: UILabel! = {
-        let lb = UILabel()
-        lb.translatesAutoresizingMaskIntoConstraints = false
-        return lb
-    }()
-    
+    let goodLabel = UILabel()
+    let badLabel = UILabel()
+    let thanksLabel = UILabel()
+    let highlightLabel = UILabel()
     
     private func setContraint() {
         contentView.layer.cornerRadius = 10
@@ -50,28 +22,32 @@ class ListCell: UITableViewCell {
         contentView.addSubview(badLabel)
         contentView.addSubview(thanksLabel)
         contentView.addSubview(highlightLabel)
-
-        goodLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        goodLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-
-        badLabel.leadingAnchor.constraint(equalTo: goodLabel.leadingAnchor).isActive = true
-        badLabel.topAnchor.constraint(equalTo: goodLabel.bottomAnchor, constant: 10).isActive = true
-        thanksLabel.leadingAnchor.constraint(equalTo: goodLabel.leadingAnchor).isActive = true
-        thanksLabel.topAnchor.constraint(equalTo: badLabel.bottomAnchor, constant: 10).isActive = true
-
-        highlightLabel.leadingAnchor.constraint(equalTo: goodLabel.leadingAnchor).isActive = true
-        highlightLabel.topAnchor.constraint(equalTo: thanksLabel.bottomAnchor, constant: 10).isActive = true
-        highlightLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        
+        goodLabel.snp.makeConstraints { make in
+            make.leading.equalTo(contentView.safeAreaLayoutGuide.snp.leading).offset(20)
+            make.top.equalTo(contentView.safeAreaLayoutGuide.snp.top).offset(10)
+        }
+        badLabel.snp.makeConstraints { make in
+            make.leading.equalTo(goodLabel.snp.leading)
+            make.top.equalTo(goodLabel.snp.bottom).offset(10)
+        }
+        thanksLabel.snp.makeConstraints { make in
+            make.leading.equalTo(goodLabel.snp.leading)
+            make.top.equalTo(badLabel.snp.bottom).offset(10)
+        }
+        highlightLabel.snp.makeConstraints { make in
+            make.leading.equalTo(goodLabel.snp.leading)
+            make.top.equalTo(thanksLabel.snp.bottom).offset(10)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-10)
+        }
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -82,5 +58,4 @@ class ListCell: UITableViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-
 }

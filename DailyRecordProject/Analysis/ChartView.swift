@@ -53,9 +53,6 @@ class ChartView: UIView {
         
         self.layer.addSublayer(sliceLayer)
     }
-    
-
-    
     private func getLabelCenter(_ fromPercent: CGFloat, _ toPercent: CGFloat) -> CGPoint {
         let canvasWidth = self.frame.width * 0.7
         let radius = canvasWidth * 3 / 8

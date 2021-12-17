@@ -44,7 +44,7 @@ class InfoModalViewController: UIViewController {
         }
         
         view.addSubview(infoView)
-        infoView.contentInset = UIEdgeInsets(top: 50, left: 15, bottom: 20, right: 15)
+        infoView.contentInset = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
         infoView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom)
             make.leading.bottom.trailing.equalToSuperview()
