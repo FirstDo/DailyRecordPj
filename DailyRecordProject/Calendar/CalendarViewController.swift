@@ -42,9 +42,9 @@ class CalendarViewController: UIViewController{
         calendar.headerHeight = 40
         calendar.placeholderType = .none
         
-        //calendar.appearance.borderRadius =
-        calendar.appearance.weekdayTextColor = .black
-        calendar.appearance.headerTitleColor = .black
+    
+        calendar.appearance.weekdayTextColor = .CustomBlack
+        calendar.appearance.headerTitleColor = .CustomBlack
         calendar.appearance.headerDateFormat = "YYYY년 M월"
         calendar.appearance.headerTitleFont = UIFont.systemFont(ofSize: 24)
         calendar.translatesAutoresizingMaskIntoConstraints = false
@@ -58,7 +58,7 @@ class CalendarViewController: UIViewController{
         let config = UIImage.SymbolConfiguration(pointSize: 25, weight: .regular, scale: .default)
         btn.setPreferredSymbolConfiguration(config, forImageIn: .normal)
         btn.setImage(UIImage(systemName: "greaterthan.circle"), for: .normal)
-        btn.tintColor = .black
+        btn.tintColor = UIColor.CustomBlack
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -70,7 +70,7 @@ class CalendarViewController: UIViewController{
         let config = UIImage.SymbolConfiguration(pointSize: 25, weight: .regular, scale: .default)
         btn.setPreferredSymbolConfiguration(config, forImageIn: .normal)
         btn.setImage(UIImage(systemName: "lessthan.circle"), for: .normal)
-        btn.tintColor = .black
+        btn.tintColor = UIColor.CustomBlack
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -191,6 +191,14 @@ class CalendarViewController: UIViewController{
                 UserInputData.shared.year = year
             }
             self.calendar.reloadData()
+            //review Code
+            if #available(iOS 14.0, *) {
+                if let scene = UIApplication.shared.connectedScenes.first(where: {$0.activationState == .foregroundActive}) as? UIWindowScene {
+                    SKStoreReviewController.requestReview(in: scene)
+                }
+            } else {
+                SKStoreReviewController.requestReview()
+            }
         })
         //        view.backgroundColor = .systemBackground
         
@@ -205,15 +213,6 @@ class CalendarViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         super.navigationController?.isNavigationBarHidden = true
-        
-        //review Code
-        if #available(iOS 14.0, *) {
-            if let scene = UIApplication.shared.connectedScenes.first(where: {$0.activationState == .foregroundActive}) as? UIWindowScene {
-                SKStoreReviewController.requestReview(in: scene)
-            }
-        } else {
-            SKStoreReviewController.requestReview()
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -282,6 +281,10 @@ extension CalendarViewController {
             //push
         }
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        calendar.reloadData()
+    }
 }
 
 
@@ -316,14 +319,14 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
     
     //calendar title color
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
-        return .black
+        return .CustomBlack
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         guard let _ = listDict[Int(date.day)] else {
             return .systemGray3
         }
-        return .black
+        return .CustomBlack
     }
     
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {

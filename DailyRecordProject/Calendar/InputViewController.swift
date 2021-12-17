@@ -278,6 +278,7 @@ extension InputViewController: UITextFieldDelegate {
                         NotificationCenter.default.post(name: .dataChanged, object: nil)
                     }
                     navigationController?.popToRootViewController(animated: true)
+                    
                     return true
                 }
             } else {

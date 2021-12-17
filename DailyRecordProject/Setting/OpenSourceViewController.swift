@@ -9,8 +9,21 @@ import UIKit
 
 class OpenSourceViewController: UITableViewController {
     
-    let versionInfo = ["1.0.0"]
-    let versionContent = ["최초버전: 업데이트내용 없음"]
+    let versionInfo = [
+        "1.0",
+        "1.1"
+    ].reversed().map{$0}
+    let versionContent = [
+        "업데이트내용 없음",
+        """
+            1. 다크모드 지원
+            2. 레이아웃 수정
+                2-1. 런치스크린 이미지/타이틀 변경
+                2-2. 캘린더 화면에서 버튼 위치 수정
+            3. 버그 픽스
+                3-1. 색상이 제대로 보이지 않는 버그 수정
+        """
+    ].reversed().map{$0}
     let openSource = ["FSCalendar"]
     let openSourceContent = [
 """
@@ -67,7 +80,7 @@ class OpenSourceViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PlainTableViewCell
-        cell.accessoryType = .detailButton
+        //cell.accessoryType = .detailButton
         let target = indexPath.row
         
         if #available(iOS 14.0, *) {
@@ -88,7 +101,7 @@ class OpenSourceViewController: UITableViewController {
             modalVC.infoTitle = openSource[indexPath.row]
             modalVC.content = openSourceContent[indexPath.row]
         } else {
-            modalVC.infoTitle = versionInfo[indexPath.row]
+            modalVC.infoTitle = "version " + versionInfo[indexPath.row]
             modalVC.content = versionContent[indexPath.row]
         }
         present(modalVC, animated: true, completion: nil)

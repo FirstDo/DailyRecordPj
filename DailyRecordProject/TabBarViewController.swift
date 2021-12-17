@@ -13,7 +13,7 @@ class TabBarViewController: UITabBarController {
         super.viewDidLoad()
         
         // MARK: - color와 image 나중에 최종수정해야함
-        tabBar.tintColor = .black
+        tabBar.tintColor = .CustomBlack
         tabBar.unselectedItemTintColor = .systemGray3
         
         let CalendarVC = UINavigationController(rootViewController: CalendarViewController())

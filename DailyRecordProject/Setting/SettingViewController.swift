@@ -36,8 +36,22 @@ class SettingViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let openVC = OpenSourceViewController()
-        navigationController?.pushViewController(openVC, animated: true)
+        
+        if indexPath.row == 0 {
+            let openVC = OpenSourceViewController()
+            navigationController?.pushViewController(openVC, animated: true)
+        } else {
+            let appID = "1598246774"
+            let address = "itms-apps://itunes.apple.com/app/itunes-u/id\(appID)?ls=1&mt=8&action=write-review"
+            
+            if let url = URL(string: address), UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                print("error")
+            }
+        }
+        
+
     }
     
     override func viewDidLoad() {

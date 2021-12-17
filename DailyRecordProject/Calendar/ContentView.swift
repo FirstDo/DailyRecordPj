@@ -20,7 +20,7 @@ class ContentView: UIView {
     
     let editButton: UIButton = {
         var btn = UIButton()
-        btn.tintColor = .black
+        btn.tintColor = .CustomBlack
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
         return btn

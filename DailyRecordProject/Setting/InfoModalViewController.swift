@@ -17,7 +17,7 @@ class InfoModalViewController: UIViewController {
         v.isEditable = false
         v.translatesAutoresizingMaskIntoConstraints = false
         v.textContainer.lineBreakMode = .byWordWrapping
-        v.font = UIFont.systemFont(ofSize: 20)
+        v.font = UIFont.systemFont(ofSize: 15)
         v.dataDetectorTypes = .link
         v.text = content
         return v
@@ -26,7 +26,7 @@ class InfoModalViewController: UIViewController {
     lazy var titleLabel: UILabel = {
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
-        lb.font = UIFont.systemFont(ofSize: 20)
+        lb.font = UIFont.systemFont(ofSize: 25)
         lb.text = infoTitle
         return lb
     }()

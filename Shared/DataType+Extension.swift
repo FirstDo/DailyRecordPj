@@ -47,4 +47,10 @@ extension Date {
 }
 
 
+//Color extension
+extension UIColor {
+    static var CustomBlack: UIColor {
+        return UIColor(named: "CustomBlack") ?? .black
+    }
+}
 
