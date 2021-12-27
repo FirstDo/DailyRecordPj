@@ -7,6 +7,8 @@ target 'DailyRecordProject' do
   use_frameworks!
   pod 'FSCalendar'
   pod 'SnapKit'
+  pod 'RxSwift'
+  pod 'RxCocoa'
   #pod 'Alamofire', '~> 3.0'
 
   # Pods for DailyRecordProject
