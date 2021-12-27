@@ -19,7 +19,6 @@ class OpenSourceViewController: UITableViewController {
             1. 다크모드 지원
             2. 레이아웃 수정
                 2-1. 런치스크린 이미지/타이틀 변경
-                2-2. 캘린더 화면에서 버튼 위치 수정
             3. 버그 픽스
                 3-1. 색상이 제대로 보이지 않는 버그 수정
         """

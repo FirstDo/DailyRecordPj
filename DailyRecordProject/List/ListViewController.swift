@@ -165,14 +165,6 @@ class ListViewController: UIViewController {
         tableView.estimatedRowHeight = UITableView.automaticDimension
     }
     
-    private func setPickerContraint() {
-        
-    }
-    
-    private func setConfigure() {
-        
-    }
-    
     private func setConstraint() {
         //addSubView
         self.view.addSubview(tableView)
@@ -230,7 +222,6 @@ class ListViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             
         }
-
         //selectButton
         dateSelectButton.snp.makeConstraints { make in
             make.directionalEdges.equalTo(tempTextField)
@@ -284,7 +275,6 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "customHeader") as! CustomHeaderView
-        
         let target = list[section]
         
         if let date = target.date {
@@ -304,7 +294,6 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
         default:
             break
         }
-        
         return header
     }
     
