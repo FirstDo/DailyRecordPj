@@ -1,6 +1,10 @@
 # 하루기록 - 하루를 기록하다 App
-
 <img src="https://user-images.githubusercontent.com/69573768/146582330-e1c11e41-df78-43db-89be-38fb42c7628e.png" width = "100">
+
+## 프로젝트 목표
+1. 새롭게 배운 사항을 앱에 적용해서 계속 퀄리티 높이기
+2. StoryBoard 사용 최소화 하고, Code로만 작업하기
+3. 기능뿐만 아니라 UI/UX도 신경쓰기
 
 ### 앱소개
 
