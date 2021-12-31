@@ -95,6 +95,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		94120FBF2779EBF700A7E0E8 /* OpenSource */ = {
+			isa = PBXGroup;
+			children = (
+				941D47E327436860009D9A67 /* OpenSourceViewController.swift */,
+			);
+			path = OpenSource;
+			sourceTree = "<group>";
+		};
 		9419B218270DF059008BC2FE /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -123,8 +131,8 @@
 		9441B46527035DDF009226BB /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				94120FBF2779EBF700A7E0E8 /* OpenSource */,
 				94F6E1F92742CD2900925007 /* SettingViewController.swift */,
-				941D47E327436860009D9A67 /* OpenSourceViewController.swift */,
 				941D47E5274369DF009D9A67 /* PlainTableViewCell.swift */,
 				941D47E72743708B009D9A67 /* InfoModalViewController.swift */,
 				94A0E058275163B0000CC0E4 /* PushNotification.swift */,
