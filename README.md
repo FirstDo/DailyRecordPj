@@ -48,5 +48,9 @@ Xcode 13, iOS 13.0 ~
   - RxSwift + MVVM: 통째로는 힘들겠지만 부분적으로 바꿔보자..!
   - CoreData가 최선일까? Relam은 어떨까?
 
+## 앱 동작모습
+
+![저용량 app 동작](https://user-images.githubusercontent.com/69573768/149670573-20e8ea63-7730-4269-ac4b-1ce20366d4d0.gif)
+
   
 
