@@ -2,22 +2,34 @@
 //  ListCell.swift
 //  DailyRecordProject
 //
-//  Created by 김도연 on 2021/10/05.
+//  Created by DuDu on 2021/10/05.
 //
 
 import UIKit
 import SnapKit
 
-class ListCell: UITableViewCell {
+final class ListCell: UITableViewCell {
     let goodLabel = UILabel()
     let badLabel = UILabel()
     let thanksLabel = UILabel()
     let highlightLabel = UILabel()
     
-    private func setContraint() {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setAttribute()
+        setContraint()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    private func setAttribute() {
         contentView.layer.cornerRadius = 10
         contentView.backgroundColor = .systemGray6
-
+    }
+    
+    private func setContraint() {
         contentView.addSubview(goodLabel)
         contentView.addSubview(badLabel)
         contentView.addSubview(thanksLabel)
@@ -42,20 +54,5 @@ class ListCell: UITableViewCell {
         }
     }
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setContraint()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
 }
