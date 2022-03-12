@@ -24,7 +24,7 @@
 		9441B484270372AE009226BB /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B483270372AE009226BB /* InputViewController.swift */; };
 		945779BE27047E9200A95F57 /* UserInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945779BD27047E9200A95F57 /* UserInput.swift */; };
 		946BF4F32743B2AA00774526 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946BF4F22743B2AA00774526 /* ChartView.swift */; };
-		94925FF62711A42C00E6191D /* UserDefaultSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94925FF52711A42C00E6191D /* UserDefaultSetting.swift */; };
+		94925FF62711A42C00E6191D /* UserDefaultKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94925FF52711A42C00E6191D /* UserDefaultKey.swift */; };
 		94925FF827145D5100E6191D /* DataType+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94925FF727145D5100E6191D /* DataType+Extension.swift */; };
 		94925FFA2714703A00E6191D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94925FF92714703A00E6191D /* ContentView.swift */; };
 		949AF70427033F0500F3D9B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949AF70327033F0500F3D9B7 /* AppDelegate.swift */; };
@@ -60,7 +60,7 @@
 		945779B927047CA000A95F57 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		945779BD27047E9200A95F57 /* UserInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInput.swift; sourceTree = "<group>"; };
 		946BF4F22743B2AA00774526 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
-		94925FF52711A42C00E6191D /* UserDefaultSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultSetting.swift; sourceTree = "<group>"; };
+		94925FF52711A42C00E6191D /* UserDefaultKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKey.swift; sourceTree = "<group>"; };
 		94925FF727145D5100E6191D /* DataType+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataType+Extension.swift"; sourceTree = "<group>"; };
 		94925FF92714703A00E6191D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		949AF70027033F0500F3D9B7 /* DailyRecordProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyRecordProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,7 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				945779BD27047E9200A95F57 /* UserInput.swift */,
-				94925FF52711A42C00E6191D /* UserDefaultSetting.swift */,
+				94925FF52711A42C00E6191D /* UserDefaultKey.swift */,
 				94925FF727145D5100E6191D /* DataType+Extension.swift */,
 			);
 			path = Shared;
@@ -346,7 +346,7 @@
 				941D47E6274369DF009D9A67 /* PlainTableViewCell.swift in Sources */,
 				9419B212270C922F008BC2FE /* ListCell.swift in Sources */,
 				9419B201270C7F14008BC2FE /* DailyInfoModel.xcdatamodeld in Sources */,
-				94925FF62711A42C00E6191D /* UserDefaultSetting.swift in Sources */,
+				94925FF62711A42C00E6191D /* UserDefaultKey.swift in Sources */,
 				946BF4F32743B2AA00774526 /* ChartView.swift in Sources */,
 				94F6E1FA2742CD2900925007 /* SettingViewController.swift in Sources */,
 				9441B484270372AE009226BB /* InputViewController.swift in Sources */,
