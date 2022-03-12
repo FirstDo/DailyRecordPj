@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  DailyRecordProject
 //
-//  Created by 김도연 on 2021/09/28.
+//  Created by DuDu on 2021/09/28.
 //
 
 import UIKit
@@ -10,31 +10,28 @@ import FSCalendar
 import StoreKit
 import SnapKit
 
-class CalendarViewController: UIViewController{
-    //notification
-    var token: NSObjectProtocol?
-    var weekToken: NSObjectProtocol?
+final class CalendarViewController: UIViewController{
+    private var token: NSObjectProtocol?
+    private var weekToken: NSObjectProtocol?
     
-    //dailyInfo
-    var temp = [DailyInfoEntity]()
-    var listDict  = [Int: DailyInfoEntity]()
+    private var temp = [DailyInfoEntity]()
+    private var listDict  = [Int: DailyInfoEntity]()
     
-    var globalEntity: DailyInfoEntity?
+    private var globalEntity: DailyInfoEntity?
     
-    lazy var formatter :DateFormatter =  {
+    private lazy var formatter :DateFormatter =  {
         let f = DateFormatter()
         f.dateFormat = "yyyy.MM.dd"
         f.locale = Locale(identifier: "ko-kr")
         return f
     }()
     
-    let indexView: IndexStackView = {
+    private let indexView: IndexStackView = {
         let v = IndexStackView()
         return v
     }()
     
-    //FSCalendar
-    let calendar: FSCalendar = {
+    private let calendar: FSCalendar = {
         let calendar = FSCalendar()
         calendar.locale = Locale(identifier: "ko_KR")
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0
@@ -49,7 +46,7 @@ class CalendarViewController: UIViewController{
         return calendar
     }()
     
-    let nextButton: UIButton = {
+    private let nextButton: UIButton = {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(nextTapped), for: .touchUpInside)
         
@@ -60,7 +57,7 @@ class CalendarViewController: UIViewController{
         return btn
     }()
     
-    let prevButton: UIButton = {
+    private let prevButton: UIButton = {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(previousTapped), for: .touchUpInside)
         
@@ -71,17 +68,17 @@ class CalendarViewController: UIViewController{
         return btn
     }()
     
-    @objc func nextTapped() {
+    @objc private func nextTapped() {
         let date = Calendar.current.date(byAdding: .month, value: 1, to: calendar.currentPage)!
         calendar.setCurrentPage(date, animated: true)
     }
     
-    @objc func previousTapped() {
+    @objc private func previousTapped() {
         let date = Calendar.current.date(byAdding: .month, value: -1, to: calendar.currentPage)!
         calendar.setCurrentPage(date, animated: true)
     }
     
-    let contentView: ContentView = {
+    private let contentView: ContentView = {
         let v = ContentView()
         v.translatesAutoresizingMaskIntoConstraints = false
         //v.tapButton.addTarget(self, action: #selector(makeNewReport), for: .touchUpInside)
@@ -90,7 +87,7 @@ class CalendarViewController: UIViewController{
         return v
     }()
     
-    @objc func editReport() {
+    @objc private func editReport() {
         //기존 데이터의 수정
         if let target = globalEntity {
             let editVC = InputViewController()
@@ -103,7 +100,7 @@ class CalendarViewController: UIViewController{
             navigationController?.pushViewController(InputViewController(), animated: true)
         }
     }
-    @objc func deleteReport() {
+    @objc private func deleteReport() {
         guard let target = globalEntity else {
             return
         }
@@ -213,7 +210,7 @@ class CalendarViewController: UIViewController{
 
 //MARK: - contentView, calendar
 extension CalendarViewController {
-    func calendarSetting() {
+    private func calendarSetting() {
         calendar.delegate = self
         calendar.dataSource = self
         
@@ -244,7 +241,7 @@ extension CalendarViewController {
         }
     }
     
-    func contentViewSetting() {
+    private func contentViewSetting() {
         view.addSubview(contentView)
         contentView.snp.makeConstraints { make in
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(10)
