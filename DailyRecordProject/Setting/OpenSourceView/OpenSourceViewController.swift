@@ -2,18 +2,19 @@
 //  OpenSourceViewController.swift
 //  DailyRecordProject
 //
-//  Created by 김도연 on 2021/11/16.
+//  Created by DuDu on 2021/11/16.
 //
 
 import UIKit
 
-class OpenSourceViewController: UITableViewController {
+final class OpenSourceViewController: UITableViewController {
     
-    let versionInfo = [
+    private let versionInfo = [
         "1.0",
         "1.1"
     ].reversed().map{$0}
-    let versionContent = [
+    
+    private let versionContent = [
         "업데이트내용 없음",
         """
             1. 다크모드 지원
@@ -23,11 +24,13 @@ class OpenSourceViewController: UITableViewController {
                 3-1. 색상이 제대로 보이지 않는 버그 수정
         """
     ].reversed().map{$0}
-    let openSource = [
+    
+    private let openSource = [
         "FSCalendar",
         "SnapKit"
     ]
-    let openSourceContent = [
+    
+    private let openSourceContent = [
 """
      Copyright (c) 2013-2016 FSCalendar (https://github.com/WenchaoD/FSCalendar)
      
@@ -75,13 +78,10 @@ THE SOFTWARE.
     ]
     
     override func viewDidLoad() {
-        title = "오픈소스 & 앱 버전"
         super.viewDidLoad()
+        
+        title = "오픈소스 & 앱 버전"
         tableView.register(PlainTableViewCell.self, forCellReuseIdentifier: "cell")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
     }
     
     // MARK: - Table view data source
@@ -103,8 +103,10 @@ THE SOFTWARE.
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PlainTableViewCell
-        //cell.accessoryType = .detailButton
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? PlainTableViewCell else {
+            return UITableViewCell()
+        }
+
         let target = indexPath.row
         
         if #available(iOS 14.0, *) {
@@ -114,6 +116,7 @@ THE SOFTWARE.
         } else {
             cell.textLabel?.text = indexPath.section == 0 ? openSource[target] : versionInfo[target]
         }
+        
         return cell
     }
     
@@ -128,6 +131,7 @@ THE SOFTWARE.
             modalVC.infoTitle = "version " + versionInfo[indexPath.row]
             modalVC.content = versionContent[indexPath.row]
         }
+        
         present(modalVC, animated: true, completion: nil)
         
         tableView.deselectRow(at: indexPath, animated: true)
