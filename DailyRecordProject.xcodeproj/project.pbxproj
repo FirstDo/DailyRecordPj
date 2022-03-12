@@ -22,7 +22,10 @@
 		9441B46E27036391009226BB /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B46D27036391009226BB /* TabBarViewController.swift */; };
 		9441B48227036B66009226BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9441B48127036B66009226BB /* Main.storyboard */; };
 		9441B484270372AE009226BB /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9441B483270372AE009226BB /* InputViewController.swift */; };
-		945779BE27047E9200A95F57 /* UserInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945779BD27047E9200A95F57 /* UserInput.swift */; };
+		945779BE27047E9200A95F57 /* UserInputData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945779BD27047E9200A95F57 /* UserInputData.swift */; };
+		945D9E9D27DD4CD3004797CB /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945D9E9C27DD4CD3004797CB /* UIColor+Extension.swift */; };
+		945D9E9F27DD4D09004797CB /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945D9E9E27DD4D09004797CB /* Date+Extension.swift */; };
+		945D9EA127DD4D8A004797CB /* Notification_Name+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945D9EA027DD4D8A004797CB /* Notification_Name+Extension.swift */; };
 		946BF4F32743B2AA00774526 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946BF4F22743B2AA00774526 /* ChartView.swift */; };
 		94925FF62711A42C00E6191D /* UserDefaultKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94925FF52711A42C00E6191D /* UserDefaultKey.swift */; };
 		94925FF827145D5100E6191D /* DataType+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94925FF727145D5100E6191D /* DataType+Extension.swift */; };
@@ -58,7 +61,10 @@
 		9441B48127036B66009226BB /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9441B483270372AE009226BB /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InputViewController.swift; path = Calendar/InputViewController.swift; sourceTree = "<group>"; };
 		945779B927047CA000A95F57 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		945779BD27047E9200A95F57 /* UserInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInput.swift; sourceTree = "<group>"; };
+		945779BD27047E9200A95F57 /* UserInputData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputData.swift; sourceTree = "<group>"; };
+		945D9E9C27DD4CD3004797CB /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		945D9E9E27DD4D09004797CB /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		945D9EA027DD4D8A004797CB /* Notification_Name+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification_Name+Extension.swift"; sourceTree = "<group>"; };
 		946BF4F22743B2AA00774526 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		94925FF52711A42C00E6191D /* UserDefaultKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKey.swift; sourceTree = "<group>"; };
 		94925FF727145D5100E6191D /* DataType+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataType+Extension.swift"; sourceTree = "<group>"; };
@@ -106,6 +112,9 @@
 		9419B218270DF059008BC2FE /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				945D9E9C27DD4CD3004797CB /* UIColor+Extension.swift */,
+				945D9E9E27DD4D09004797CB /* Date+Extension.swift */,
+				945D9EA027DD4D8A004797CB /* Notification_Name+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -154,7 +163,7 @@
 		945779BA27047D7900A95F57 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				945779BD27047E9200A95F57 /* UserInput.swift */,
+				945779BD27047E9200A95F57 /* UserInputData.swift */,
 				94925FF52711A42C00E6191D /* UserDefaultKey.swift */,
 				94925FF727145D5100E6191D /* DataType+Extension.swift */,
 			);
@@ -348,15 +357,18 @@
 				9419B201270C7F14008BC2FE /* DailyInfoModel.xcdatamodeld in Sources */,
 				94925FF62711A42C00E6191D /* UserDefaultKey.swift in Sources */,
 				946BF4F32743B2AA00774526 /* ChartView.swift in Sources */,
+				945D9E9D27DD4CD3004797CB /* UIColor+Extension.swift in Sources */,
 				94F6E1FA2742CD2900925007 /* SettingViewController.swift in Sources */,
 				9441B484270372AE009226BB /* InputViewController.swift in Sources */,
 				949AF70427033F0500F3D9B7 /* AppDelegate.swift in Sources */,
 				9441B46E27036391009226BB /* TabBarViewController.swift in Sources */,
 				9419B20B270C8239008BC2FE /* DataManager+DailyInfo.swift in Sources */,
+				945D9E9F27DD4D09004797CB /* Date+Extension.swift in Sources */,
+				945D9EA127DD4D8A004797CB /* Notification_Name+Extension.swift in Sources */,
 				9441B46327035DD1009226BB /* AnalysisViewController.swift in Sources */,
 				9419B216270DEE73008BC2FE /* CustomHeaderView.swift in Sources */,
 				9419B203270C7F50008BC2FE /* DataManager.swift in Sources */,
-				945779BE27047E9200A95F57 /* UserInput.swift in Sources */,
+				945779BE27047E9200A95F57 /* UserInputData.swift in Sources */,
 				941D47E82743708B009D9A67 /* InfoModalViewController.swift in Sources */,
 				94925FFA2714703A00E6191D /* ContentView.swift in Sources */,
 				9419B20E270C833C008BC2FE /* DailyInfoEntity+CoreDataClass.swift in Sources */,
