@@ -2,18 +2,18 @@
 //  InfoModalViewController.swift
 //  DailyRecordProject
 //
-//  Created by 김도연 on 2021/11/16.
+//  Created by DuDu on 2021/11/16.
 //
 
 import UIKit
 import SnapKit
 
-class InfoModalViewController: UIViewController {
+final class InfoModalViewController: UIViewController {
     
     var infoTitle: String?
     var content: String?
     
-    lazy var infoView: UITextView = {
+    private lazy var infoView: UITextView = {
         let v = UITextView()
         v.isEditable = false
         v.textContainer.lineBreakMode = .byWordWrapping
@@ -23,7 +23,7 @@ class InfoModalViewController: UIViewController {
         return v
     }()
     
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let lb = UILabel()
         lb.font = UIFont.systemFont(ofSize: 25)
         lb.text = infoTitle
@@ -33,10 +33,10 @@ class InfoModalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        constraintSetting()
+        setConstraint()
     }
     
-    private func constraintSetting() {
+    private func setConstraint() {
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.centerX.equalTo(view)
