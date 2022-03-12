@@ -35,7 +35,6 @@
 		949AF70827033F0500F3D9B7 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949AF70727033F0500F3D9B7 /* CalendarViewController.swift */; };
 		949AF70D27033F0800F3D9B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 949AF70C27033F0800F3D9B7 /* Assets.xcassets */; };
 		949AF71027033F0800F3D9B7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 949AF70E27033F0800F3D9B7 /* LaunchScreen.storyboard */; };
-		94A0E059275163B0000CC0E4 /* PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A0E058275163B0000CC0E4 /* PushNotification.swift */; };
 		94DE080527583BE800B35172 /* IndexStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DE080427583BE800B35172 /* IndexStackView.swift */; };
 		94F6E1FA2742CD2900925007 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F6E1F92742CD2900925007 /* SettingViewController.swift */; };
 		BB7AAFCDBAA72106AE873923 /* Pods_DailyRecordProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D39FCE0BA9748CD4D2B9BB2 /* Pods_DailyRecordProject.framework */; };
@@ -76,7 +75,6 @@
 		949AF70C27033F0800F3D9B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		949AF70F27033F0800F3D9B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		949AF71127033F0800F3D9B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		94A0E058275163B0000CC0E4 /* PushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotification.swift; sourceTree = "<group>"; };
 		94DE080427583BE800B35172 /* IndexStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexStackView.swift; sourceTree = "<group>"; };
 		94F6E1F92742CD2900925007 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,7 +142,6 @@
 				94F6E1F92742CD2900925007 /* SettingViewController.swift */,
 				941D47E5274369DF009D9A67 /* PlainTableViewCell.swift */,
 				941D47E72743708B009D9A67 /* InfoModalViewController.swift */,
-				94A0E058275163B0000CC0E4 /* PushNotification.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -348,7 +345,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94A0E059275163B0000CC0E4 /* PushNotification.swift in Sources */,
 				949AF70827033F0500F3D9B7 /* CalendarViewController.swift in Sources */,
 				94DE080527583BE800B35172 /* IndexStackView.swift in Sources */,
 				9441B46A27035E05009226BB /* ListViewController.swift in Sources */,
