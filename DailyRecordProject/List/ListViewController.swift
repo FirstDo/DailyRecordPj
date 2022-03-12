@@ -124,15 +124,14 @@ final class ListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .systemBackground
         
-        let (month, year) = (Date.month, Date.year)
-        list = DataManager.shared.fetchTask(month, year)
-
-        UserDefaults.standard.set(year, forKey: UserDefaultKey.listYear)
-        UserDefaults.standard.set(month, forKey: UserDefaultKey.listMonth)
-        
+        setAttribute()
+        addDataChangedObserver()
+        setUpTableView()
+        setConstraint()
+    }
+    
+    private func addDataChangedObserver() {
         changeToken = NotificationCenter.default.addObserver(forName: .dataChanged, object: nil, queue: .main, using: { [weak self] _ in
             if let month = UserDefaults.standard.value(forKey: UserDefaultKey.listMonth) as? Int16,
                let year = UserDefaults.standard.value(forKey: UserDefaultKey.listYear) as? Int16 {
@@ -145,18 +144,28 @@ final class ListViewController: UIViewController {
             
             self?.tableView.reloadData()
         })
+    }
+    
+    private func setAttribute() {
+        view.backgroundColor = .systemBackground
+        
+        let (month, year) = (Date.month, Date.year)
+        list = DataManager.shared.fetchTask(month, year)
+
+        UserDefaults.standard.set(year, forKey: UserDefaultKey.listYear)
+        UserDefaults.standard.set(month, forKey: UserDefaultKey.listMonth)
         
         monthPicker.delegate = self
         monthPicker.dataSource = self
         
         yearPicker.delegate = self
         yearPicker.dataSource = self
-        
+    }
+    
+    private func setUpTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        
-        setConstraint()
         
         let headerNib = UINib(nibName: "CustomHeader", bundle: nil)
         tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: "customHeader")
@@ -272,7 +281,7 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "customHeader") as? CustomHeaderView else {
-            return
+            return nil
         }
         
         let target = list[section]
@@ -316,6 +325,7 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
         cell.badLabel.text = "😵 " + target.bad!
         cell.thanksLabel.text = "🥰 " + target.thanks!
         cell.highlightLabel.text = "🤔 " + target.highlight!
+        
         return cell
     }
 }
