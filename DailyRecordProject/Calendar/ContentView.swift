@@ -2,20 +2,21 @@
 //  ContentView.swift
 //  DailyRecordProject
 //
-//  Created by 김도연 on 2021/10/11.
+//  Created by DuDu on 2021/10/11.
 //
 
 import UIKit
 
-class ContentView: UIView {
-    var globalEntity: DailyInfoEntity?
-    //elements
+final class ContentView: UIView {
+    private var globalEntity: DailyInfoEntity?
+
     private let dateLabel = UILabel()
     
     let editButton: UIButton = {
         var btn = UIButton()
         btn.tintColor = .CustomBlack
         btn.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
+        
         return btn
     }()
     
@@ -23,6 +24,7 @@ class ContentView: UIView {
         var btn = UIButton()
         btn.tintColor = .systemRed
         btn.setImage(UIImage(systemName: "trash"), for: .normal)
+        
         return btn
     }()
     
@@ -39,6 +41,7 @@ class ContentView: UIView {
         sv.spacing = 20
         sv.distribution = .fillEqually
         sv.alignment = .fill
+        
         return sv
     }()
     
@@ -48,6 +51,7 @@ class ContentView: UIView {
         sv.spacing = 5
         sv.distribution = .fillEqually
         sv.alignment = .fill
+        
         return sv
     }()
     
