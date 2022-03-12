@@ -45,7 +45,7 @@
 		9419B200270C7F14008BC2FE /* dailyInfoModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = dailyInfoModel.xcdatamodel; sourceTree = "<group>"; };
 		9419B202270C7F50008BC2FE /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		9419B20A270C8239008BC2FE /* DataManager+DailyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataManager+DailyInfo.swift"; sourceTree = "<group>"; };
-		9419B20C270C833C008BC2FE /* DailyInfoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyInfoEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		9419B20C270C833C008BC2FE /* DailyInfoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyInfoEntity+CoreDataClass.swift"; path = "CoreData/DailyInfoEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		9419B211270C922F008BC2FE /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		9419B213270DEE19008BC2FE /* CustomHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomHeader.xib; sourceTree = "<group>"; };
 		9419B215270DEE73008BC2FE /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
@@ -154,22 +154,30 @@
 		945779BA27047D7900A95F57 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				9419B1FF270C7F14008BC2FE /* DailyInfoModel.xcdatamodeld */,
-				9419B20C270C833C008BC2FE /* DailyInfoEntity+CoreDataClass.swift */,
-				9419B202270C7F50008BC2FE /* DataManager.swift */,
 				945779BD27047E9200A95F57 /* UserInput.swift */,
-				9419B20A270C8239008BC2FE /* DataManager+DailyInfo.swift */,
 				94925FF52711A42C00E6191D /* UserDefaultSetting.swift */,
 				94925FF727145D5100E6191D /* DataType+Extension.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
 		};
+		945D9E9B27DD4875004797CB /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				9419B1FF270C7F14008BC2FE /* DailyInfoModel.xcdatamodeld */,
+				9419B20C270C833C008BC2FE /* DailyInfoEntity+CoreDataClass.swift */,
+				9419B20A270C8239008BC2FE /* DataManager+DailyInfo.swift */,
+				9419B202270C7F50008BC2FE /* DataManager.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		949AF6F727033F0500F3D9B7 = {
 			isa = PBXGroup;
 			children = (
-				9419B218270DF059008BC2FE /* Extension */,
 				945779B927047CA000A95F57 /* README.md */,
+				9419B218270DF059008BC2FE /* Extension */,
+				945D9E9B27DD4875004797CB /* CoreData */,
 				945779BA27047D7900A95F57 /* Shared */,
 				949AF70227033F0500F3D9B7 /* DailyRecordProject */,
 				949AF70127033F0500F3D9B7 /* Products */,
