@@ -1,11 +1,3 @@
-/*
- 데이터 저장을 위한 singleton class
- 유저의 입력을 저장해 놨다가, 마지막 highlight를 저장할때 저장된 데이터를 읽고 코어데이터에 저장
- */
-
-import Foundation
-
-//for userInputData
 class UserInputData {
     var date: String?
     var mood: String?
@@ -39,15 +31,24 @@ class UserInputData {
         self.badThing = nil
         self.thanksThing = nil
         self.highlightThing = nil
+        
         self.month = nil
         self.year = nil
     }
     
     func getAllData() -> (String,String,String,String,String,String,Int16,Int16)? {
-        guard let date = date, let mood = mood, let goodThing = goodThing, let badThing = badThing, let thanksThing = thanksThing, let highlight = highlightThing, let month = month, let year = year else {
+        guard let date = date,
+              let mood = mood,
+              let goodThing = goodThing,
+              let badThing = badThing,
+              let thanksThing = thanksThing,
+              let highlight = highlightThing,
+              let month = month,
+              let year = year
+        else {
             return nil
         }
         
-        return (date, mood, goodThing, badThing, thanksThing, highlight, month,year)
+        return (date, mood, goodThing, badThing, thanksThing, highlight, month, year)
     }
 }
