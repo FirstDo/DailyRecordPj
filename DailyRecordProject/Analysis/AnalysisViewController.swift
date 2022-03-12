@@ -2,49 +2,54 @@
 //  AnalysisViewController.swift
 //  DailyRecordProject
 //
-//  Created by 김도연 on 2021/09/28.
+//  Created by DuDu on 2021/09/28.
 //
 
 import UIKit
 import SnapKit
 
-class AnalysisViewController: UIViewController {
-    let titleLabel: UILabel = {
+final class AnalysisViewController: UIViewController {
+    private let titleLabel: UILabel = {
         let lb = UILabel()
         lb.text = "\(Date.month)월달의 기록 🧐"
         lb.font = UIFont.boldSystemFont(ofSize: 35)
         return lb
     }()
     
-    func drawPieChart(_ percent: [CGFloat], _ color: [UIColor]) {
-        let width = self.view.frame.width
-        let height = self.view.frame.height
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        if let existView = self.view.viewWithTag(100) {
-            existView.removeFromSuperview()
-        }
-        
-        let pieChartView = ChartView(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        pieChartView.tag = 100
-        pieChartView.center = self.view.center
-        
-        var sliceArr = [Slice]()
-        for i in 0..<percent.count {
-            sliceArr.append(Slice(percent: percent[i], color: color[i]))
-        }
-        pieChartView.slices = sliceArr
-        
-        view.addSubview(pieChartView)
-        pieChartView.animateChart()
+        view.backgroundColor = .systemBackground
+        setConstraint()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        showMoodChart()
+    }
+    
+    private func setConstraint() {
+        view.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.leading.top.equalTo(view.safeAreaLayoutGuide).offset(10)
+        }
+        
+        let indexView = IndexStackView()
+        view.addSubview(indexView)
+        indexView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-40)
+        }
+    }
+    
+    private func showMoodChart() {
         var percentList: [CGFloat] = [0,0,0,0]
         var colorList: [UIColor] = [colorDict["happy"], colorDict["sad"], colorDict["soso"],colorDict["angry"]].compactMap{$0}
         
         let month = UserDefaults.standard.value(forKey: UserDefaultKey.listMonth) as? Int16 ?? Date().month
         let year = UserDefaults.standard.value(forKey: UserDefaultKey.listYear) as? Int16 ?? Date().year
+        
         titleLabel.text = "\(month)월달의 기록 🧐"
         
         let list = DataManager.shared.fetchTask(month, year)
@@ -82,27 +87,29 @@ class AnalysisViewController: UIViewController {
         percentList = percentList.map{$0/total}
         
         drawPieChart(percentList,colorList)
-        
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        setConstraint()
-    }
-    
-    //View Constraint
-    private func setConstraint() {
-        view.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.leading.top.equalTo(view.safeAreaLayoutGuide).offset(10)
+    private func drawPieChart(_ percent: [CGFloat], _ color: [UIColor]) {
+        let width = self.view.frame.width
+        let height = self.view.frame.height
+        
+        if let existView = self.view.viewWithTag(100) {
+            existView.removeFromSuperview()
         }
         
-        let indexView = IndexStackView()
-        view.addSubview(indexView)
-        indexView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-40)
+        let pieChartView = ChartView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        pieChartView.tag = 100
+        pieChartView.center = self.view.center
+        
+        var sliceArr = [Slice]()
+        
+        for i in 0..<percent.count {
+            sliceArr.append(Slice(percent: percent[i], color: color[i]))
         }
+        
+        pieChartView.slices = sliceArr
+        
+        view.addSubview(pieChartView)
+        pieChartView.animateChart()
     }
 }
