@@ -2,25 +2,54 @@
 //  SettingViewController.swift
 //  DailyRecordProject
 //
-//  Created by 김도연 on 2021/11/16.
+//  Created by DuDu on 2021/11/16.
 //
 
 import UIKit
 import UserNotifications
 import NotificationCenter
 
-class SettingViewController: UITableViewController {
-    @IBOutlet weak var pushSwitch: UISwitch!
+final class SettingViewController: UITableViewController {
+    @IBOutlet weak private var pushSwitch: UISwitch!
     
-    var token: NSObjectProtocol?
+    var pushSwitchObserver: NSObjectProtocol?
     
-    //한주의 시작 요일 변경 action
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setAttribute()
+        addPushAlarmObserver()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        if let selectedIdx = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selectedIdx, animated: true)
+        }
+    }
+    
+    private func setAttribute() {
+        title = "앱 설정"
+        
+        if let value = UserDefaults.standard.value(forKey: UserDefaultKey.switchState) as? Bool {
+            pushSwitch.isOn = value
+        }
+    }
+    
+    private func addPushAlarmObserver() {
+        pushSwitchObserver = NotificationCenter.default.addObserver(forName: .pushChanged, object: nil, queue: .main, using: { [weak self]_ in
+            if let value = UserDefaults.standard.value(forKey: UserDefaultKey.switchState) as? Bool {
+                self?.pushSwitch.isOn = value
+            }
+        })
+    }
+    
     @IBAction func changeStartDay(_ sender: UISegmentedControl) {
         let value = sender.selectedSegmentIndex + 1
         NotificationCenter.default.post(name: .weekChanged, object: nil, userInfo: ["week": value])
     }
     
-    //푸쉬알람 스위치 action
     @IBAction func togglePushAlarm(_ sender: UISwitch) {
         guard let url = URL(string: UIApplication.openSettingsURLString) else {
             return
@@ -31,6 +60,7 @@ class SettingViewController: UITableViewController {
         }
     }
     
+    //MARK: TableView Delegate
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         return indexPath.section == 1 ? indexPath : nil
     }
@@ -41,37 +71,18 @@ class SettingViewController: UITableViewController {
             let openVC = OpenSourceViewController()
             navigationController?.pushViewController(openVC, animated: true)
         } else {
-            let appID = "1598246774"
-            let address = "itms-apps://itunes.apple.com/app/itunes-u/id\(appID)?ls=1&mt=8&action=write-review"
-            
-            if let url = URL(string: address), UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-                print("error")
-            }
+            moveToDeviceAppSetting()
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        title = "앱 설정"
+    private func moveToDeviceAppSetting() {
+        let appID = "1598246774"
+        let address = "itms-apps://itunes.apple.com/app/itunes-u/id\(appID)?ls=1&mt=8&action=write-review"
         
-        if let value = UserDefaults.standard.value(forKey: UserDefaultKey.switchState) as? Bool {
-            pushSwitch.isOn = value
-        }
-        
-        token = NotificationCenter.default.addObserver(forName: .pushChanged, object: nil, queue: .main, using: { [weak self]_ in
-            if let value = UserDefaults.standard.value(forKey: UserDefaultKey.switchState) as? Bool {
-                self?.pushSwitch.isOn = value
-            }
-        })
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-        if let selectedIdx = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: selectedIdx, animated: true)
+        if let url = URL(string: address), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            print("error")
         }
     }
 }
