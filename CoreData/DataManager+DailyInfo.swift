@@ -1,15 +1,11 @@
-//
-//Create, Fetch, Delete, Update를 수행하는 DataManager Extension
-//
-
-import Foundation
 import CoreData
 
 extension DataManager {
-    //entity를 create하는 함수
+
     func createDailyInfo(date: String, mood: String, good: String, bad: String, thanks: String, highlight: String, month: Int16, year: Int16, completion: (() -> ())? = nil) {
         mainContext.perform {
             let newTask = DailyInfoEntity(context: self.mainContext)
+            
             newTask.date = date
             newTask.mood = mood
             newTask.good = good
@@ -24,7 +20,6 @@ extension DataManager {
         }
     }
     
-    //특정 month의 기록들을 fetch하는 함수
     func fetchTask(_ month: Int16, _ year: Int16) -> [DailyInfoEntity] {
         var list = [DailyInfoEntity]()
         
@@ -41,19 +36,19 @@ extension DataManager {
             request.sortDescriptors = [sortByDate]
             request.predicate = combinePredicate
             
+            
             do {
                 list = try mainContext.fetch(request)
             } catch {
-                print(error.localizedDescription)
+                
             }
         }
+        
         return list
     }
     
-    //인자로 전달된 entity를 update하는 함수
     func updateTask(entity: DailyInfoEntity, date: String, mood: String, good: String, bad: String, thanks: String, highlight: String, month: Int16, year: Int16,completion: (()->())? = nil) {
         mainContext.perform {
-            
             entity.date = date
             entity.mood = mood
             entity.good = good
@@ -68,7 +63,6 @@ extension DataManager {
         }
     }
     
-    //entity를 삭제하는 함수
     func deleteTask(entity: DailyInfoEntity, completion: (()->())? = nil) {
         mainContext.perform {
             self.mainContext.delete(entity)
@@ -76,5 +70,4 @@ extension DataManager {
             completion?()
         }
     }
-    
 }
