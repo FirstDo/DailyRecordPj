@@ -7,13 +7,6 @@ target 'DailyRecordProject' do
   use_frameworks!
   pod 'FSCalendar'
   pod 'SnapKit'
-  pod 'RxSwift'
-  pod 'RxCocoa'
-  pod 'Action'
-  pod 'NSObject+Rx'
-  pod 'RxCoreData'
-  pod 'RxDataSources'
-  #pod 'Alamofire', '~> 3.0'
 
   # Pods for DailyRecordProject
 
