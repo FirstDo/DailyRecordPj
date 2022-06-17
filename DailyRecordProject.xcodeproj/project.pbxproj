@@ -92,7 +92,6 @@
 			children = (
 				9441B46D27036391009226BB /* TabBarViewController.swift */,
 				9441B46127035D44009226BB /* Calendar */,
-				944ED090285C61440014CBFA /* CalendarViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -130,6 +129,7 @@
 		9441B46127035D44009226BB /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				944ED090285C61440014CBFA /* CalendarViewController.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
