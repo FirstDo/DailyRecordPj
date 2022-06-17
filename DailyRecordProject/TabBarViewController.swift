@@ -2,31 +2,35 @@
 //  TabBarViewController.swift
 //  DailyRecordProject
 //
-//  Created by 김도연 on 2021/09/28.
+//  Created by dudu on 2021/09/28.
 //
 
 import UIKit
 
-class TabBarViewController: UITabBarController {
-
+final class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // MARK: - color와 image 나중에 최종수정해야함
+        configure()
+    }
+    
+    private func configure() {
+        configureTabBar()
+        configureChildViewControllers()
+    }
+    
+    private func configureTabBar() {
         tabBar.tintColor = .CustomBlack
         tabBar.unselectedItemTintColor = .systemGray3
-        
+        selectedIndex = 1
+    }
+    
+    private func configureChildViewControllers() {
         let calendarVC = UINavigationController(rootViewController: CalendarViewController())
         calendarVC.tabBarItem.selectedImage = UIImage(systemName: "calendar")
         calendarVC.tabBarItem.title = "캘린더"
         calendarVC.tabBarItem.image = UIImage(systemName: "calendar")
         
-        let storyboard = UIStoryboard(name: "Main", bundle: .main)
-        guard let vc = storyboard.instantiateViewController(withIdentifier: "Setting") as? SettingViewController else { return }
-
-        
-        let settingVC = UINavigationController(rootViewController: vc)
-        //let SettingVC = UINavigationController(rootViewController: SettingViewController())
+        let settingVC = UINavigationController(rootViewController: SettingViewController())
         settingVC.tabBarItem.selectedImage = UIImage(systemName: "gearshape.fill")
         settingVC.tabBarItem.title = "설정"
         settingVC.tabBarItem.image = UIImage(systemName: "gearshape.fill")
@@ -41,7 +45,6 @@ class TabBarViewController: UITabBarController {
         listVC.tabBarItem.title = "모아보기"
         listVC.tabBarItem.image = UIImage(systemName: "list.bullet")
         
-        viewControllers = [analysisVC,calendarVC,listVC,settingVC]
-        selectedIndex = 1
+        viewControllers = [analysisVC, calendarVC, listVC, settingVC]
     }
 }
