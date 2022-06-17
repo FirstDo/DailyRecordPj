@@ -18,6 +18,7 @@
 		944ED08B285C5DFD0014CBFA /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944ED08A285C5DFD0014CBFA /* UIStackView+.swift */; };
 		944ED091285C61440014CBFA /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944ED090285C61440014CBFA /* CalendarViewController.swift */; };
 		944ED093285C6B3E0014CBFA /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944ED092285C6B3E0014CBFA /* Date+.swift */; };
+		947133CE285C7DE200511170 /* EmotionIndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947133CD285C7DE200511170 /* EmotionIndexView.swift */; };
 		949AF70427033F0500F3D9B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949AF70327033F0500F3D9B7 /* AppDelegate.swift */; };
 		949AF70627033F0500F3D9B7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949AF70527033F0500F3D9B7 /* SceneDelegate.swift */; };
 		949AF70D27033F0800F3D9B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 949AF70C27033F0800F3D9B7 /* Assets.xcassets */; };
@@ -52,6 +53,7 @@
 		944ED090285C61440014CBFA /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		944ED092285C6B3E0014CBFA /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		945779B927047CA000A95F57 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		947133CD285C7DE200511170 /* EmotionIndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionIndexView.swift; sourceTree = "<group>"; };
 		949AF70027033F0500F3D9B7 /* DailyRecordProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyRecordProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		949AF70327033F0500F3D9B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		949AF70527033F0500F3D9B7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 		9402CF00285C413B00EC3ABF /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				947133CD285C7DE200511170 /* EmotionIndexView.swift */,
 				9441B46D27036391009226BB /* TabBarViewController.swift */,
 				9441B46127035D44009226BB /* Calendar */,
 			);
@@ -385,6 +388,7 @@
 				9419B203270C7F50008BC2FE /* PersistantManager.swift in Sources */,
 				949AF70627033F0500F3D9B7 /* SceneDelegate.swift in Sources */,
 				9402CF0C285C449000EC3ABF /* DailyRecord.swift in Sources */,
+				947133CE285C7DE200511170 /* EmotionIndexView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

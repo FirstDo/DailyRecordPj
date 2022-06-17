@@ -29,6 +29,8 @@ final class CalendarViewController: UIViewController {
         
         return calendar
     }()
+    
+    private let emotionIndexView = EmotionIndexView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,10 +53,17 @@ final class CalendarViewController: UIViewController {
     }
     
     func configureLayout() {
-        view.addSubview(calendarView)
+        
+        view.addSubviews(calendarView, emotionIndexView)
+        
         calendarView.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            
+            $0.height.equalTo(calendarView.snp.width).offset(50)
+        }
+        
+        emotionIndexView.snp.makeConstraints {
+            $0.top.equalTo(calendarView.snp.bottom)
+            $0.centerX.equalToSuperview()
         }
     }
 }
