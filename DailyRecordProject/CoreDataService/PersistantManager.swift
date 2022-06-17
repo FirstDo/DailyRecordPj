@@ -51,20 +51,30 @@ extension PersistantManager {
         newEntity.thanksWork = userRecord.thanksWork
         newEntity.highlight = userRecord.highlight
         newEntity.mood = Int64(userRecord.mood?.rawValue ?? 0)
+        newEntity.createdDate = userRecord.createdDate
         
         saveContent()
         completion?()
     }
     
-    func fetchAll(for date: Date) -> [DailyRecord]? {
+    func fetchAll(target date: Date) -> [DailyRecord]? {
+        var dateComponent = DateComponents(calendar: .current, year: date.year, month: date.month, day: 1)
+        let firstDayOfMonth = dateComponent.date!
+        
+        if date.month == 12 {
+            dateComponent.year = date.year + 1
+            dateComponent.month = date.month
+        } else {
+            dateComponent.month = date.month + 1
+        }
+        
+        let firstDayOfNextMonth = dateComponent.date!
+        
         let request = DailyRecordEntity.fetchRequest()
         let sortByDate = NSSortDescriptor(key: #keyPath(DailyRecordEntity.createdDate), ascending: true)
-        let predicate = NSPredicate(format: "createdDate >= %@", date as NSDate)
-        
-        //        let monthPredicate = NSPredicate(format: "%K == %d", #keyPath(DailyRecordEntity.createdDate.year), date.year)
-        //        let yearPredicate = NSPredicate(format: "%K == %d", #keyPath(DailyRecordEntity.createdDate), year)
-        //        let combinePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [yearPredicate, monthPredicate])
-        //        request.predicate = combinePredicate
+        let predicate = NSPredicate(
+            format: "createdDate >= %@ AND createdDate < %@", firstDayOfMonth as CVarArg, firstDayOfNextMonth as CVarArg
+        )
         
         request.sortDescriptors = [sortByDate]
         request.predicate = predicate
@@ -83,7 +93,8 @@ extension PersistantManager {
     
     func fetch(date: Date) -> DailyRecordEntity? {
         let request = DailyRecordEntity.fetchRequest()
-        let predicate = NSPredicate(format: "createdDate == %@", date as NSDate)
+        
+        let predicate = NSPredicate(format: "createdDate == %@", date as CVarArg)
         request.predicate = predicate
         
         return try? mainContext.fetch(request).first
@@ -110,5 +121,16 @@ extension PersistantManager {
         mainContext.delete(entity)
         saveContent()
         completion?()
+    }
+    
+    func deleteAll() {
+        let request = DailyRecordEntity.fetchRequest()
+        let results = try? mainContext.fetch(request)
+        
+        results?.forEach { entity in
+            mainContext.delete(entity)
+        }
+        
+        saveContent()
     }
 }

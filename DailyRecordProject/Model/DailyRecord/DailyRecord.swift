@@ -13,7 +13,7 @@ struct DailyRecord: Hashable {
     var badWork: String?
     var thanksWork: String?
     var highlight: String?
-    var createdDate: Date? = Date()
+    var createdDate: Date?
 }
 
 enum Mood: Int {

@@ -17,6 +17,7 @@
 		944ED089285C5DEF0014CBFA /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944ED088285C5DEF0014CBFA /* UIView+.swift */; };
 		944ED08B285C5DFD0014CBFA /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944ED08A285C5DFD0014CBFA /* UIStackView+.swift */; };
 		944ED091285C61440014CBFA /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944ED090285C61440014CBFA /* CalendarViewController.swift */; };
+		944ED093285C6B3E0014CBFA /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944ED092285C6B3E0014CBFA /* Date+.swift */; };
 		949AF70427033F0500F3D9B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949AF70327033F0500F3D9B7 /* AppDelegate.swift */; };
 		949AF70627033F0500F3D9B7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949AF70527033F0500F3D9B7 /* SceneDelegate.swift */; };
 		949AF70D27033F0800F3D9B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 949AF70C27033F0800F3D9B7 /* Assets.xcassets */; };
@@ -49,6 +50,7 @@
 		944ED088285C5DEF0014CBFA /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		944ED08A285C5DFD0014CBFA /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		944ED090285C61440014CBFA /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		944ED092285C6B3E0014CBFA /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		945779B927047CA000A95F57 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		949AF70027033F0500F3D9B7 /* DailyRecordProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyRecordProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		949AF70327033F0500F3D9B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			children = (
 				944ED088285C5DEF0014CBFA /* UIView+.swift */,
 				944ED08A285C5DFD0014CBFA /* UIStackView+.swift */,
+				944ED092285C6B3E0014CBFA /* Date+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				944ED093285C6B3E0014CBFA /* Date+.swift in Sources */,
 				944ED091285C61440014CBFA /* CalendarViewController.swift in Sources */,
 				944ED076285C4B740014CBFA /* DailyRecord.xcdatamodeld in Sources */,
 				944ED08B285C5DFD0014CBFA /* UIStackView+.swift in Sources */,

@@ -5,6 +5,8 @@
 //  Created by dudu on 2022/06/17.
 //
 
+import Foundation
+
 final class DailyRecordBuilder {
     static let shared = DailyRecordBuilder()
     private init() {}
@@ -13,6 +15,11 @@ final class DailyRecordBuilder {
     
     func reset(with userRecord: DailyRecord = DailyRecord()) {
         self.userRecord = userRecord
+    }
+    
+    func setDate(_ date: Date) -> Self {
+        userRecord.createdDate = date
+        return self
     }
     
     func setMood(_ mood: Mood) -> Self {
@@ -41,6 +48,10 @@ final class DailyRecordBuilder {
     }
     
     func make() -> DailyRecord {
+        defer {
+            reset()
+        }
+        
         return userRecord
     }
 }
