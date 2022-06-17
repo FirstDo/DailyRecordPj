@@ -40,7 +40,13 @@ final class ChartView: UIView {
         animation.delegate = self
         
         let canvasWidth = self.frame.width * 0.7
-        let path = UIBezierPath(arcCenter: self.center, radius: canvasWidth * 3 / 8, startAngle: percentToRadian(currentPercent) + 0.0001, endAngle: percentToRadian(currentPercent+slice.percent), clockwise: true)
+        let path = UIBezierPath(
+            arcCenter: self.center,
+            radius: canvasWidth * 3 / 8,
+            startAngle: percentToRadian(currentPercent) + 0.0001,
+            endAngle: percentToRadian(currentPercent+slice.percent),
+            clockwise: true
+        )
         
         let sliceLayer = CAShapeLayer()
         sliceLayer.path = path.cgPath

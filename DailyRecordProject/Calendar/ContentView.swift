@@ -36,23 +36,23 @@ final class ContentView: UIView {
     private let lineView = UIView()
     
     private lazy var labelStack: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [goodText, badText, thanksText, highlightText])
-        sv.axis = .vertical
-        sv.spacing = 20
-        sv.distribution = .fillEqually
-        sv.alignment = .fill
+        let stackview = UIStackView(arrangedSubviews: [goodText, badText, thanksText, highlightText])
+        stackview.axis = .vertical
+        stackview.spacing = 20
+        stackview.distribution = .fillEqually
+        stackview.alignment = .fill
         
-        return sv
+        return stackview
     }()
     
     private lazy var buttonStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [editButton, deleteButton])
-        sv.axis = .horizontal
-        sv.spacing = 5
-        sv.distribution = .fillEqually
-        sv.alignment = .fill
+        let stackview = UIStackView(arrangedSubviews: [editButton, deleteButton])
+        stackview.axis = .horizontal
+        stackview.spacing = 5
+        stackview.distribution = .fillEqually
+        stackview.alignment = .fill
         
-        return sv
+        return stackview
     }()
     
     override init(frame: CGRect) {

@@ -76,10 +76,10 @@ final class AnalysisViewController: UIViewController {
             }
         }
         
-        for i in stride(from: 3, through: 0, by: -1) {
-            if percentList[i] == 0 {
-                percentList.remove(at: i)
-                colorList.remove(at: i)
+        for index in stride(from: 3, through: 0, by: -1) {
+            if percentList[index] == 0 {
+                percentList.remove(at: index)
+                colorList.remove(at: index)
             }
         }
         
@@ -103,8 +103,8 @@ final class AnalysisViewController: UIViewController {
         
         var sliceArr = [Slice]()
         
-        for i in 0..<percent.count {
-            sliceArr.append(Slice(percent: percent[i], color: color[i]))
+        for index in 0..<percent.count {
+            sliceArr.append(Slice(percent: percent[index], color: color[index]))
         }
         
         pieChartView.slices = sliceArr

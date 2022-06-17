@@ -90,9 +90,9 @@ final class ListViewController: UIViewController {
     }
     
     private let dateInputView: UIView = {
-        let v = UIView()
-        v.backgroundColor = .systemBackground
-        return v
+        let view = UIView()
+        view.backgroundColor = .systemBackground
+        return view
     }()
     
     private let monthPicker: UIPickerView = {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		94090A6C285C3B9B00918B25 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 94090A6B285C3B9B00918B25 /* .swiftlint.yml */; };
 		9419B201270C7F14008BC2FE /* DailyInfoModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9419B1FF270C7F14008BC2FE /* DailyInfoModel.xcdatamodeld */; };
 		9419B203270C7F50008BC2FE /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9419B202270C7F50008BC2FE /* DataManager.swift */; };
 		9419B20B270C8239008BC2FE /* DataManager+DailyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9419B20A270C8239008BC2FE /* DataManager+DailyInfo.swift */; };
@@ -44,6 +45,7 @@
 		0D39FCE0BA9748CD4D2B9BB2 /* Pods_DailyRecordProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DailyRecordProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CDB836D4DB67E4A2A7F8C0C /* Pods-DailyRecordProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DailyRecordProject.release.xcconfig"; path = "Target Support Files/Pods-DailyRecordProject/Pods-DailyRecordProject.release.xcconfig"; sourceTree = "<group>"; };
 		4A5F74B6ECA11ACF7A1A3862 /* Pods-DailyRecordProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DailyRecordProject.debug.xcconfig"; path = "Target Support Files/Pods-DailyRecordProject/Pods-DailyRecordProject.debug.xcconfig"; sourceTree = "<group>"; };
+		94090A6B285C3B9B00918B25 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		9419B200270C7F14008BC2FE /* dailyInfoModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = dailyInfoModel.xcdatamodel; sourceTree = "<group>"; };
 		9419B202270C7F50008BC2FE /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		9419B20A270C8239008BC2FE /* DataManager+DailyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataManager+DailyInfo.swift"; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 		949AF6F727033F0500F3D9B7 = {
 			isa = PBXGroup;
 			children = (
+				94090A6B285C3B9B00918B25 /* .swiftlint.yml */,
 				945779B927047CA000A95F57 /* README.md */,
 				9419B218270DF059008BC2FE /* Extension */,
 				945D9E9B27DD4875004797CB /* CoreData */,
@@ -241,6 +244,7 @@
 				949AF6FD27033F0500F3D9B7 /* Frameworks */,
 				949AF6FE27033F0500F3D9B7 /* Resources */,
 				EADE913BF6AF7177768F257E /* [CP] Embed Pods Frameworks */,
+				94090A68285C3AD600918B25 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -289,6 +293,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94090A6C285C3B9B00918B25 /* .swiftlint.yml in Resources */,
 				9441B48227036B66009226BB /* Main.storyboard in Resources */,
 				9419B214270DEE19008BC2FE /* CustomHeader.xib in Resources */,
 				949AF71027033F0800F3D9B7 /* LaunchScreen.storyboard in Resources */,
@@ -299,6 +304,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		94090A68285C3AD600918B25 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
 		EADE913BF6AF7177768F257E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -439,7 +461,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -494,7 +516,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -521,7 +543,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -552,7 +574,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

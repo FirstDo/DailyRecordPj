@@ -58,6 +58,7 @@ class InputViewController: UIViewController {
         nextButton.backgroundColor = .systemOrange
         nextButton.isEnabled = true
     }
+    
     lazy var emotionButtons : [UIImageView] = {
         let happyImg = UIImageView(image: UIImage(named: "happy"))
         let sadImg = UIImageView(image: UIImage(named: "sad1"))
@@ -65,28 +66,28 @@ class InputViewController: UIViewController {
         let angryImg = UIImageView(image: UIImage(named: "angry"))
         
         let imageViewList = [happyImg,sadImg,sosoImg,angryImg]
-        for i in 0..<4 {
-            imageViewList[i].contentMode = .scaleAspectFit
-            imageViewList[i].tag = i+1
-            imageViewList[i].isUserInteractionEnabled = true
+        for index in 0..<4 {
+            imageViewList[index].contentMode = .scaleAspectFit
+            imageViewList[index].tag = index+1
+            imageViewList[index].isUserInteractionEnabled = true
             
             let singleTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(singleTapGesture(_:)))
             singleTap.numberOfTouchesRequired = 1
-            imageViewList[i].addGestureRecognizer(singleTap)
+            imageViewList[index].addGestureRecognizer(singleTap)
         }
         return imageViewList
     }()
     
     lazy var lineView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [UIView(),UIView(),UIView(),UIView()])
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.isLayoutMarginsRelativeArrangement = true
-        sv.layoutMargins.left = 10
-        sv.layoutMargins.right = 10
-        sv.axis = .horizontal
-        sv.spacing = 20
-        sv.distribution = .fillEqually
-        return sv
+        let stackview = UIStackView(arrangedSubviews: [UIView(),UIView(),UIView(),UIView()])
+        stackview.translatesAutoresizingMaskIntoConstraints = false
+        stackview.isLayoutMarginsRelativeArrangement = true
+        stackview.layoutMargins.left = 10
+        stackview.layoutMargins.right = 10
+        stackview.axis = .horizontal
+        stackview.spacing = 20
+        stackview.distribution = .fillEqually
+        return stackview
     }()
     
     lazy var stackView: UIStackView = {

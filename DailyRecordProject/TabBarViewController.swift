@@ -16,32 +16,32 @@ class TabBarViewController: UITabBarController {
         tabBar.tintColor = .CustomBlack
         tabBar.unselectedItemTintColor = .systemGray3
         
-        let CalendarVC = UINavigationController(rootViewController: CalendarViewController())
-        CalendarVC.tabBarItem.selectedImage = UIImage(systemName: "calendar")
-        CalendarVC.tabBarItem.title = "캘린더"
-        CalendarVC.tabBarItem.image = UIImage(systemName: "calendar")
+        let calendarVC = UINavigationController(rootViewController: CalendarViewController())
+        calendarVC.tabBarItem.selectedImage = UIImage(systemName: "calendar")
+        calendarVC.tabBarItem.title = "캘린더"
+        calendarVC.tabBarItem.image = UIImage(systemName: "calendar")
         
         let storyboard = UIStoryboard(name: "Main", bundle: .main)
-        let vc = storyboard.instantiateViewController(withIdentifier: "Setting") as! SettingViewController
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "Setting") as? SettingViewController else { return }
 
         
-        let SettingVC = UINavigationController(rootViewController: vc)
+        let settingVC = UINavigationController(rootViewController: vc)
         //let SettingVC = UINavigationController(rootViewController: SettingViewController())
-        SettingVC.tabBarItem.selectedImage = UIImage(systemName: "gearshape.fill")
-        SettingVC.tabBarItem.title = "설정"
-        SettingVC.tabBarItem.image = UIImage(systemName: "gearshape.fill")
+        settingVC.tabBarItem.selectedImage = UIImage(systemName: "gearshape.fill")
+        settingVC.tabBarItem.title = "설정"
+        settingVC.tabBarItem.image = UIImage(systemName: "gearshape.fill")
         
-        let AnalysisVC = UINavigationController(rootViewController: AnalysisViewController())
-        AnalysisVC.tabBarItem.selectedImage = UIImage(systemName: "chart.pie.fill")
-        AnalysisVC.tabBarItem.title = "분석"
-        AnalysisVC.tabBarItem.image = UIImage(systemName: "chart.pie.fill")
+        let analysisVC = UINavigationController(rootViewController: AnalysisViewController())
+        analysisVC.tabBarItem.selectedImage = UIImage(systemName: "chart.pie.fill")
+        analysisVC.tabBarItem.title = "분석"
+        analysisVC.tabBarItem.image = UIImage(systemName: "chart.pie.fill")
         
-        let ListVC = UINavigationController(rootViewController: ListViewController())
-        ListVC.tabBarItem.selectedImage = UIImage(systemName: "list.bullet")
-        ListVC.tabBarItem.title = "모아보기"
-        ListVC.tabBarItem.image = UIImage(systemName: "list.bullet")
+        let listVC = UINavigationController(rootViewController: ListViewController())
+        listVC.tabBarItem.selectedImage = UIImage(systemName: "list.bullet")
+        listVC.tabBarItem.title = "모아보기"
+        listVC.tabBarItem.image = UIImage(systemName: "list.bullet")
         
-        viewControllers = [AnalysisVC,CalendarVC,ListVC,SettingVC]
+        viewControllers = [analysisVC,calendarVC,listVC,settingVC]
         selectedIndex = 1
     }
 }

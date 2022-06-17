@@ -10,7 +10,7 @@ import FSCalendar
 import StoreKit
 import SnapKit
 
-final class CalendarViewController: UIViewController{
+final class CalendarViewController: UIViewController {
     private var dataChangedObserver: NSObjectProtocol?
     private var weekChangedObserver: NSObjectProtocol?
     
@@ -20,15 +20,15 @@ final class CalendarViewController: UIViewController{
     private var globalEntity: DailyInfoEntity?
     
     private lazy var formatter :DateFormatter =  {
-        let f = DateFormatter()
-        f.dateFormat = "yyyy.MM.dd"
-        f.locale = Locale(identifier: "ko-kr")
-        return f
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+        formatter.locale = Locale(identifier: "ko-kr")
+        return formatter
     }()
     
     private let indexView: IndexStackView = {
-        let v = IndexStackView()
-        return v
+        let view = IndexStackView()
+        return view
     }()
     
     private let calendar: FSCalendar = {
@@ -47,7 +47,7 @@ final class CalendarViewController: UIViewController{
         return calendar
     }()
     
-    private let nextButton: UIButton = {
+    private lazy var nextButton: UIButton = {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(nextTapped), for: .touchUpInside)
         
@@ -59,7 +59,7 @@ final class CalendarViewController: UIViewController{
         return btn
     }()
     
-    private let prevButton: UIButton = {
+    private lazy var prevButton: UIButton = {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(previousTapped), for: .touchUpInside)
         
@@ -81,13 +81,13 @@ final class CalendarViewController: UIViewController{
         calendar.setCurrentPage(date, animated: true)
     }
     
-    private let contentView: ContentView = {
-        let v = ContentView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.editButton.addTarget(self, action: #selector(editReport), for: .touchUpInside)
-        v.deleteButton.addTarget(self, action: #selector(deleteReport), for: .touchUpInside)
+    private lazy var contentView: ContentView = {
+        let contentView = ContentView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.editButton.addTarget(self, action: #selector(editReport), for: .touchUpInside)
+        contentView.deleteButton.addTarget(self, action: #selector(deleteReport), for: .touchUpInside)
         
-        return v
+        return contentView
     }()
     
     @objc private func editReport() {

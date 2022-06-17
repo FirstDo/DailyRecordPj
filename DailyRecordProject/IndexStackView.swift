@@ -22,12 +22,12 @@ class IndexStackView: UIStackView {
         let korName = ["행복 ","슬픔 ","보통 ","화남 "]
 
         for (idx,name) in nameList.enumerated() {
-            let v = UIView()
-            v.heightAnchor.constraint(equalToConstant: 16).isActive = true
-            v.widthAnchor.constraint(equalToConstant: 16).isActive = true
-            v.layer.cornerRadius = 8
-            v.backgroundColor = colorDict[name]!
-            self.addArrangedSubview(v)
+            let view = UIView()
+            view.heightAnchor.constraint(equalToConstant: 16).isActive = true
+            view.widthAnchor.constraint(equalToConstant: 16).isActive = true
+            view.layer.cornerRadius = 8
+            view.backgroundColor = colorDict[name]!
+            self.addArrangedSubview(view)
 
             let lb = UILabel()
             lb.text = korName[idx]

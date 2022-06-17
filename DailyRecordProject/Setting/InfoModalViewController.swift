@@ -14,20 +14,20 @@ final class InfoModalViewController: UIViewController {
     var content: String?
     
     private lazy var infoView: UITextView = {
-        let v = UITextView()
-        v.isEditable = false
-        v.textContainer.lineBreakMode = .byWordWrapping
-        v.font = UIFont.systemFont(ofSize: 15)
-        v.dataDetectorTypes = .link
-        v.text = content
-        return v
+        let textview = UITextView()
+        textview.isEditable = false
+        textview.textContainer.lineBreakMode = .byWordWrapping
+        textview.font = UIFont.systemFont(ofSize: 15)
+        textview.dataDetectorTypes = .link
+        textview.text = content
+        return textview
     }()
     
     private lazy var titleLabel: UILabel = {
-        let lb = UILabel()
-        lb.font = UIFont.systemFont(ofSize: 25)
-        lb.text = infoTitle
-        return lb
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 25)
+        label.text = infoTitle
+        return label
     }()
     
     override func viewDidLoad() {
