@@ -19,9 +19,9 @@ class IndexStackView: UIStackView {
         axis = .horizontal
         
         let nameList = ["happy", "sad", "soso", "angry"]
-        let korName = ["행복 ","슬픔 ","보통 ","화남 "]
+        let korName = ["행복 ", "슬픔 ", "보통 ", "화남 "]
 
-        for (idx,name) in nameList.enumerated() {
+        for (idx, name) in nameList.enumerated() {
             let view = UIView()
             view.heightAnchor.constraint(equalToConstant: 16).isActive = true
             view.widthAnchor.constraint(equalToConstant: 16).isActive = true
@@ -29,12 +29,13 @@ class IndexStackView: UIStackView {
             view.backgroundColor = colorDict[name]!
             self.addArrangedSubview(view)
 
-            let lb = UILabel()
-            lb.text = korName[idx]
-            self.addArrangedSubview(lb)
+            let label = UILabel()
+            label.text = korName[idx]
+            addArrangedSubview(label)
         }
-        self.distribution = .fillProportionally
-        self.spacing = 5
-        self.clipsToBounds = false
+        
+        distribution = .fillProportionally
+        spacing = 5
+        clipsToBounds = false
     }
 }

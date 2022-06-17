@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  DailyRecordProject
 //
-//  Created by DuDu on 2021/09/28.
+//  Created by dudu on 2021/09/28.
 //
 
 import UIKit
