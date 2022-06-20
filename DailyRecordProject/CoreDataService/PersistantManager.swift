@@ -91,7 +91,7 @@ extension PersistantManager {
         }
     }
     
-    func fetch(date: Date) -> DailyRecordEntity? {
+    private func fetch(date: Date) -> DailyRecordEntity? {
         let request = DailyRecordEntity.fetchRequest()
         
         let predicate = NSPredicate(format: "createdDate == %@", date as CVarArg)

@@ -31,11 +31,18 @@ final class CalendarViewController: UIViewController {
     
     private let emotionIndexView = EmotionIndexView()
     private let dailyRecordView = DailyRecordView()
+    
+    private var dailyRecords = [DailyRecord]() {
+        didSet {
+            calendarView.reloadData()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
         configureView()
+        fetchData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,7 +55,7 @@ final class CalendarViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         view.addSubviews(calendarView, emotionIndexView, dailyRecordView)
         
         calendarView.snp.makeConstraints {
@@ -67,12 +74,50 @@ final class CalendarViewController: UIViewController {
         }
     }
     
-    func configureView() {
+    private func configureView() {
         view.backgroundColor = .systemBackground
-        configureDailyRecordView()
+        configureFSCalendar()
     }
     
-    func configureDailyRecordView() {
-        
+    private func configureFSCalendar() {
+        calendarView.delegate = self
+        calendarView.dataSource = self
     }
+    
+    func fetchData() {
+        guard let results = PersistantManager.shared.fetchAll(target: calendarView.currentPage) else { return }
+        
+        dailyRecords = results
+    }
+}
+
+extension CalendarViewController: FSCalendarDataSource {
+    // empty
+}
+
+extension CalendarViewController: FSCalendarDelegate {
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        guard let dailyRecord = dailyRecords.first(where: { $0.createdDate?.day == date.day }) else { return }
+        
+        dailyRecordView.configure(
+            with: dailyRecord,
+            date: date,
+            editAction: { [weak self] in
+                // empty
+            },
+            deleteAction: { [weak self] in
+                guard let self = self else { return }
+                
+                PersistantManager.shared.delete(target: dailyRecord)
+                
+                if let index = self.dailyRecords.firstIndex(where: { $0.createdDate?.day == date.day }) {
+                    self.dailyRecords.remove(at: index)
+                }
+            }
+        )
+    }
+}
+
+extension CalendarViewController: FSCalendarDelegateAppearance {
+    // empty
 }
