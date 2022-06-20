@@ -57,20 +57,22 @@ final class DailyRecordView: UIView {
         return stackview
     }()
     
-    let editButton: UIButton = {
+    private lazy var editButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
         button.tintColor = .label
         button.setTitleColor(.label, for: .normal)
+        button.addTarget(self, action: #selector(editButtonDidTap), for: .touchUpInside)
         
         return button
     }()
     
-    let deleteButton: UIButton = {
+    private lazy var deleteButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "trash"), for: .normal)
         button.tintColor = .systemRed
         button.setTitleColor(.label, for: .normal)
+        button.addTarget(self, action: #selector(deleteButtonDidTap), for: .touchUpInside)
         
         return button
     }()
@@ -111,6 +113,9 @@ final class DailyRecordView: UIView {
         return label
     }()
     
+    private var editAction: (() -> Void)?
+    private var deleteAction: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureView()
@@ -122,12 +127,12 @@ final class DailyRecordView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureView() {
+    private func configureView() {
         backgroundColor = .systemGray6
         layer.cornerRadius = 20
     }
     
-    func addSubViews() {
+    private func addSubViews() {
         addSubviews(baseStackView, buttonStackView)
         baseStackView.addArrangedSubviews(titleStackView, fourRecordStackView)
         titleStackView.addArrangedSubviews(titleLabel, titleLineView)
@@ -135,7 +140,7 @@ final class DailyRecordView: UIView {
         fourRecordStackView.addArrangedSubviews(goodWorkLabel, badWorkLabel, thanksWorkLabel, highlightLabel)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         baseStackView.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(10)
         }
@@ -147,5 +152,31 @@ final class DailyRecordView: UIView {
         titleLineView.snp.makeConstraints {
             $0.leading.trailing.equalTo(titleLabel)
         }
+    }
+    
+    func configure(
+        with item: DailyRecord,
+        date: Date,
+        editAction: @escaping () -> Void,
+        deleteAction: @escaping () -> Void
+    ) {
+        titleLabel.text = "\(date)"
+        goodWorkLabel.text = item.goodWork
+        badWorkLabel.text = item.badWork
+        thanksWorkLabel.text = item.thanksWork
+        highlightLabel.text = item.highlight
+        
+        self.editAction = editAction
+        self.deleteAction = deleteAction
+    }
+    
+    @objc
+    private func editButtonDidTap() {
+        editAction?()
+    }
+    
+    @objc
+    private func deleteButtonDidTap() {
+        deleteAction?()
     }
 }
