@@ -24,6 +24,8 @@
 		949AF70627033F0500F3D9B7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949AF70527033F0500F3D9B7 /* SceneDelegate.swift */; };
 		949AF70D27033F0800F3D9B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 949AF70C27033F0800F3D9B7 /* Assets.xcassets */; };
 		949AF71027033F0800F3D9B7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 949AF70E27033F0800F3D9B7 /* LaunchScreen.storyboard */; };
+		94EE391C2860D0EB00D060E4 /* UserInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EE391B2860D0EB00D060E4 /* UserInputViewController.swift */; };
+		94EE39202860D3E400D060E4 /* MoodSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EE391F2860D3E400D060E4 /* MoodSegmentView.swift */; };
 		BB7AAFCDBAA72106AE873923 /* Pods_DailyRecordProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D39FCE0BA9748CD4D2B9BB2 /* Pods_DailyRecordProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +64,8 @@
 		949AF70C27033F0800F3D9B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		949AF70F27033F0800F3D9B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		949AF71127033F0800F3D9B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94EE391B2860D0EB00D060E4 /* UserInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputViewController.swift; sourceTree = "<group>"; };
+		94EE391F2860D3E400D060E4 /* MoodSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodSegmentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,8 @@
 		9402CF00285C413B00EC3ABF /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				94EE391B2860D0EB00D060E4 /* UserInputViewController.swift */,
+				94EE391F2860D3E400D060E4 /* MoodSegmentView.swift */,
 				947133CD285C7DE200511170 /* EmotionIndexView.swift */,
 				9441B46D27036391009226BB /* TabBarViewController.swift */,
 				9441B46127035D44009226BB /* Calendar */,
@@ -375,6 +381,7 @@
 				944ED093285C6B3E0014CBFA /* Date+.swift in Sources */,
 				944ED091285C61440014CBFA /* CalendarViewController.swift in Sources */,
 				944ED076285C4B740014CBFA /* DailyRecord.xcdatamodeld in Sources */,
+				94EE39202860D3E400D060E4 /* MoodSegmentView.swift in Sources */,
 				944ED08B285C5DFD0014CBFA /* UIStackView+.swift in Sources */,
 				947133D3285C887300511170 /* DailyRecordView.swift in Sources */,
 				949AF70427033F0500F3D9B7 /* AppDelegate.swift in Sources */,
@@ -384,6 +391,7 @@
 				9419B203270C7F50008BC2FE /* PersistantManager.swift in Sources */,
 				949AF70627033F0500F3D9B7 /* SceneDelegate.swift in Sources */,
 				9402CF0C285C449000EC3ABF /* DailyRecord.swift in Sources */,
+				94EE391C2860D0EB00D060E4 /* UserInputViewController.swift in Sources */,
 				947133CE285C7DE200511170 /* EmotionIndexView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

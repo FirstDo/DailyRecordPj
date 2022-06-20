@@ -97,13 +97,25 @@ extension CalendarViewController: FSCalendarDataSource {
 
 extension CalendarViewController: FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        let userInputVC = UserInputViewController(state: .mood, isEdit: false)
+        self.navigationController?.pushViewController(userInputVC, animated: true)
+        
         guard let dailyRecord = dailyRecords.first(where: { $0.createdDate?.day == date.day }) else { return }
         
         dailyRecordView.configure(
             with: dailyRecord,
             date: date,
             editAction: { [weak self] in
-                // empty
+        
+                guard let record = self?.dailyRecords.first(where: { $0.createdDate?.day == date.day }) else {
+                    // create
+                    let userInputVC = UserInputViewController(state: .mood, isEdit: false)
+                    self?.navigationController?.pushViewController(userInputVC, animated: true)
+                    return
+                }
+                
+                // edit
+                
             },
             deleteAction: { [weak self] in
                 guard let self = self else { return }

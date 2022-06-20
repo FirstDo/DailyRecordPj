@@ -11,7 +11,11 @@ final class DailyRecordBuilder {
     static let shared = DailyRecordBuilder()
     private init() {}
     
-    private var userRecord = DailyRecord()
+    private(set) var userRecord = DailyRecord()
+    
+    func set(with item: DailyRecord) {
+        userRecord = item
+    }
     
     func reset(with userRecord: DailyRecord = DailyRecord()) {
         self.userRecord = userRecord
@@ -45,13 +49,5 @@ final class DailyRecordBuilder {
     func setHighlight(_ text: String) -> Self {
         userRecord.highlight = text
         return self
-    }
-    
-    func make() -> DailyRecord {
-        defer {
-            reset()
-        }
-        
-        return userRecord
     }
 }
