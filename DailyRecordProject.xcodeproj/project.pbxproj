@@ -19,6 +19,7 @@
 		944ED091285C61440014CBFA /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944ED090285C61440014CBFA /* CalendarViewController.swift */; };
 		944ED093285C6B3E0014CBFA /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944ED092285C6B3E0014CBFA /* Date+.swift */; };
 		947133CE285C7DE200511170 /* EmotionIndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947133CD285C7DE200511170 /* EmotionIndexView.swift */; };
+		947133D3285C887300511170 /* DailyRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947133D2285C887300511170 /* DailyRecordView.swift */; };
 		949AF70427033F0500F3D9B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949AF70327033F0500F3D9B7 /* AppDelegate.swift */; };
 		949AF70627033F0500F3D9B7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949AF70527033F0500F3D9B7 /* SceneDelegate.swift */; };
 		949AF70D27033F0800F3D9B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 949AF70C27033F0800F3D9B7 /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 		944ED092285C6B3E0014CBFA /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		945779B927047CA000A95F57 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		947133CD285C7DE200511170 /* EmotionIndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionIndexView.swift; sourceTree = "<group>"; };
+		947133D2285C887300511170 /* DailyRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecordView.swift; sourceTree = "<group>"; };
 		949AF70027033F0500F3D9B7 /* DailyRecordProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyRecordProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		949AF70327033F0500F3D9B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		949AF70527033F0500F3D9B7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -114,7 +116,8 @@
 		9402CF0A285C445800EC3ABF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				944ED072285C4B540014CBFA /* DailyRecord */,
+				9402CF0B285C449000EC3ABF /* DailyRecord.swift */,
+				9402CF0D285C474500EC3ABF /* DailyRecordBuilder.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -133,17 +136,9 @@
 			isa = PBXGroup;
 			children = (
 				944ED090285C61440014CBFA /* CalendarViewController.swift */,
+				947133D2285C887300511170 /* DailyRecordView.swift */,
 			);
 			path = Calendar;
-			sourceTree = "<group>";
-		};
-		944ED072285C4B540014CBFA /* DailyRecord */ = {
-			isa = PBXGroup;
-			children = (
-				9402CF0B285C449000EC3ABF /* DailyRecord.swift */,
-				9402CF0D285C474500EC3ABF /* DailyRecordBuilder.swift */,
-			);
-			path = DailyRecord;
 			sourceTree = "<group>";
 		};
 		944ED080285C54D50014CBFA /* DailyRecordProjectTests */ = {
@@ -381,6 +376,7 @@
 				944ED091285C61440014CBFA /* CalendarViewController.swift in Sources */,
 				944ED076285C4B740014CBFA /* DailyRecord.xcdatamodeld in Sources */,
 				944ED08B285C5DFD0014CBFA /* UIStackView+.swift in Sources */,
+				947133D3285C887300511170 /* DailyRecordView.swift in Sources */,
 				949AF70427033F0500F3D9B7 /* AppDelegate.swift in Sources */,
 				9441B46E27036391009226BB /* TabBarViewController.swift in Sources */,
 				9402CF0E285C474500EC3ABF /* DailyRecordBuilder.swift in Sources */,

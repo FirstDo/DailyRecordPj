@@ -10,7 +10,6 @@ import SnapKit
 import FSCalendar
 
 final class CalendarViewController: UIViewController {
-    
     private let calendarView: FSCalendar = {
         let calendar = FSCalendar()
         
@@ -31,11 +30,12 @@ final class CalendarViewController: UIViewController {
     }()
     
     private let emotionIndexView = EmotionIndexView()
+    private let dailyRecordView = DailyRecordView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureAttribute()
         configureLayout()
+        configureView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,13 +48,8 @@ final class CalendarViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
     }
     
-    func configureAttribute() {
-        view.backgroundColor = .systemBackground
-    }
-    
     func configureLayout() {
-        
-        view.addSubviews(calendarView, emotionIndexView)
+        view.addSubviews(calendarView, emotionIndexView, dailyRecordView)
         
         calendarView.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -65,5 +60,19 @@ final class CalendarViewController: UIViewController {
             $0.top.equalTo(calendarView.snp.bottom)
             $0.centerX.equalToSuperview()
         }
+        
+        dailyRecordView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(10)
+            $0.top.equalTo(emotionIndexView.snp.bottom).offset(20)
+        }
+    }
+    
+    func configureView() {
+        view.backgroundColor = .systemBackground
+        configureDailyRecordView()
+    }
+    
+    func configureDailyRecordView() {
+        
     }
 }
