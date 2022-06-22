@@ -7,6 +7,7 @@ target 'DailyRecordProject' do
   use_frameworks!
   pod 'FSCalendar'
   pod 'SnapKit'
+  pod 'SwiftLint'
 
   # Pods for DailyRecordProject
 
