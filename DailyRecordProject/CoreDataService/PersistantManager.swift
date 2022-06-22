@@ -8,27 +8,20 @@
 import CoreData
 
 final class PersistantManager {
-    static let shared = PersistantManager()
-    private init() {}
     
-    private var persistentContainer: NSPersistentContainer?
-    
-    private var mainContext: NSManagedObjectContext {
-        guard let context = persistentContainer?.viewContext else {
-            return NSManagedObjectContext.init(concurrencyType: .mainQueueConcurrencyType)
-        }
-        
-        return context
-    }
-    
-    func setUp(modelName: String) {
+    init(modelName: String) {
         persistentContainer = NSPersistentContainer(name: modelName)
-        
-        persistentContainer?.loadPersistentStores { _, error in
-            if let error = error {
-                print(error.localizedDescription)
+        persistentContainer.loadPersistentStores { _, error in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         }
+    }
+    
+    private let persistentContainer: NSPersistentContainer
+    
+    private var mainContext: NSManagedObjectContext {
+        return persistentContainer.viewContext
     }
     
     func saveContent() {

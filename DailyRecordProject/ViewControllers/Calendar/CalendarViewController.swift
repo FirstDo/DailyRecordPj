@@ -37,6 +37,8 @@ final class CalendarViewController: UIViewController {
             calendarView.reloadData()
         }
     }
+    
+    private let dailyManager = PersistantManager(modelName: "DailyRecord")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,7 +87,7 @@ final class CalendarViewController: UIViewController {
     }
     
     func fetchData() {
-        guard let results = PersistantManager.shared.fetchAll(target: calendarView.currentPage) else { return }
+        guard let results = dailyManager.fetchAll(target: calendarView.currentPage) else { return }
         
         dailyRecords = results
     }
@@ -120,7 +122,7 @@ extension CalendarViewController: FSCalendarDelegate {
             deleteAction: { [weak self] in
                 guard let self = self else { return }
                 
-                PersistantManager.shared.delete(target: dailyRecord)
+                self.dailyManager.delete(target: dailyRecord)
                 
                 if let index = self.dailyRecords.firstIndex(where: { $0.createdDate?.day == date.day }) {
                     self.dailyRecords.remove(at: index)
